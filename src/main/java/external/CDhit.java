@@ -24,7 +24,6 @@ public class CDhit {
     private TextArea outputArea;
     private PrintStream printStream;
     private String cdhitPath = "cd-hit-v4.8.1-2019-0228/cd-hit-est";
-    private String sortPath = "/Users/timotej.sujan/Downloads/RestaurantMgtSampleUI-master/cd-hit-v4.8.1-2019-0228/clstr_sort_by.pl";
     private String inputPath;
     private String inputPathPqs;
     private String outputPath;
@@ -81,3 +80,4 @@ public class CDhit {
         this.outputName = outputName;
     }
 }
+
