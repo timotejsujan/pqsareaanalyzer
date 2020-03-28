@@ -14,7 +14,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
@@ -523,7 +529,7 @@ public class Controller extends Application implements Initializable {
     @FXML
     private Pane pnlBlastApi;
     @FXML
-    private Button blastapi_infp;
+    private Button blastapi_info;
     @FXML
     private Pane blastapi_infoPnl;
     @FXML
@@ -626,7 +632,7 @@ public class Controller extends Application implements Initializable {
             pnlBlastApi.toFront();
             return;
         }
-        if(actionEvent.getSource()== blast_info)
+        if(actionEvent.getSource()== blastapi_info)
         {
             blastapi_infoPnl.setStyle("-fx-background-color : #53639F");
             blastapi_infoPnl.toFront();
