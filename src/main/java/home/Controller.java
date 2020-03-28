@@ -35,9 +35,13 @@ public class Controller extends Application implements Initializable {
     @FXML
     private Pane pqsfinder_pnl;
     @FXML
+    private Pane pqsfinder_infoPnl;
+    @FXML
     private TextField pqsfinder_inputPath;
     @FXML
     private Button pqsfinder_btn;
+    @FXML
+    private Button pqsfinder_info;
     @FXML
     private TextField pqsfinder_outputDir;
     @FXML
@@ -214,6 +218,10 @@ public class Controller extends Application implements Initializable {
     @FXML
     private Button cdhit_btn;
     @FXML
+    private Pane cdhit_infoPnl;
+    @FXML
+    private Button cdhit_info;
+    @FXML
     private TextField cdhit_inputPath;
     @FXML
     private TextField cdhit_outputDir;
@@ -283,6 +291,10 @@ public class Controller extends Application implements Initializable {
     private Pane cdhit2_pnl;
     @FXML
     private Button cdhit2_btn;
+    @FXML
+    private Pane cdhit2_infoPnl;
+    @FXML
+    private Button cdhit2_info;
     @FXML
     private TextField cdhit2_inputPath;
     @FXML
@@ -362,6 +374,8 @@ public class Controller extends Application implements Initializable {
     @FXML
     private Pane pnlPQSareas;
     @FXML
+    private Pane pqsareas_infoPnl;
+    @FXML
     private TextField input1_path_pqsareas;
     @FXML
     private TextField input2_path_pqsareas;
@@ -371,6 +385,8 @@ public class Controller extends Application implements Initializable {
     private TextField output_path_pqsareas;
     @FXML
     private Button btnPQSareas;
+    @FXML
+    private Button pqsareas_info;
     @FXML
     private TextField fieldPQSareas_area;
     @FXML
@@ -433,6 +449,10 @@ public class Controller extends Application implements Initializable {
     private Pane clusters_pnl;
     @FXML
     private Button clusters_btn;
+    @FXML
+    private Pane clusters_infoPnl;
+    @FXML
+    private Button clusters_info;
     @FXML
     private TextField clusters_inputPath;
     @FXML
@@ -503,6 +523,10 @@ public class Controller extends Application implements Initializable {
     @FXML
     private Pane pnlBlastApi;
     @FXML
+    private Button blastapi_infp;
+    @FXML
+    private Pane blastapi_infoPnl;
+    @FXML
     public TextArea seq_blast;
     @FXML
     private Label blast_info;
@@ -547,14 +571,29 @@ public class Controller extends Application implements Initializable {
             clusters_pnl.toFront();
             return;
         }
+        if (actionEvent.getSource() == clusters_info) {
+            clusters_infoPnl.setStyle("-fx-background-color : #53639F");
+            clusters_infoPnl.toFront();
+            return;
+        }
         if (actionEvent.getSource() == btnPQSareas) {
             pnlPQSareas.setStyle("-fx-background-color : #53639F");
             pnlPQSareas.toFront();
             return;
         }
+        if (actionEvent.getSource() == pqsareas_info) {
+            pqsareas_infoPnl.setStyle("-fx-background-color : #53639F");
+            pqsareas_infoPnl.toFront();
+            return;
+        }
         if (actionEvent.getSource() == pqsfinder_btn) {
             pqsfinder_pnl.setStyle("-fx-background-color : #53639F");
             pqsfinder_pnl.toFront();
+            return;
+        }
+        if (actionEvent.getSource() == pqsfinder_info) {
+            pqsfinder_infoPnl.setStyle("-fx-background-color : #53639F");
+            pqsfinder_infoPnl.toFront();
             return;
         }
         if(actionEvent.getSource()== cdhit_btn)
@@ -563,16 +602,34 @@ public class Controller extends Application implements Initializable {
             cdhit_pnl.toFront();
             return;
         }
+        if(actionEvent.getSource()== cdhit_info)
+        {
+            cdhit_infoPnl.setStyle("-fx-background-color : #53639F");
+            cdhit_infoPnl.toFront();
+            return;
+        }
         if(actionEvent.getSource()== cdhit2_btn)
         {
             cdhit2_pnl.setStyle("-fx-background-color : #53639F");
             cdhit2_pnl.toFront();
             return;
         }
+        if(actionEvent.getSource()== cdhit2_info)
+        {
+            cdhit2_infoPnl.setStyle("-fx-background-color : #53639F");
+            cdhit2_infoPnl.toFront();
+            return;
+        }
         if(actionEvent.getSource()== btnBlastApi)
         {
             pnlBlastApi.setStyle("-fx-background-color : #53639F");
             pnlBlastApi.toFront();
+            return;
+        }
+        if(actionEvent.getSource()== blast_info)
+        {
+            blastapi_infoPnl.setStyle("-fx-background-color : #53639F");
+            blastapi_infoPnl.toFront();
             return;
         }
     }
