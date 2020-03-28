@@ -20,17 +20,17 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="btnCDhit" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="CDhit">
+            <Button fx:id="cdhit_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="CDhit">
                <padding>
                   <Insets left="50.0" />
                </padding>
             </Button>
-             <Button fx:id="btnCDhit2" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="CDhit 2D">
+             <Button fx:id="cdhit2_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="CDhit 2D">
                  <padding>
                      <Insets left="50.0" />
                  </padding>
              </Button>
-            <Button fx:id="btnClusters" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Clusters">
+            <Button fx:id="clusters_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Clusters">
                <padding>
                   <Insets left="50.0" />
                </padding>
@@ -44,14 +44,14 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
          <children>
-             <Pane fx:id="pnlCDhit2" prefHeight="200.0" prefWidth="200.0" visible="false">
+             <Pane fx:id="cdhit2_pnl" prefHeight="200.0" prefWidth="200.0">
                  <children>
-                     <Button fx:id="btnCDhit2_start" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" onAction="#startCDhit2" stylesheets="@style.css" text="Start">
+                     <Button fx:id="btnCDhit2_start" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" onAction="#cdhit2Start" stylesheets="@style.css" text="Start">
                          <font>
                              <Font size="24.0" />
                          </font>
                      </Button>
-                     <Button fx:id="btnCDhit2_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false" onAction="#stopCDhit2" stylesheets="@style.css" text="Stop">
+                     <Button fx:id="btnCDhit2_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false" onAction="#cdhit2Stop" stylesheets="@style.css" text="Stop">
                          <font>
                              <Font size="24.0" />
                          </font>
@@ -61,37 +61,39 @@
                              <Font size="24.0" />
                          </font>
                      </Label>
-                     <TextField fx:id="input_path_cdhit2" editable="false" layoutX="49.0" layoutY="99.0" stylesheets="@style.css" />
-                     <Button fx:id="btnCDhit2_input" layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#inputCDhit2" stylesheets="@style.css" text="Input">
+                     <TextField fx:id="cdhit2_inputPath" editable="false" layoutX="49.0" layoutY="99.0" stylesheets="@style.css" />
+                     <Button fx:id="btnCDhit2_input" layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#cdhit2SetInputPath" stylesheets="@style.css" text="Input">
                          <font>
                              <Font size="13.0" />
                          </font>
                      </Button>
-                     <TextField fx:id="input2_path_cdhit2" editable="false" layoutX="49.0" layoutY="139.0" stylesheets="@style.css" />
-                     <Button fx:id="btnCDhit2_input2" layoutX="369" layoutY="139" mnemonicParsing="false" onAction="#input2CDhit2" stylesheets="@style.css" text="Input 2">
+                     <TextField fx:id="cdhit2_inputPath2" editable="false" layoutX="49.0" layoutY="139.0" stylesheets="@style.css" />
+                     <Button fx:id="btnCDhit2_input2" layoutX="369" layoutY="139" mnemonicParsing="false" onAction="#cdhit2SetInputPath2" stylesheets="@style.css" text="Input 2">
                          <font>
                              <Font size="13.0" />
                          </font>
                      </Button>
-                     <TextField fx:id="input_path_pqs2" editable="false" layoutX="49.0" layoutY="179.0" stylesheets="@style.css" />
-                     <Button fx:id="btnPqs2_input" layoutX="369" layoutY="179" mnemonicParsing="false" onAction="#inputPQS2" stylesheets="@style.css" text="Input PQS">
+                     <TextField fx:id="cdhit2_InputPathPQS" editable="false" layoutX="49.0" layoutY="179.0" stylesheets="@style.css" />
+                     <Button fx:id="btnPqs2_input" layoutX="369" layoutY="179" mnemonicParsing="false" onAction="#cdhit2SetInputPQS" stylesheets="@style.css" text="Input PQS">
                          <font>
                              <Font size="13.0" />
                          </font>
                      </Button>
 
-                     <TextField fx:id="output_path_cdhit2" editable="false" layoutX="49.0" layoutY="219.0" stylesheets="@style.css" />
-                     <Button fx:id="btnCDhit2_output" layoutX="369" layoutY="219" mnemonicParsing="false" onAction="#outputCDhit2" stylesheets="@style.css" text="Output">
+                     <TextField fx:id="cdhit2_outputDir" editable="false" layoutX="49.0" layoutY="219.0" stylesheets="@style.css" />
+                     <Button fx:id="btnCDhit2_output" layoutX="369" layoutY="219" mnemonicParsing="false" onAction="#cdhit2SetOutputDir" stylesheets="@style.css" text="Output">
                          <font>
                              <Font size="13.0" />
                          </font>
                      </Button>
-                     <TextField fx:id="output_name_cdhit2" layoutX="100.0" layoutY="259.0" onAction="#setOutputNameCDhit2" prefHeight="27.0" prefWidth="100.0" />
+                     <TextField fx:id="cdhit2_outputName" layoutX="100.0" layoutY="259.0" onAction="#cdhit2SetOutputName" prefHeight="27.0" prefWidth="100.0" />
                      <Label layoutX="57.0" layoutY="259.0" stylesheets="@style.css" text="Name" textFill="#e7e5e5" />
-                     <TextArea fx:id="CDhit2_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" stylesheets="@style.css" />
+                     <Label layoutX="28.0" layoutY="275.0" stylesheets="@style.css" text="Parameters" textFill="#e7e5e5" />
+                     <TextField fx:id="cdhit2_params" layoutX="100.0" layoutY="275.0" prefHeight="27.0" prefWidth="674.0" />
+                     <TextArea fx:id="cdhit2_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" stylesheets="@style.css" />
                  </children>
              </Pane>
-             <Pane fx:id="pnlBlastApi" prefHeight="200.0" prefWidth="200.0" visible="false">
+             <Pane fx:id="pnlBlastApi" prefHeight="200.0" prefWidth="200.0">
                  <children>
                      <Button fx:id="btnBlastApi_send" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" onAction="#sendBlast" stylesheets="@style.css" text="Search">
                          <font>
@@ -103,13 +105,13 @@
                              <Font size="24.0" />
                          </font>
                      </Label>
-                     <TextField fx:id="seq_blast" layoutX="150.0" layoutY="99.0" prefHeight="27.0" prefWidth="100.0" />
+                     <TextArea fx:id="seq_blast" layoutX="20" layoutY="129.0" prefHeight="247.0" prefWidth="493.0" stylesheets="@style.css"/>
                      <Label layoutX="57.0" layoutY="99.0" stylesheets="@style.css" text="Sequence" textFill="#e7e5e5" />
                      <Label fx:id="blast_info" layoutX="57.0" layoutY="139.0" stylesheets="@style.css" textFill="#e7e5e5" />
                      <Hyperlink fx:id="blast_link" layoutX="57.0" layoutY="179.0" onAction="#openInBrowser" stylesheets="@style.css" textFill="#e7e5e5" />
                  </children>
              </Pane>
-             <Pane fx:id="pnlPQSareas" prefHeight="200.0" prefWidth="200.0" visible="false">
+             <Pane fx:id="pnlPQSareas" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Button fx:id="btnPQSareas_start" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" onAction="#startPQSareas" stylesheets="@style.css" text="Start">
                      <font>
@@ -151,14 +153,14 @@
                    <Label layoutX="157.0" layoutY="219.0" stylesheets="@style.css" text="Name" textFill="#e7e5e5" />
                </children>
             </Pane>
-             <Pane fx:id="pnlClusters" prefHeight="200.0" prefWidth="200.0" visible="false">
+             <Pane fx:id="clusters_pnl" prefHeight="200.0" prefWidth="200.0">
                  <children>
-                     <Button fx:id="btnClusters_start" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" onAction="#startClusters" stylesheets="@style.css" text="Start">
+                     <Button fx:id="btnClusters_start" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" onAction="#clustersStart" stylesheets="@style.css" text="Start">
                          <font>
                              <Font size="24.0" />
                          </font>
                      </Button>
-                     <Button fx:id="btnClusters_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false" onAction="#stopClusters" stylesheets="@style.css" text="Stop">
+                     <Button fx:id="btnClusters_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false" onAction="#clustersStop" stylesheets="@style.css" text="Stop">
                          <font>
                              <Font size="24.0" />
                          </font>
@@ -168,18 +170,18 @@
                              <Font size="24.0" />
                          </font>
                      </Label>
-                     <TextField fx:id="input_path_clusters" editable="false" layoutX="49.0" layoutY="99.0" stylesheets="@style.css" />
-                     <Button fx:id="btnClusters_input" layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#inputClusters" stylesheets="@style.css" text="Input">
+                     <TextField fx:id="clusters_inputPath" editable="false" layoutX="49.0" layoutY="99.0" stylesheets="@style.css" />
+                     <Button fx:id="btnClusters_input" layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#clustersSetInputPath" stylesheets="@style.css" text="Input">
                          <font>
                              <Font size="13.0" />
                          </font>
                      </Button>
                      <Label layoutX="57.0" layoutY="139.0" stylesheets="@style.css" text="Limit" textFill="#e7e5e5" />
-                     <TextField fx:id="fieldClusters_limit" layoutX="100.0" layoutY="139.0" onAction="#limitClusters" prefHeight="27.0" prefWidth="31.0" />
-
-                     <ScrollPane layoutX="14.0" layoutY="232.0" prefHeight="320.0" prefWidth="746.0" stylesheets="@style.css">
+                     <TextField fx:id="clusters_limit" layoutX="100.0" layoutY="139.0" prefHeight="27.0" prefWidth="31.0" />
+                     <Label fx:id="clusters_number" layoutX="147.0" layoutY="139.0" stylesheets="@style.css" textFill="#e7e5e5" />
+                     <ScrollPane layoutX="14.0" layoutY="232.0" prefHeight="320.0" prefWidth="760.0" stylesheets="@style.css">
                          <content>
-                             <VBox fx:id="pnItems" prefHeight="318.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #02030A;">
+                             <VBox fx:id="pnItems" prefHeight="318.0" prefWidth="744.0" spacing="1.0" style="-fx-background-color: #02030A;">
                                  <padding>
                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
@@ -188,14 +190,14 @@
                      </ScrollPane>
                  </children>
              </Pane>
-             <Pane fx:id="pnlCDhit" prefHeight="200.0" prefWidth="200.0" visible="false">
+             <Pane fx:id="cdhit_pnl" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnCDhit_start" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" onAction="#startCDhit" stylesheets="@style.css" text="Start">
+                  <Button fx:id="btnCDhit_start" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" onAction="#cdhitStart" stylesheets="@style.css" text="Start">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Button>
-                   <Button fx:id="btnCDhit_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false" onAction="#stopCDhit" stylesheets="@style.css" text="Stop">
+                   <Button fx:id="btnCDhit_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false" onAction="#cdhitStop" stylesheets="@style.css" text="Stop">
                        <font>
                            <Font size="24.0" />
                        </font>
@@ -205,28 +207,30 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="input_path_cdhit" editable="false" layoutX="49.0" layoutY="99.0" stylesheets="@style.css" />
-                   <Button fx:id="btnCDhit_input" layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#inputCDhit" stylesheets="@style.css" text="Input">
+                  <TextField fx:id="cdhit_inputPath" editable="false" layoutX="49.0" layoutY="99.0" stylesheets="@style.css" />
+                   <Button fx:id="btnCDhit_input" layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#cdhitSetInputPath" stylesheets="@style.css" text="Input">
                        <font>
                            <Font size="13.0" />
                        </font>
                    </Button>
                    <TextField fx:id="input_path_pqs" editable="false" layoutX="49.0" layoutY="139.0" stylesheets="@style.css" />
-                   <Button fx:id="btnPqs_input" layoutX="369" layoutY="139" mnemonicParsing="false" onAction="#inputPQS" stylesheets="@style.css" text="Input PQS">
+                   <Button fx:id="btnPqs_input" layoutX="369" layoutY="139" mnemonicParsing="false" onAction="#cdhitSetInputPQS" stylesheets="@style.css" text="Input PQS">
                        <font>
                            <Font size="13.0" />
                        </font>
                    </Button>
 
-                  <TextField fx:id="output_path_cdhit" editable="false" layoutX="49.0" layoutY="179.0" stylesheets="@style.css" />
-                   <Button fx:id="btnCDhit_output" layoutX="369" layoutY="179" mnemonicParsing="false" onAction="#outputCDhit" stylesheets="@style.css" text="Output">
+                  <TextField fx:id="cdhit_outputName" editable="false" layoutX="49.0" layoutY="179.0" stylesheets="@style.css" />
+                   <Button fx:id="btnCDhit_output" layoutX="369" layoutY="179" mnemonicParsing="false" onAction="#cdhitSetOutputName" stylesheets="@style.css" text="Output">
                        <font>
                            <Font size="13.0" />
                        </font>
                    </Button>
-                   <TextField fx:id="output_name_cdhit" layoutX="100.0" layoutY="219.0" onAction="#setOutputNameCDhit" prefHeight="27.0" prefWidth="100.0" />
                    <Label layoutX="57.0" layoutY="219.0" stylesheets="@style.css" text="Name" textFill="#e7e5e5" />
-                   <TextArea fx:id="CDhit_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" stylesheets="@style.css" />
+                   <TextField fx:id="cdhit_outputDir" layoutX="100.0" layoutY="219.0" prefHeight="27.0" prefWidth="100.0" />
+                   <Label layoutX="28.0" layoutY="275.0" stylesheets="@style.css" text="Parameters" textFill="#e7e5e5" />
+                   <TextField fx:id="cdhit_params" layoutX="100.0" layoutY="275.0" prefHeight="27.0" prefWidth="674.0" />
+                   <TextArea fx:id="cdhit_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" stylesheets="@style.css" />
                </children>
             </Pane>
              <Pane fx:id="pqsfinder_pnl" prefHeight="554.0" prefWidth="793.0">

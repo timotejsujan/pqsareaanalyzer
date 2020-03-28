@@ -4,7 +4,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,14 +31,14 @@ public final class ClusterVisualization extends JFrame {
     private int BLOCK_WIDTH;
     private int BLOCK_HEIGHT;
     private int AMP = 100;
-    File fileImgG = new File("src/main/java/images/G.png");
-    BufferedImage imgG = ImageIO.read(fileImgG);
-    File fileImgA = new File("src/main/java/images/A.png");
-    BufferedImage imgA = ImageIO.read(fileImgA);
-    File fileImgC = new File("src/main/java/images/C.png");
-    BufferedImage imgC = ImageIO.read(fileImgC);
-    File fileImgT = new File("src/main/java/images/T.png");
-    BufferedImage imgT = ImageIO.read(fileImgT);
+    private File fileImgG = new File("src/main/java/images/G.png");
+    private BufferedImage imgG = ImageIO.read(fileImgG);
+    private File fileImgA = new File("src/main/java/images/A.png");
+    private BufferedImage imgA = ImageIO.read(fileImgA);
+    private File fileImgC = new File("src/main/java/images/C.png");
+    private BufferedImage imgC = ImageIO.read(fileImgC);
+    private File fileImgT = new File("src/main/java/images/T.png");
+    private BufferedImage imgT = ImageIO.read(fileImgT);
 
     private Graphics graphics;
 
@@ -93,17 +95,15 @@ public final class ClusterVisualization extends JFrame {
         graphics.fillRect ( 0, 0, bImg.getWidth(), bImg.getHeight() );
         this.paintScene(graphics);
         try {
-            if (ImageIO.write(bImg, "png", new File("./output_image.png")))
-            {
-                //System.out.println("-- saved");
-            }
+            ImageIO.write(bImg, "png", new File("./output_image.png"));
+            //System.out.println("-- saved");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    Logo getLogoFromArray(ArrayList<String> sequences) {
+    private Logo getLogoFromArray(ArrayList<String> sequences) {
         sequences.sort((xs1, xs2) -> xs2.length() - xs1.length());
         ArrayList<StringBuilder> transformedStringBuilder = new ArrayList<>();
         for (int j = 0; j < sequences.size(); j++) {
@@ -216,10 +216,10 @@ public final class ClusterVisualization extends JFrame {
 
     private Image getImage(Character c) {
         switch (c) {
-            case 'A': return imgA;
             case 'T': return imgT;
             case 'G': return imgG;
             case 'C': return imgC;
+            case 'A':
             default: return imgA;
         }
     }
@@ -230,7 +230,7 @@ public final class ClusterVisualization extends JFrame {
             case 'T': drawT(g, x, y, height, width);
             case 'G': drawG(g, x, y, height, width);
             case 'C': drawC(g, x, y, height, width);
-            default: return;
+            default:
         }
     }
 
@@ -259,12 +259,12 @@ public final class ClusterVisualization extends JFrame {
         }
     }
 
-    private class Logo
+    private static class Logo
     {
         ArrayList<Bar> bars = new ArrayList<>();
     }
 
-    private class Bar
+    private static class Bar
     {
         Map<Character, Integer> bases = new HashMap<>();
         double r = 0;

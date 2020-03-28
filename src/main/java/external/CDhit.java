@@ -24,10 +24,11 @@ public class CDhit {
     private TextArea outputArea;
     private PrintStream printStream;
     private String cdhitPath = "cd-hit-v4.8.1-2019-0228/cd-hit-est";
-    private String inputPath;
-    private String inputPathPqs;
-    private String outputPath;
-    private String outputName = "test";
+    private String inputPath = "";
+    private String inputPathPqs = "";
+    private String outputPath = "";
+    private String outputName = "";
+    private String parameters = "";
     private final String nameConst = "_cdhit";
 
     public void printStatus(String status) {
@@ -35,7 +36,9 @@ public class CDhit {
     }
 
     public void start() throws IOException {
-        Process process = new ProcessBuilder(cdhitPath, "-i", inputPath, "-o", outputPath+"/"+outputName+nameConst).start();
+        Process process = new ProcessBuilder(cdhitPath, "-i", inputPath, "-o", outputPath+"/"+outputName+nameConst
+                + " " + parameters).start();
+        printStatus(parameters);
         InputStream is = process.getInputStream();
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
@@ -78,6 +81,10 @@ public class CDhit {
 
     public void setOutputName(String outputName) {
         this.outputName = outputName;
+    }
+
+    public void setParameters(String parameters) {
+        this.parameters = parameters;
     }
 }
 

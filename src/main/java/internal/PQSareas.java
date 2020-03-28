@@ -56,9 +56,9 @@ public class PQSareas {
     private String outputNamePQS = "test_pqs.txt";
     private PrintStream printStream;
 
-    boolean whole = true;
+    private boolean whole = true;
 
-    public void printStatus(String status) {
+    private void printStatus(String status) {
         Platform.runLater(() -> printStream.println(status));
     }
 

@@ -9,7 +9,6 @@ import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Objects;
 
 public class Main extends Application {
     private double x, y;

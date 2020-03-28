@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:controller="home.VisualizationController" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="695.0" spacing="80.0" style="-fx-background-color: #02030A; -fx-background-radius: 5; -fx-background-insets: 0;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:controller="home.VisualizationController" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="695.0" spacing="10.0" style="-fx-background-color: #02030A; -fx-background-radius: 5; -fx-background-insets: 0;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <!--
         <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
@@ -36,12 +36,20 @@
             </HBox.margin>
         </Label>
         -->
+        <Label fx:id="cluster_id" stylesheets="@style.css" textFill="#e7e5e5" />
+        <Label fx:id="cluster_refSeq" stylesheets="@style.css" textFill="#e7e5e5" maxWidth="350" />
+        <Label fx:id="cluster_size" stylesheets="@style.css" textFill="#e7e5e5" />
         <Button onAction="#clusterVisualize" mnemonicParsing="false" prefHeight="10.0" prefWidth="60.0" style="-fx-border-color: #2A73FF; -fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Show">
             <HBox.margin>
                 <Insets />
             </HBox.margin>
         </Button>
         <Button onAction="#clusterExport" mnemonicParsing="false" prefHeight="10.0" prefWidth="60.0" style="-fx-border-color: #2A73FF; -fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Export">
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+        </Button>
+        <Button onAction="#copyToBlast" mnemonicParsing="false" prefHeight="10.0" prefWidth="105.0" style="-fx-border-color: #2A73FF; -fx-border-radius: 20; -fx-background-color: transparent;" stylesheets="@style.css" text="Copy to Blast">
             <HBox.margin>
                 <Insets />
             </HBox.margin>

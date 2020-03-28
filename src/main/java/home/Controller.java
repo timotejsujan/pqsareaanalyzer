@@ -80,7 +80,7 @@ public class Controller extends Application implements Initializable {
     private Tooltip tt_max_mismatches = new Tooltip();
     private Tooltip tt_max_defects = new Tooltip();
 
-    public void pqsfinderInit(){
+    private void pqsfinderInit(){
         pqsfinder_strand.getItems().setAll("", "*", "+", "-");
         tt_strand.setText("Strand specification (+, - or *).");
         pqsfinder_strand.setTooltip(tt_strand);
@@ -159,185 +159,200 @@ public class Controller extends Application implements Initializable {
         }
     }
 
-    public void pqsfinderSetOutputName() {
+    private void pqsfinderSetOutputName() {
         pqsfinder.setOutputName(pqsfinder_outputName.getText());
     }
 
-    public void pqsfinderSetStrand() {
+    private void pqsfinderSetStrand() {
         pqsfinder.setStrand(pqsfinder_strand.getValue());
     }
 
-    public void pqsfinderSetOverlapping() {
+    private void pqsfinderSetOverlapping() {
         pqsfinder.setOverlapping(pqsfinder_overlapping.getText());
     }
 
-    public void pqsfinderSetMax_len() {
+    private void pqsfinderSetMax_len() {
         pqsfinder.setMax_len(pqsfinder_maxLen.getText());
     }
 
-    public void pqsfinderSetMin_score() {
+    private void pqsfinderSetMin_score() {
         pqsfinder.setMin_score(pqsfinder_minScore.getText());
     }
 
-    public void pqsfinderSetRun_min_len() {
+    private void pqsfinderSetRun_min_len() {
         pqsfinder.setRun_min_len(pqsfinder_runMinLen.getText());
     }
 
-    public void pqsfinderSetRun_max_len() {
+    private void pqsfinderSetRun_max_len() {
         pqsfinder.setRun_max_len(pqsfinder_runMaxLen.getText());
     }
 
-    public void pqsfinderSetLoop_min_len() {
+    private void pqsfinderSetLoop_min_len() {
         pqsfinder.setLoop_min_len(pqsfinder_loopMinLen.getText());
     }
 
-    public void pqsfinderSetLoop_max_len() {
+    private void pqsfinderSetLoop_max_len() {
         pqsfinder.setLoop_max_len(pqsfinder_loopMaxLen.getText());
     }
 
-    public void pqsfinderSetMax_bulges() {
+    private void pqsfinderSetMax_bulges() {
         pqsfinder.setMax_bulges(pqsfinder_maxBulges.getText());
     }
 
-    public void pqsfinderSetMax_mismatches() {
+    private void pqsfinderSetMax_mismatches() {
         pqsfinder.setMax_mismatches(pqsfinder_maxMismatches.getText());
     }
 
-    public void pqsfinderSetMax_defects() {
+    private void pqsfinderSetMax_defects() {
         pqsfinder.setMax_defects(pqsfinder_maxDefects.getText());
     }
 
 
     // CD hit
     @FXML
-    private Pane pnlCDhit;
+    private Pane cdhit_pnl;
     @FXML
-    private Button btnCDhit;
+    private Button cdhit_btn;
     @FXML
-    private TextField input_path_cdhit;
+    private TextField cdhit_inputPath;
     @FXML
-    private TextField output_name_cdhit;
+    private TextField cdhit_outputDir;
     @FXML
-    private TextField output_path_cdhit;
+    private TextField cdhit_outputName;
     @FXML
-    private TextArea CDhit_area;
+    private TextField cdhit_params;
+    @FXML
+    private TextArea cdhit_area;
     private CDhit cdhit;
-    private Thread CDhit_thread;
+    private Thread cdhit_thread;
     @FXML
     private TextField input_path_pqs;
-    public void startCDhit(ActionEvent actionEvent) {
-        setOutputNameCDhit();
-        CDhit_thread = new Thread(() -> {
+    public void cdhitStart(ActionEvent actionEvent) {
+        cdhitSetOutputDir();
+        cdhitSetParams();
+        cdhit_thread = new Thread(() -> {
             try {
                 cdhit.start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        CDhit_thread.start();
+        cdhit_thread.start();
 
     }
 
-    public void stopCDhit(ActionEvent actionEvent){
-        CDhit_thread.interrupt();
+    public void cdhitStop(ActionEvent actionEvent){
+        cdhit_thread.interrupt();
     }
 
-    public void inputCDhit(ActionEvent actionEvent) {
+    public void cdhitSetInputPath(ActionEvent actionEvent) {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
-            input_path_cdhit.setText(file.getName());
+            cdhit_inputPath.setText(file.getName());
             cdhit.setInputPath(file.getAbsolutePath());
+            //parameters_cdhit.appendText(" -i "+file.getPath()+" ");
         }
     }
 
-    public void setOutputNameCDhit() {
-        cdhit.setOutputName(output_name_cdhit.getText());
+    private void cdhitSetOutputDir() {
+        cdhit.setOutputName(cdhit_outputDir.getText());
     }
 
-    public void inputPQS(ActionEvent actionEvent) {
+    private void cdhitSetParams() {
+        cdhit.setParameters(cdhit_params.getText());
+    }
+
+    public void cdhitSetInputPQS(ActionEvent actionEvent) {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             input_path_pqs.setText(file.getName());
-            cdhit.setInputPathPqs(file.getAbsolutePath());
+            cdhit.setInputPathPqs(file.getPath());
         }
     }
 
-    public void outputCDhit(ActionEvent actionEvent) {
+    public void cdhitSetOutputName(ActionEvent actionEvent) {
         File file = directoryChooser.showDialog(null);
         if (file != null) {
-            output_path_cdhit.setText(file.getName());
+            cdhit_outputName.setText(file.getName());
             cdhit.setOutputPath(file.getAbsolutePath());
         }
     }
 
     // CD hit 2
     @FXML
-    private Pane pnlCDhit2;
+    private Pane cdhit2_pnl;
     @FXML
-    private Button btnCDhit2;
+    private Button cdhit2_btn;
     @FXML
-    private TextField input_path_cdhit2;
+    private TextField cdhit2_inputPath;
     @FXML
-    private TextField input2_path_cdhit2;
+    private TextField cdhit2_inputPath2;
     @FXML
-    private TextField output_name_cdhit2;
+    private TextField cdhit2_outputName;
     @FXML
-    private TextField output_path_cdhit2;
+    private TextField cdhit2_outputDir;
     @FXML
-    private TextArea CDhit2_area;
+    private TextField cdhit2_params;
+    @FXML
+    private TextArea cdhit2_area;
     private CDhit2 cdhit2;
-    private Thread CDhit2_thread;
+    private Thread cdhit2_thread;
     @FXML
-    private TextField input_path_pqs2;
-    public void startCDhit2(ActionEvent actionEvent) {
-        setOutputNameCDhit2();
-        CDhit2_thread = new Thread(() -> {
+    private TextField cdhit2_InputPathPQS;
+    public void cdhit2Start(ActionEvent actionEvent) {
+        cdhit2SetOutputName();
+        cdhit2SetParams();
+        cdhit2_thread = new Thread(() -> {
             try {
                 cdhit2.start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        CDhit2_thread.start();
+        cdhit2_thread.start();
 
     }
 
-    public void stopCDhit2(ActionEvent actionEvent){
-        CDhit2_thread.interrupt();
+    public void cdhit2Stop(ActionEvent actionEvent){
+        cdhit2_thread.interrupt();
     }
 
-    public void inputCDhit2(ActionEvent actionEvent) {
+    public void cdhit2SetInputPath(ActionEvent actionEvent) {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
-            input_path_cdhit2.setText(file.getName());
+            cdhit2_inputPath.setText(file.getName());
             cdhit2.setInputPath(file.getAbsolutePath());
         }
     }
 
-    public void input2CDhit2(ActionEvent actionEvent) {
+    public void cdhit2SetInputPath2(ActionEvent actionEvent) {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
-            input2_path_cdhit2.setText(file.getName());
+            cdhit2_inputPath2.setText(file.getName());
             cdhit2.setInputPath2(file.getAbsolutePath());
         }
     }
 
-    public void setOutputNameCDhit2() {
-        cdhit2.setOutputName(output_name_cdhit2.getText());
+    public void cdhit2SetOutputName() {
+        cdhit2.setOutputName(cdhit2_outputName.getText());
     }
 
-    public void inputPQS2(ActionEvent actionEvent) {
+    public void cdhit2SetParams() {
+        cdhit2.setParams(cdhit2_params.getText());
+    }
+
+    public void cdhit2SetInputPQS(ActionEvent actionEvent) {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
-            input_path_pqs2.setText(file.getName());
+            cdhit2_InputPathPQS.setText(file.getName());
             cdhit2.setInputPathPqs(file.getAbsolutePath());
         }
     }
 
-    public void outputCDhit2(ActionEvent actionEvent) {
+    public void cdhit2SetOutputDir(ActionEvent actionEvent) {
         File file = directoryChooser.showDialog(null);
         if (file != null) {
-            output_path_cdhit2.setText(file.getName());
+            cdhit2_outputDir.setText(file.getName());
             cdhit2.setOutputPath(file.getAbsolutePath());
         }
     }
@@ -415,17 +430,21 @@ public class Controller extends Application implements Initializable {
 
     // clusters
     @FXML
-    private Pane pnlClusters;
+    private Pane clusters_pnl;
     @FXML
-    private Button btnClusters;
+    private Button clusters_btn;
     @FXML
-    private TextField input_path_clusters;
+    private TextField clusters_inputPath;
     @FXML
-    private TextField fieldClusters_limit;
-    private ClustersCount clustersCount;
+    private TextField clusters_limit;
     @FXML
-    public void startClusters(ActionEvent actionEvent) throws IOException {
-        Node[] nodes = new Node[Math.min(clustersCount.getLimit(), clustersCount.getLength())];
+    private Label clusters_number;
+    private ClustersCount clusters_count;
+    @FXML
+    public void clustersStart() throws IOException {
+        clustersSetLimit();
+        //clusters_count.loadCluster();
+        Node[] nodes = new Node[Math.min(clusters_count.getLimit(), clusters_count.getLength())];
         /*
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Item.fxml"));
         Node node = (Node) loader.load();
@@ -440,8 +459,11 @@ public class Controller extends Application implements Initializable {
                 FXMLLoader loader = new FXMLLoader(url);
                 nodes[j] = (Node) loader.load();
                 VisualizationController vc = loader.getController();
-                vc.setInputPath(clustersCount.getInputPath());
+                vc.setInputPath(clusters_count.getInputPath());
                 vc.setId(i);
+                vc.setSize(clusters_count.getReferenceSeqs().get(i).size);
+                vc.setReferenceSeq(clusters_count.getReferenceSeqs().get(i).reference_sequence);
+                vc.setcontroller(this);
 
                 nodes[i].setOnMouseEntered(event -> {
                     nodes[j].setStyle("-fx-background-color : #0A0E3F");
@@ -457,20 +479,22 @@ public class Controller extends Application implements Initializable {
         }
     }
 
-    public void stopClusters(ActionEvent actionEvent){
+    public void clustersStop(){
         //PQSfinder_thread.interrupt();
     }
 
-    public void inputClusters(ActionEvent actionEvent) {
+    public void clustersSetInputPath() throws IOException {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
-            input_path_clusters.setText(file.getName());
-            clustersCount.setInputPath(file.getAbsolutePath());
+            clusters_inputPath.setText(file.getName());
+            clusters_count.setInputPath(file.getAbsolutePath());
+            clusters_count.loadCluster();
+            clusters_number.setText("(max " + clusters_count.getLength() + ")");
         }
     }
 
-    public void limitClusters(ActionEvent actionEvent) {
-        clustersCount.setLimit(Integer.parseInt(fieldClusters_limit.getText()));
+    private void clustersSetLimit() {
+        clusters_count.setLimit(Integer.parseInt(clusters_limit.getText()));
     }
 
     // Blast Api
@@ -479,7 +503,7 @@ public class Controller extends Application implements Initializable {
     @FXML
     private Pane pnlBlastApi;
     @FXML
-    private TextField seq_blast;
+    public TextArea seq_blast;
     @FXML
     private Label blast_info;
     @FXML
@@ -504,13 +528,13 @@ public class Controller extends Application implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         pqsfinder_btn.fire();
-        cdhit = new CDhit(CDhit_area);
-        cdhit2 = new CDhit2(CDhit2_area);
+        cdhit = new CDhit(cdhit_area);
+        cdhit2 = new CDhit2(cdhit2_area);
         pqsareas = new PQSareas(PQSareas_area);
         pqsfinder = new PQSfinder(pqsfinder_area);
         pqsfinderInit();
 
-        clustersCount = new ClustersCount();
+        clusters_count = new ClustersCount();
         blastapi = new BlastApi();
 
     }
@@ -518,9 +542,9 @@ public class Controller extends Application implements Initializable {
 
 
     public void handleClicks(ActionEvent actionEvent) {
-        if (actionEvent.getSource() == btnClusters) {
-            pnlClusters.setStyle("-fx-background-color : #53639F");
-            pnlClusters.toFront();
+        if (actionEvent.getSource() == clusters_btn) {
+            clusters_pnl.setStyle("-fx-background-color : #53639F");
+            clusters_pnl.toFront();
             return;
         }
         if (actionEvent.getSource() == btnPQSareas) {
@@ -533,16 +557,16 @@ public class Controller extends Application implements Initializable {
             pqsfinder_pnl.toFront();
             return;
         }
-        if(actionEvent.getSource()== btnCDhit)
+        if(actionEvent.getSource()== cdhit_btn)
         {
-            pnlCDhit.setStyle("-fx-background-color : #53639F");
-            pnlCDhit.toFront();
+            cdhit_pnl.setStyle("-fx-background-color : #53639F");
+            cdhit_pnl.toFront();
             return;
         }
-        if(actionEvent.getSource()== btnCDhit2)
+        if(actionEvent.getSource()== cdhit2_btn)
         {
-            pnlCDhit2.setStyle("-fx-background-color : #53639F");
-            pnlCDhit2.toFront();
+            cdhit2_pnl.setStyle("-fx-background-color : #53639F");
+            cdhit2_pnl.toFront();
             return;
         }
         if(actionEvent.getSource()== btnBlastApi)
