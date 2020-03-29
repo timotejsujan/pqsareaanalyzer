@@ -16,12 +16,19 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.4" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:12" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:12" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:12" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:12" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:12" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:mac:12" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:12" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:mac:12" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:12" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-swing:12" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-swing:mac:12" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:mac:14" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:14" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:14" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:14" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:mac:14" level="project" />
   </component>
