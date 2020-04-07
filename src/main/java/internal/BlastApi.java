@@ -28,8 +28,19 @@ import java.util.regex.Pattern;
 public class BlastApi {
     private static final Pattern p_id = Pattern.compile("(RID = )(.*)(\n)");
     private static final Pattern p_time = Pattern.compile("(RTOE = )(.*)(\n)");
-    public String id = "test";
-    public String time = "test";
+    private String database = "nt";
+    private String megablast= "on";
+    public String id = "";
+    public String time = "";
+
+    public void setDatabase(String database) {
+        this.database = database;
+    }
+
+    public void setMegablast(String megablast) {
+        this.megablast = megablast;
+    }
+
     public void Send(String sequence) throws IOException {
         HttpClient httpclient = HttpClients.createDefault();
         HttpPost httppost = new HttpPost("https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi");
@@ -38,8 +49,10 @@ public class BlastApi {
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
         params.add(new BasicNameValuePair("CMD", "Put"));
         params.add(new BasicNameValuePair("PROGRAM", "blastn"));
-        params.add(new BasicNameValuePair("MEGABLAST", "on"));
-        params.add(new BasicNameValuePair("DATABASE", "nt"));
+        if (megablast.equals("on")) {
+            params.add(new BasicNameValuePair("MEGABLAST", megablast));
+        }
+        params.add(new BasicNameValuePair("DATABASE", database));
         params.add(new BasicNameValuePair("QUERY", sequence));
         params.add(new BasicNameValuePair("FORMAT_TYPE", "XML"));
         httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
@@ -60,8 +73,10 @@ public class BlastApi {
                 if (m.find()) {
                     time = m.group(2);
                 }
-                System.out.println(result);
+                //System.out.println(result);
             }
         }
+
+
     }
 }

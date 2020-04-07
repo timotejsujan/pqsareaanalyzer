@@ -29,13 +29,15 @@ public class ClustersCount {
                 }
                 sizeCounter = 0;
                 referenceSeqs.put(counter, new Cluster());
-                referenceSeqs.get(counter).reference_sequence = br.readLine();
+                // delete spaces
+                referenceSeqs.get(counter).reference_sequence = br.readLine().replace(" ", "");
                 counter++;
             }
             sizeCounter++;
         }
         referenceSeqs.get(counter - 1).size = sizeCounter;
         length = counter;
+        limit = counter;
     }
 
     public static class Cluster{

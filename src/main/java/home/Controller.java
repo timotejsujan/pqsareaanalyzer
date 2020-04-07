@@ -8,31 +8,34 @@ import internal.BlastApi;
 import internal.ClustersCount;
 import internal.PQSareas;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Controller extends Application implements Initializable {
+
+    private String background_color = "gray";
 
     @FXML
     private VBox pnItems = null;
@@ -53,9 +56,9 @@ public class Controller extends Application implements Initializable {
     @FXML
     private TextField pqsfinder_outputName;
     @FXML
-    private ComboBox<String> pqsfinder_strand;
+    private ChoiceBox<String> pqsfinder_strand;
     @FXML
-    private TextField pqsfinder_overlapping;
+    private ChoiceBox<String> pqsfinder_overlapping;
     @FXML
     private TextField pqsfinder_maxLen;
     @FXML
@@ -76,8 +79,12 @@ public class Controller extends Application implements Initializable {
     private TextField pqsfinder_maxDefects;
     @FXML
     private TextArea pqsfinder_area;
+    @FXML
+    private Button pqsfinder_btnStart;
+    @FXML
+    private Button pqsfinder_btnStop;
     private PQSfinder pqsfinder;
-    private Thread pqsfinder_thread;
+    private ExecutorService pqsfinder_execSer = Executors.newSingleThreadExecutor();
     private Tooltip tt_strand = new Tooltip();
     private Tooltip tt_overlapping = new Tooltip();
     private Tooltip tt_max_len = new Tooltip();
@@ -89,12 +96,16 @@ public class Controller extends Application implements Initializable {
     private Tooltip tt_max_bulges = new Tooltip();
     private Tooltip tt_max_mismatches = new Tooltip();
     private Tooltip tt_max_defects = new Tooltip();
+    private Timeline pqsfinder_timeline = null;
 
     private void pqsfinderInit(){
         pqsfinder_strand.getItems().setAll("", "*", "+", "-");
+        pqsfinder_strand.setValue("*");
         tt_strand.setText("Strand specification (+, - or *).");
         pqsfinder_strand.setTooltip(tt_strand);
 
+        pqsfinder_overlapping.getItems().setAll("", "TRUE", "FALSE");
+        pqsfinder_overlapping.setValue("FALSE");
         tt_overlapping.setText("If true, than overlapping PQS will be reported.");
         pqsfinder_overlapping.setTooltip(tt_overlapping);
 
@@ -126,7 +137,7 @@ public class Controller extends Application implements Initializable {
         pqsfinder_maxDefects.setTooltip(tt_max_defects);
     }
 
-    public void pqsfinderStart() {
+    public void pqsfinderStart() throws Exception {
         pqsfinderSetOutputName();
         pqsfinderSetStrand();
         pqsfinderSetOverlapping();
@@ -139,18 +150,58 @@ public class Controller extends Application implements Initializable {
         pqsfinderSetMax_bulges();
         pqsfinderSetMax_mismatches();
         pqsfinderSetMax_defects();
+        //pqsfinder_thread
+
+        /*
         pqsfinder_thread = new Thread(() -> {
             try {
                 pqsfinder.start();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        });*/
+        if (pqsfinder_execSer.isShutdown()){
+            pqsfinder_execSer = Executors.newSingleThreadExecutor();
+        }
+        pqsfinder_btnStart.setDisable(true);
+        pqsfinder_btnStop.setDisable(false);
+        pqsfinder_execSer.execute(() -> {
+            try {
+                pqsfinder.start();
+                pqsfinder_execSer.shutdownNow();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
-        pqsfinder_thread.start();
+        //pqsfinder_thread.start();
+        java.util.Date date = new java.util.Date();
+        pqsfinder.printStream.println(date.toString() + " the process has started");
+        Runnable pqsfinder_runnable = () -> {
+            if(!pqsfinder_execSer.isShutdown()){
+                java.util.Date date1 = new java.util.Date();
+                pqsfinder.printStream.println(date1.toString() + " the process is running");
+            } else {
+                if(pqsfinder_timeline != null) {
+                    pqsfinder_timeline.stop();
+                    pqsfinder_btnStart.setDisable(false);
+                    pqsfinder_btnStop.setDisable(true);
+                }
+            }
+        };
+        pqsfinder_timeline = createTimeline(5, pqsfinder_runnable);
+        pqsfinder_timeline.play();
+
     }
 
     public void pqsfinderStop(){
-        pqsfinder_thread.interrupt();
+        if (pqsfinder.p.isAlive()) {
+            pqsfinder.p.destroy();
+        }
+        java.util.Date date = new java.util.Date();
+        pqsfinder.printStream.println(date.toString() + " the process has been stopped externally");
+        pqsfinder_execSer.shutdownNow();
+        pqsfinder_btnStart.setDisable(false);
+        pqsfinder_btnStop.setDisable(true);
     }
 
     public void pqsfinderSetInputPath() {
@@ -178,7 +229,7 @@ public class Controller extends Application implements Initializable {
     }
 
     private void pqsfinderSetOverlapping() {
-        pqsfinder.setOverlapping(pqsfinder_overlapping.getText());
+        pqsfinder.setOverlapping(pqsfinder_overlapping.getValue());
     }
 
     private void pqsfinderSetMax_len() {
@@ -224,6 +275,10 @@ public class Controller extends Application implements Initializable {
     @FXML
     private Button cdhit_btn;
     @FXML
+    private Button cdhit_btnStart;
+    @FXML
+    private Button cdhit_btnStop;
+    @FXML
     private Pane cdhit_infoPnl;
     @FXML
     private Button cdhit_info;
@@ -238,25 +293,46 @@ public class Controller extends Application implements Initializable {
     @FXML
     private TextArea cdhit_area;
     private CDhit cdhit;
-    private Thread cdhit_thread;
+    private ExecutorService cdhit_execSer = Executors.newSingleThreadExecutor();
+    private Timeline cdhit_timeline;
     @FXML
     private TextField input_path_pqs;
-    public void cdhitStart(ActionEvent actionEvent) {
+    public void cdhitStart() {
         cdhitSetOutputDir();
         cdhitSetParams();
-        cdhit_thread = new Thread(() -> {
+        if (cdhit_execSer.isShutdown()) {
+            cdhit_execSer = Executors.newSingleThreadExecutor();
+        }
+        cdhit_execSer.execute(() -> {
             try {
                 cdhit.start();
+                cdhit_execSer.shutdownNow();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        cdhit_thread.start();
-
+        cdhit_btnStart.setDisable(true);
+        cdhit_btnStop.setDisable(false);
+        Runnable r = () -> {
+            if (cdhit_execSer.isShutdown()){
+                cdhit_btnStart.setDisable(false);
+                cdhit_btnStop.setDisable(true);
+                cdhit_timeline.stop();
+            }
+        };
+        cdhit_timeline = createTimeline(5, r);
+        cdhit_timeline.play();
     }
 
-    public void cdhitStop(ActionEvent actionEvent){
-        cdhit_thread.interrupt();
+    public void cdhitStop(){
+        if (cdhit.p.isAlive()){
+            cdhit.p.destroy();
+        }
+        cdhit_execSer.shutdownNow();
+        cdhit_btnStart.setDisable(false);
+        cdhit_btnStop.setDisable(true);
+        java.util.Date date = new java.util.Date();
+        cdhit.printStream.println(date.toString() + " the process has been stopped externally");
     }
 
     public void cdhitSetInputPath(ActionEvent actionEvent) {
@@ -378,7 +454,7 @@ public class Controller extends Application implements Initializable {
 
     // pqs areas
     @FXML
-    private Pane pnlPQSareas;
+    private Pane pqsareas_pnl;
     @FXML
     private Pane pqsareas_infoPnl;
     @FXML
@@ -386,35 +462,65 @@ public class Controller extends Application implements Initializable {
     @FXML
     private TextField input2_path_pqsareas;
     @FXML
-    private TextField output_name_pqsareas;
+    private TextField pqsareas_outputName;
     @FXML
-    private TextField output_path_pqsareas;
+    private TextField pqsareas_outputDir;
     @FXML
-    private Button btnPQSareas;
+    private Button pqsareas_btn;
+    @FXML
+    private Button pqsareas_btnStart;
+    @FXML
+    private Button pqsareas_btnStop;
     @FXML
     private Button pqsareas_info;
     @FXML
-    private TextField fieldPQSareas_area;
+    private TextField pqsareas_areaSize;
     @FXML
-    private TextArea PQSareas_area;
+    private TextArea pqsareas_area;
     private PQSareas pqsareas;
-    private Thread PQSareas_thread;
+    private ExecutorService pqsareas_execSer = Executors.newSingleThreadExecutor();
+    private Timeline pqsareas_timeline = null;
 
-    public void startPQSareas(ActionEvent actionEvent) {
-        areaPQSareas();
-        setOutputNamePQSareas();
-        PQSareas_thread = new Thread(() -> {
+    public void pqsareasStart() {
+        pqsareas_setAreaSize();
+        pqsareasSetOutputName();
+        pqsareasSetOutputName();
+        if (pqsareas_execSer.isShutdown()) {
+            pqsareas_execSer = Executors.newSingleThreadExecutor();
+        }
+        pqsareas_execSer.execute(() -> {
             try {
                 pqsareas.start();
+                pqsareas_execSer.shutdownNow();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        PQSareas_thread.start();
+        pqsareas_btnStart.setDisable(true);
+        pqsareas_btnStop.setDisable(false);
+        java.util.Date date = new java.util.Date();
+        pqsareas.printStream.println(date.toString() + " the process has started");
+        Runnable pqsareas_runnable = () -> {
+            if(!pqsareas_execSer.isShutdown()){
+                java.util.Date date1 = new java.util.Date();
+                pqsareas.printStream.println(date1.toString() + " the process is running");
+            } else {
+                pqsareas_timeline.stop();
+                pqsareas_btnStart.setDisable(false);
+                pqsareas_btnStop.setDisable(true);
+            }
+        };
+        pqsareas_timeline = createTimeline(5, pqsareas_runnable);
+        pqsareas_timeline.play();
+
     }
 
-    public void stopPQSareas(ActionEvent actionEvent){
-        PQSareas_thread.interrupt();
+    public void pqsareasStop(){
+        java.util.Date date = new java.util.Date();
+        pqsareas.printStream.println(date.toString() + " the process has been stopped externally");
+        pqsareas_execSer.shutdownNow();
+        pqsareas_btnStart.setDisable(false);
+        pqsareas_btnStop.setDisable(true);
     }
 
     public void inputPQSareas1() {
@@ -433,20 +539,20 @@ public class Controller extends Application implements Initializable {
         }
     }
 
-    public void outputPQSareas(ActionEvent actionEvent) {
+    public void pqsareasSetOutputDir(ActionEvent actionEvent) {
         File file = directoryChooser.showDialog(null);
         if (file != null) {
-            output_path_pqsareas.setText(file.getName());
+            pqsareas_outputDir.setText(file.getName());
             pqsareas.setOutputPath(file.getAbsolutePath());
         }
     }
 
-    public void setOutputNamePQSareas() {
-        pqsareas.setOutputNamePQS(output_name_pqsareas.getText());
+    public void pqsareasSetOutputName() {
+        pqsareas.setOutputNamePQS(pqsareas_outputName.getText());
     }
 
-    public void areaPQSareas() {
-        pqsareas.setAREA(Integer.parseInt(fieldPQSareas_area.getText()));
+    public void pqsareas_setAreaSize() {
+        pqsareas.setAREA(Integer.parseInt(pqsareas_areaSize.getText()));
     }
 
 
@@ -477,13 +583,14 @@ public class Controller extends Application implements Initializable {
         VisualizationController vc = loader.getController();
         vc.setInputPath(clustersCount.getInputPath());
          */
+        pnItems.getChildren().clear();
         for (Integer i = 0; i < nodes.length; i++) {
             try {
 
                 final int j = i;
                 URL url = new File("src/main/resources/Item.fxml").toURI().toURL();
                 FXMLLoader loader = new FXMLLoader(url);
-                nodes[j] = (Node) loader.load();
+                nodes[j] = loader.load();
                 VisualizationController vc = loader.getController();
                 vc.setInputPath(clusters_count.getInputPath());
                 vc.setId(i);
@@ -520,122 +627,152 @@ public class Controller extends Application implements Initializable {
     }
 
     private void clustersSetLimit() {
+        if (clusters_limit.getText().isEmpty()) return;
         clusters_count.setLimit(Integer.parseInt(clusters_limit.getText()));
     }
 
     // Blast Api
     @FXML
-    private Button btnBlastApi;
+    private Button blastAPI_btn;
     @FXML
-    private Pane pnlBlastApi;
+    private Pane blastAPI_pnl;
     @FXML
-    private Button blastapi_info;
+    private Button blastAPI_info;
     @FXML
-    private Pane blastapi_infoPnl;
+    private Pane blastAPI_infoPnl;
     @FXML
-    public TextArea seq_blast;
+    public TextField blastAPI_seq;
     @FXML
-    private Label blast_info;
+    private Label blastAPI_time;
     @FXML
-    private Hyperlink blast_link;
-    private BlastApi blastapi;
+    public ChoiceBox<String> blastAPI_database;
+    @FXML
+    private ChoiceBox<String> blastAPI_megablast;
+    @FXML
+    private Button blastAPI_link;
+    private BlastApi blastAPI;
 
-    public void sendBlast(ActionEvent actionEvent) throws IOException {
-        blastapi.Send(seq_blast.getText());
-        blast_info.setText(blastapi.time);
-        blast_link.setText(blastapi.id);
+    public void blastAPISend() throws IOException {
+        blastAPISetDatabase();
+        blastAPISetMegablast();
+        blastAPI.Send(blastAPI_seq.getText());
+        blastAPI_time.setText("The results with id "+blastAPI.id+" will be available in estimated "+blastAPI.time+" seconds.");
+        blastAPI_link.setText("Show results");
+        blastAPI_link.setVisible(true);
     }
 
-    public void openInBrowser() {
-        getHostServices().showDocument("https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Get&RID="+blastapi.id);
+    public void blastAPIOpenInBrowser() {
+        getHostServices().showDocument("https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Get&RID="+ blastAPI.id);
+    }
+
+    private void blastAPIInit(){
+        blastAPI_database.getItems().setAll("nt", "refseq_rna", "pdbnt");
+        blastAPI_megablast.getItems().setAll("on", "off");
+    }
+
+    private void blastAPISetDatabase(){
+        blastAPI.setDatabase(blastAPI_database.getValue());
+    }
+
+    private void blastAPISetMegablast(){
+        blastAPI.setMegablast(blastAPI_megablast.getValue());
     }
 
     // others
     private final FileChooser fileChooser = new FileChooser();
     private final DirectoryChooser directoryChooser = new DirectoryChooser();
+    @FXML
+    private Button btn_exit;
 
+    private Timeline createTimeline(int timeFreq, Runnable r){
+        Timeline tl =  new Timeline(new KeyFrame(Duration.seconds(timeFreq), event -> r.run()));
+        tl.setCycleCount(Timeline.INDEFINITE);
+        return tl;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         pqsfinder_btn.fire();
         cdhit = new CDhit(cdhit_area);
         cdhit2 = new CDhit2(cdhit2_area);
-        pqsareas = new PQSareas(PQSareas_area);
+        pqsareas = new PQSareas(pqsareas_area);
         pqsfinder = new PQSfinder(pqsfinder_area);
         pqsfinderInit();
+        blastAPIInit();
 
         clusters_count = new ClustersCount();
-        blastapi = new BlastApi();
+        blastAPI = new BlastApi();
 
+        btn_exit.setOnAction(actionEvent -> Platform.exit());
     }
 
 
 
     public void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == clusters_btn) {
-            clusters_pnl.setStyle("-fx-background-color : #53639F");
+            clusters_pnl.setStyle("-fx-background-color : "+background_color);
             clusters_pnl.toFront();
             return;
         }
         if (actionEvent.getSource() == clusters_info) {
-            clusters_infoPnl.setStyle("-fx-background-color : #53639F");
+            clusters_infoPnl.setStyle("-fx-background-color : "+background_color);
             clusters_infoPnl.toFront();
             return;
         }
-        if (actionEvent.getSource() == btnPQSareas) {
-            pnlPQSareas.setStyle("-fx-background-color : #53639F");
-            pnlPQSareas.toFront();
+        if (actionEvent.getSource() == pqsareas_btn) {
+            pqsareas_pnl.setStyle("-fx-background-color : "+background_color);
+            pqsareas_pnl.toFront();
             return;
         }
         if (actionEvent.getSource() == pqsareas_info) {
-            pqsareas_infoPnl.setStyle("-fx-background-color : #53639F");
+            pqsareas_infoPnl.setStyle("-fx-background-color : "+background_color);
             pqsareas_infoPnl.toFront();
             return;
         }
         if (actionEvent.getSource() == pqsfinder_btn) {
-            pqsfinder_pnl.setStyle("-fx-background-color : #53639F");
+            pqsfinder_pnl.setStyle("-fx-background-color : "+background_color);
             pqsfinder_pnl.toFront();
             return;
         }
         if (actionEvent.getSource() == pqsfinder_info) {
-            pqsfinder_infoPnl.setStyle("-fx-background-color : #53639F");
+            pqsfinder_infoPnl.setStyle("-fx-background-color : "+background_color);
             pqsfinder_infoPnl.toFront();
             return;
         }
         if(actionEvent.getSource()== cdhit_btn)
         {
-            cdhit_pnl.setStyle("-fx-background-color : #53639F");
+            cdhit_pnl.setStyle("-fx-background-color : "+background_color);
             cdhit_pnl.toFront();
             return;
         }
         if(actionEvent.getSource()== cdhit_info)
         {
-            cdhit_infoPnl.setStyle("-fx-background-color : #53639F");
+            cdhit_infoPnl.setStyle("-fx-background-color : "+background_color);
             cdhit_infoPnl.toFront();
             return;
         }
         if(actionEvent.getSource()== cdhit2_btn)
         {
-            cdhit2_pnl.setStyle("-fx-background-color : #53639F");
+            cdhit2_pnl.setStyle("-fx-background-color : "+background_color);
             cdhit2_pnl.toFront();
             return;
         }
         if(actionEvent.getSource()== cdhit2_info)
         {
-            cdhit2_infoPnl.setStyle("-fx-background-color : #53639F");
+            cdhit2_infoPnl.setStyle("-fx-background-color : "+background_color);
             cdhit2_infoPnl.toFront();
             return;
         }
-        if(actionEvent.getSource()== btnBlastApi)
+        if(actionEvent.getSource()== blastAPI_btn)
         {
-            pnlBlastApi.setStyle("-fx-background-color : #53639F");
-            pnlBlastApi.toFront();
+            blastAPI_pnl.setStyle("-fx-background-color : "+background_color);
+            blastAPI_pnl.toFront();
             return;
         }
-        if(actionEvent.getSource()== blastapi_info)
+        if(actionEvent.getSource()== blastAPI_info)
         {
-            blastapi_infoPnl.setStyle("-fx-background-color : #53639F");
-            blastapi_infoPnl.toFront();
+            blastAPI_infoPnl.setStyle("-fx-background-color : "+background_color);
+            blastAPI_infoPnl.toFront();
             return;
         }
     }

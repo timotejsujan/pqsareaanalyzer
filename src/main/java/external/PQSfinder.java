@@ -12,7 +12,8 @@ import java.io.*;
 public class PQSfinder {
 
     private TextArea outputArea;
-    private PrintStream printStream;
+    public PrintStream printStream;
+    public Process p;
 
     private String RscriptPath = "g4.R";
     private String inputPath;
@@ -58,25 +59,34 @@ public class PQSfinder {
 
     public void start() throws Exception {
         changeParameters();
-        Process p = Runtime.getRuntime().exec(new String[] { "Rscript", RscriptPath, inputPath, outputPath+"/"+outputName});
+        p = Runtime.getRuntime().exec(new String[] { "Rscript", RscriptPath, inputPath, outputPath+"/"+outputName+".txt"});
+
 
         String line = "";
         BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-        while((line = error.readLine()) != null && !Thread.interrupted()){
-            printStatus(line);
+        BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+        while((line = error.readLine()) != null){
+            if (Thread.interrupted()) return;
+            System.out.println(line);
+            //printStatus(line);
+        }
+
+        while((line=input.readLine()) != null){
+            if (Thread.interrupted()) return;
+            System.out.println(line);
+            //printStatus(line);
         }
         error.close();
-
-        BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        while((line=input.readLine()) != null && !Thread.interrupted()){
-            printStatus(line);
-        }
-
         input.close();
 
-        if (Thread.interrupted()) {
-            printStatus("Proces byl zastaven");
-        }
+        //while(p.isAlive()){
+            //java.util.Date date = new java.util.Date();
+            //printStatus(date.toString() + " the process is running");
+            //Thread.sleep(5000);
+        //}
+        if (Thread.interrupted()) return;
+        printStatus("the process has ended");
 
     }
 
@@ -86,8 +96,8 @@ public class PQSfinder {
         File f = new File(RscriptPath);
         int line_to_replace = findLineInFIle(f, line_id_inRscript);
         String extraParams = "";
-        if (!strand.isEmpty()) extraParams += ", strand=\""+strand+"\"";
-        if (!overlapping.isEmpty()) extraParams += ", overlapping="+overlapping;
+        if (strand != null && !strand.isEmpty()) extraParams += ", strand=\""+strand+"\"";
+        if (overlapping != null && !overlapping.isEmpty()) extraParams += ", overlapping="+overlapping;
         if (!max_len.isEmpty()) extraParams += ", max_len="+max_len;
         if (!min_score.isEmpty()) extraParams += ", min_score="+min_score;
         if (!run_min_len.isEmpty()) extraParams += ", run_min_len="+run_min_len;

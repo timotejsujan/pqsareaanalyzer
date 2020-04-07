@@ -6,118 +6,156 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0"
-            prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            prefWidth="1050.0" style="-fx-background-color: #04062d;" xmlns="http://javafx.com/javafx/10.0.2-internal"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.Controller">
     <effect>
         <DropShadow color="#1b1eeb"/>
     </effect>
-    <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #05071F;"
+    <VBox>
+    <Button fx:id="btn_exit" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" stylesheets="@style.css" text="X">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Button>
+    <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #04062d;"
           AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <!--
+        <ImageView fitHeight="73.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../resources/jimmy-fallon.png" />
+            </image>
+            <VBox.margin>
+                <Insets bottom="10.0" top="50.0" />
+            </VBox.margin>
+        </ImageView>
+        -->
+
         <HBox>
             <Button fx:id="pqsfinder_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css"
-                    text="PQSfinder" textFill="#e7e5e5">
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0" stylesheets="@style.css"
+                    text="PQSfinder" textFill="black">
                 <padding>
                     <Insets left="50.0"/>
                 </padding>
+                <font>
+                    <Font size="24.0"/>
+                </font>
             </Button>
             <Button fx:id="pqsfinder_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css"
-                    text="Info" textFill="#e7e5e5">
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0" stylesheets="@style.css"
+                    text="Info" textFill="black">
                 <padding>
-                    <Insets left="50.0"/>
+                    <Insets right="13.0"/>
                 </padding>
             </Button>
         </HBox>
         <HBox>
-            <Button fx:id="btnPQSareas" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css"
-                    text="PQSareas" textFill="#e7e5e5">
+            <Button fx:id="pqsareas_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0" stylesheets="@style.css"
+                    text="PQSareas" textFill="black">
                 <padding>
                     <Insets left="50.0"/>
                 </padding>
+                <font>
+                    <Font size="24.0"/>
+                </font>
             </Button>
             <Button fx:id="pqsareas_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Info">
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0" stylesheets="@style.css" text="Info">
                 <padding>
-                    <Insets left="50.0"/>
+                    <Insets right="13.0"/>
                 </padding>
             </Button>
         </HBox>
         <HBox>
             <Button fx:id="cdhit_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="CDhit">
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0" stylesheets="@style.css" text="CDhit">
                 <padding>
                     <Insets left="50.0"/>
                 </padding>
+                <font>
+                    <Font size="24.0"/>
+                </font>
             </Button>
             <Button fx:id="cdhit_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Info">
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0" stylesheets="@style.css" text="Info">
                 <padding>
-                    <Insets left="50.0"/>
+                    <Insets right="13.0"/>
                 </padding>
             </Button>
         </HBox>
         <HBox>
             <Button fx:id="cdhit2_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css"
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0" stylesheets="@style.css"
                     text="CDhit 2D">
                 <padding>
                     <Insets left="50.0"/>
                 </padding>
+                <font>
+                    <Font size="24.0"/>
+                </font>
             </Button>
             <Button fx:id="cdhit2_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Info">
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0" stylesheets="@style.css" text="Info">
                 <padding>
-                    <Insets left="50.0"/>
+                    <Insets right="13.0"/>
                 </padding>
             </Button>
         </HBox>
         <HBox>
             <Button fx:id="clusters_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css"
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0" stylesheets="@style.css"
                     text="Clusters">
                 <padding>
                     <Insets left="50.0"/>
                 </padding>
+                <font>
+                    <Font size="24.0"/>
+                </font>
             </Button>
             <Button fx:id="clusters_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Info">
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0" stylesheets="@style.css" text="Info">
                 <padding>
-                    <Insets left="50.0"/>
+                    <Insets right="13.0"/>
                 </padding>
             </Button>
         </HBox>
         <HBox>
-            <Button fx:id="btnBlastApi" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Blast">
+            <Button fx:id="blastAPI_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0" stylesheets="@style.css" text="Blast">
                 <padding>
                     <Insets left="50.0"/>
                 </padding>
+                <font>
+                    <Font size="24.0"/>
+                </font>
             </Button>
-            <Button fx:id="blastapi_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Info">
+            <Button fx:id="blastAPI_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0" stylesheets="@style.css" text="Info">
                 <padding>
-                    <Insets left="50.0"/>
+                    <Insets right="13.0"/>
                 </padding>
             </Button>
         </HBox>
     </VBox>
+    </VBox>
     <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
         <Pane fx:id="pqsfinder_pnl" prefHeight="554.0" prefWidth="793.0">
-            <Label layoutX="57.0" layoutY="25.0" text="PQS finder" textFill="#e7e5e5">
+            <Label layoutX="57.0" layoutY="25.0" text="PQS finder" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Label>
-            <Button fx:id="btnPQSfinder_start" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
+            <Button fx:id="pqsfinder_btnStart" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
                     onAction="#pqsfinderStart" stylesheets="@style.css" text="Start">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Button>
-            <Button fx:id="btnPQSfinder_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
+            <Button disable="true" fx:id="pqsfinder_btnStop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
                     onAction="#pqsfinderStop" stylesheets="@style.css" text="Stop">
                 <font>
                     <Font size="24.0"/>
@@ -139,158 +177,137 @@
                     <Font size="13.0"/>
                 </font>
             </Button>
-            <Label layoutX="52.0" layoutY="143.0" stylesheets="@style.css" text="Name" textFill="#e7e5e5"/>
+            <Label layoutX="52.0" layoutY="143.0" stylesheets="@style.css" text="Name" textFill="black"/>
             <TextField fx:id="pqsfinder_outputName" layoutX="92.0" layoutY="138.0" prefHeight="27.0"
-                       prefWidth="100.0"/>
-            <Label layoutX="82.0" layoutY="182.0" stylesheets="@style.css" text="Strand" textFill="#e7e5e5"/>
-            <ComboBox fx:id="pqsfinder_strand" layoutX="128.0" layoutY="177.0" prefHeight="27.0"
+                       prefWidth="200.0"/>
+            <Label layoutX="82.0" layoutY="186.0" stylesheets="@style.css" text="Strand" textFill="black"/>
+            <ChoiceBox fx:id="pqsfinder_strand" layoutX="130.0" layoutY="181.0" prefHeight="27.0"
                       prefWidth="41.0"/>
-            <Label layoutX="563.0" layoutY="182.0" stylesheets="@style.css" text="Max Length"
-                   textFill="#e7e5e5"/>
-            <TextField fx:id="pqsfinder_overlapping" layoutX="301.0" layoutY="177.0" prefHeight="27.0"
-                       prefWidth="49.0"/>
-            <Label layoutX="218.0" layoutY="182.0" stylesheets="@style.css" text="Overlapping"
-                   textFill="#e7e5e5"/>
-            <TextField fx:id="pqsfinder_maxLen" layoutX="645.0" layoutY="177.0" prefHeight="27.0"
+            <Label layoutX="563.0" layoutY="186.0" stylesheets="@style.css" text="Max Length"
+                   textFill="black"/>
+            <ChoiceBox fx:id="pqsfinder_overlapping" layoutX="300.0" layoutY="181.0" prefHeight="27.0"
+                      prefWidth="70.0"/>
+            <Label layoutX="218.0" layoutY="186.0" stylesheets="@style.css" text="Overlapping"
+                   textFill="black"/>
+            <TextField fx:id="pqsfinder_maxLen" layoutX="645.0" layoutY="181.0" prefHeight="27.0"
                        prefWidth="50.0"/>
-            <Label layoutX="419.0" layoutY="182.0" stylesheets="@style.css" text="Min Score"
-                   textFill="#e7e5e5"/>
-            <TextField fx:id="pqsfinder_minScore" layoutX="491.0" layoutY="177.0" prefHeight="27.0"
-                       prefWidth="49.0"/>
+            <Label layoutX="419.0" layoutY="186.0" stylesheets="@style.css" text="Min Score"
+                   textFill="black"/>
+            <TextField fx:id="pqsfinder_minScore" text="52" layoutX="491.0" layoutY="181.0" prefHeight="27.0" prefWidth="50.0"/>
             <Label layoutX="49.0" layoutY="226.0" stylesheets="@style.css" text="Run Min Len"
-                   textFill="#e7e5e5"/>
+                   textFill="black"/>
             <TextField fx:id="pqsfinder_runMinLen" layoutX="130.0" layoutY="221.0" prefHeight="27.0"
                        prefWidth="50.0"/>
             <Label layoutX="49.0" layoutY="266.0" stylesheets="@style.css" text="Run Max Len"
-                   textFill="#e7e5e5"/>
+                   textFill="black"/>
             <TextField fx:id="pqsfinder_runMaxLen" layoutX="130.0" layoutY="261.0" prefHeight="27.0"
-                       prefWidth="49.0"/>
+                       prefWidth="50.0"/>
             <Label layoutX="209.0" layoutY="226.0" stylesheets="@style.css" text="Loop Min Len"
-                   textFill="#e7e5e5"/>
-            <TextField fx:id="pqsfinder_loopMinLen" layoutX="302.0" layoutY="221.0" prefHeight="27.0"
+                   textFill="black"/>
+            <TextField fx:id="pqsfinder_loopMinLen" layoutX="300.0" layoutY="221.0" prefHeight="27.0"
                        prefWidth="50.0"/>
             <Label layoutX="209.0" layoutY="266.0" stylesheets="@style.css" text="Loop Max Len"
-                   textFill="#e7e5e5"/>
-            <TextField fx:id="pqsfinder_loopMaxLen" layoutX="304.0" layoutY="261.0" prefHeight="27.0"
-                       prefWidth="49.0"/>
+                   textFill="black"/>
+            <TextField fx:id="pqsfinder_loopMaxLen" layoutX="300.0" layoutY="261.0" prefHeight="27.0"
+                       prefWidth="50.0"/>
             <Label layoutX="412.0" layoutY="226.0" stylesheets="@style.css" text="Max Bulges"
-                   textFill="#e7e5e5"/>
+                   textFill="black"/>
             <TextField fx:id="pqsfinder_maxBulges" layoutX="491.0" layoutY="221.0" prefHeight="27.0"
                        prefWidth="50.0"/>
             <Label layoutX="381.0" layoutY="266.0" stylesheets="@style.css" text="Max Mismatches"
-                   textFill="#e7e5e5"/>
+                   textFill="black"/>
             <TextField fx:id="pqsfinder_maxMismatches" layoutX="491.0" layoutY="261.0" prefHeight="27.0"
                        prefWidth="50.0"/>
             <Label layoutX="558.0" layoutY="266.0" stylesheets="@style.css" text="Max Defects"
-                   textFill="#e7e5e5"/>
+                   textFill="black"/>
             <TextField fx:id="pqsfinder_maxDefects" layoutX="645.0" layoutY="261.0" prefHeight="27.0"
                        prefWidth="50.0"/>
             <TextArea fx:id="pqsfinder_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0"
                       prefWidth="493.0" stylesheets="@style.css"/>
         </Pane>
-        <Pane fx:id="pnlPQSareas" prefHeight="200.0" prefWidth="200.0">
-            <Button fx:id="btnPQSareas_start" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
-                    onAction="#startPQSareas" stylesheets="@style.css" text="Start">
+        <Pane fx:id="pqsareas_pnl" prefHeight="200.0" prefWidth="200.0">
+            <Button fx:id="pqsareas_btnStart" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
+                    onAction="#pqsareasStart" stylesheets="@style.css" text="Start">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Button>
-            <Button fx:id="btnPQSareas_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
-                    onAction="#stopPQSareas" stylesheets="@style.css" text="Stop">
+            <Button disable="true" fx:id="pqsareas_btnStop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
+                    onAction="#pqsareasStop" stylesheets="@style.css" text="Stop">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Button>
-            <Label layoutX="57.0" layoutY="25.0" text="PQS areas" textFill="#e7e5e5">
+            <Label layoutX="57.0" layoutY="25.0" text="PQS areas" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Label>
-            <TextField fx:id="input1_path_pqsareas" editable="false" layoutX="49.0" layoutY="99.0"
-                       stylesheets="@style.css"/>
-            <Button fx:id="btnPQSareas_input1" layoutX="369" layoutY="99" mnemonicParsing="false"
-                    onAction="#inputPQSareas1" stylesheets="@style.css" text="Input Genom">
+            <TextField fx:id="input1_path_pqsareas" editable="false" layoutX="49.0" layoutY="99.0" stylesheets="@style.css"/>
+            <Button layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#inputPQSareas1" stylesheets="@style.css" text="Input Genom">
                 <font>
                     <Font size="13.0"/>
                 </font>
             </Button>
-            <TextField fx:id="input2_path_pqsareas" editable="false" layoutX="49.0" layoutY="139.0"
-                       stylesheets="@style.css"/>
-            <Button fx:id="btnPQSareas_input2" layoutX="369" layoutY="139" mnemonicParsing="false"
+            <TextField fx:id="input2_path_pqsareas" editable="false" layoutX="49.0" layoutY="139.0" stylesheets="@style.css"/>
+            <Button layoutX="369" layoutY="139" mnemonicParsing="false"
                     onAction="#inputPQSareas2" stylesheets="@style.css" text="Input G4 Positions">
                 <font>
                     <Font size="13.0"/>
                 </font>
             </Button>
-            <TextField fx:id="output_path_pqsareas" editable="false" layoutX="49.0" layoutY="179.0"
-                       stylesheets="@style.css"/>
-            <Button fx:id="btnPQSareas_output" layoutX="369" layoutY="179" mnemonicParsing="false"
-                    onAction="#outputPQSareas" stylesheets="@style.css" text="Output">
+            <TextField fx:id="pqsareas_outputDir" editable="false" layoutX="49.0" layoutY="179.0" stylesheets="@style.css"/>
+            <Button layoutX="369" layoutY="179" mnemonicParsing="false" onAction="#pqsareasSetOutputDir" stylesheets="@style.css" text="Output Directory">
                 <font>
                     <Font size="13.0"/>
                 </font>
             </Button>
-            <TextArea fx:id="PQSareas_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0"
-                      prefWidth="493.0" stylesheets="@style.css"/>
-            <TextField fx:id="fieldPQSareas_area" layoutX="100.0" layoutY="219.0" onAction="#areaPQSareas"
-                       prefHeight="27.0" prefWidth="31.0"/>
-            <Label layoutX="57.0" layoutY="219.0" stylesheets="@style.css" text="Area" textFill="#e7e5e5"/>
-            <TextField fx:id="output_name_pqsareas" layoutX="200.0" layoutY="219.0"
-                       onAction="#setOutputNamePQSareas" prefHeight="27.0" prefWidth="100.0"/>
-            <Label layoutX="157.0" layoutY="219.0" stylesheets="@style.css" text="Name" textFill="#e7e5e5"/>
+            <Label layoutX="157.0" layoutY="219.0" stylesheets="@style.css" text="Name" textFill="black"/>
+            <TextField fx:id="pqsareas_outputName" layoutX="200.0" layoutY="219.0" onAction="#pqsareasSetOutputName" prefHeight="27.0" prefWidth="100.0"/>
+            <Label layoutX="57.0" layoutY="219.0" stylesheets="@style.css" text="Area" textFill="black"/>
+            <TextField fx:id="pqsareas_areaSize" layoutX="100.0" text="30" layoutY="219.0" onAction="#pqsareas_setAreaSize" prefHeight="27.0" prefWidth="40.0"/>
+            <TextArea fx:id="pqsareas_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" stylesheets="@style.css"/>
         </Pane>
         <Pane fx:id="cdhit_pnl" prefHeight="200.0" prefWidth="200.0">
-            <Button fx:id="btnCDhit_start" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
+            <Button fx:id="cdhit_btnStart" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
                     onAction="#cdhitStart" stylesheets="@style.css" text="Start">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Button>
-            <Button fx:id="btnCDhit_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
-                    onAction="#cdhitStop" stylesheets="@style.css" text="Stop">
+            <Button disable="true" fx:id="cdhit_btnStop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false" onAction="#cdhitStop" stylesheets="@style.css" text="Stop">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Button>
-            <Label layoutX="57.0" layoutY="25.0" text="CD hit" textFill="#e7e5e5">
+            <Label layoutX="57.0" layoutY="25.0" text="CD hit" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Label>
-            <TextField fx:id="cdhit_inputPath" editable="false" layoutX="49.0" layoutY="99.0"
-                       stylesheets="@style.css"/>
-            <Button fx:id="btnCDhit_input" layoutX="369" layoutY="99" mnemonicParsing="false"
-                    onAction="#cdhitSetInputPath" stylesheets="@style.css" text="Input">
+            <TextField fx:id="cdhit_inputPath" editable="false" layoutX="49.0" layoutY="99.0" stylesheets="@style.css"/>
+            <Button layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#cdhitSetInputPath" stylesheets="@style.css" text="Input">
                 <font>
                     <Font size="13.0"/>
                 </font>
             </Button>
-            <TextField fx:id="input_path_pqs" editable="false" layoutX="49.0" layoutY="139.0"
-                       stylesheets="@style.css"/>
-            <Button fx:id="btnPqs_input" layoutX="369" layoutY="139" mnemonicParsing="false"
-                    onAction="#cdhitSetInputPQS" stylesheets="@style.css" text="Input PQS">
+            <TextField fx:id="input_path_pqs" editable="false" layoutX="49.0" layoutY="139.0" stylesheets="@style.css"/>
+            <Button layoutX="369" layoutY="139" mnemonicParsing="false" onAction="#cdhitSetInputPQS" stylesheets="@style.css" text="Input PQS">
                 <font>
                     <Font size="13.0"/>
                 </font>
             </Button>
-
-            <TextField fx:id="cdhit_outputName" editable="false" layoutX="49.0" layoutY="179.0"
-                       stylesheets="@style.css"/>
-            <Button fx:id="btnCDhit_output" layoutX="369" layoutY="179" mnemonicParsing="false"
-                    onAction="#cdhitSetOutputName" stylesheets="@style.css" text="Output">
+            <TextField fx:id="cdhit_outputName" editable="false" layoutX="49.0" layoutY="179.0" stylesheets="@style.css"/>
+            <Button layoutX="369" layoutY="179" mnemonicParsing="false" onAction="#cdhitSetOutputName" stylesheets="@style.css" text="Output Directory">
                 <font>
                     <Font size="13.0"/>
                 </font>
             </Button>
-            <Label layoutX="57.0" layoutY="219.0" stylesheets="@style.css" text="Name" textFill="#e7e5e5"/>
-            <TextField fx:id="cdhit_outputDir" layoutX="100.0" layoutY="219.0" prefHeight="27.0"
-                       prefWidth="100.0"/>
-            <Label layoutX="28.0" layoutY="275.0" stylesheets="@style.css" text="Parameters"
-                   textFill="#e7e5e5"/>
-            <TextField fx:id="cdhit_params" layoutX="100.0" layoutY="275.0" prefHeight="27.0"
-                       prefWidth="674.0"/>
-            <TextArea fx:id="cdhit_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0"
-                      prefWidth="493.0" stylesheets="@style.css"/>
+            <Label layoutX="57.0" layoutY="219.0" stylesheets="@style.css" text="Name" textFill="black"/>
+            <TextField fx:id="cdhit_outputDir" layoutX="100.0" layoutY="219.0" prefHeight="27.0" prefWidth="100.0"/>
+            <Label layoutX="28.0" layoutY="275.0" stylesheets="@style.css" text="Parameters" textFill="black"/>
+            <TextField fx:id="cdhit_params" layoutX="100.0" layoutY="275.0" prefHeight="27.0" prefWidth="674.0"/>
+            <TextArea fx:id="cdhit_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" stylesheets="@style.css"/>
         </Pane>
         <Pane fx:id="cdhit2_pnl" prefHeight="200.0" prefWidth="200.0">
             <Button fx:id="btnCDhit2_start" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
@@ -299,13 +316,13 @@
                     <Font size="24.0"/>
                 </font>
             </Button>
-            <Button fx:id="btnCDhit2_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
+            <Button disable="true" fx:id="btnCDhit2_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
                     onAction="#cdhit2Stop" stylesheets="@style.css" text="Stop">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Button>
-            <Label layoutX="57.0" layoutY="25.0" text="CD hit" textFill="#e7e5e5">
+            <Label layoutX="57.0" layoutY="25.0" text="CD hit" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
@@ -338,16 +355,16 @@
             <TextField fx:id="cdhit2_outputDir" editable="false" layoutX="49.0" layoutY="219.0"
                        stylesheets="@style.css"/>
             <Button fx:id="btnCDhit2_output" layoutX="369" layoutY="219" mnemonicParsing="false"
-                    onAction="#cdhit2SetOutputDir" stylesheets="@style.css" text="Output">
+                    onAction="#cdhit2SetOutputDir" stylesheets="@style.css" text="Output Directory">
                 <font>
                     <Font size="13.0"/>
                 </font>
             </Button>
             <TextField fx:id="cdhit2_outputName" layoutX="100.0" layoutY="259.0" onAction="#cdhit2SetOutputName"
                        prefHeight="27.0" prefWidth="100.0"/>
-            <Label layoutX="57.0" layoutY="259.0" stylesheets="@style.css" text="Name" textFill="#e7e5e5"/>
+            <Label layoutX="57.0" layoutY="259.0" stylesheets="@style.css" text="Name" textFill="black"/>
             <Label layoutX="28.0" layoutY="275.0" stylesheets="@style.css" text="Parameters"
-                   textFill="#e7e5e5"/>
+                   textFill="black"/>
             <TextField fx:id="cdhit2_params" layoutX="100.0" layoutY="275.0" prefHeight="27.0"
                        prefWidth="674.0"/>
             <TextArea fx:id="cdhit2_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0"
@@ -360,13 +377,15 @@
                     <Font size="24.0"/>
                 </font>
             </Button>
+            <!--
             <Button fx:id="btnClusters_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
                     onAction="#clustersStop" stylesheets="@style.css" text="Stop">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Button>
-            <Label layoutX="57.0" layoutY="25.0" text="Clusters" textFill="#e7e5e5">
+            -->
+            <Label layoutX="57.0" layoutY="25.0" text="Clusters" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
@@ -379,11 +398,30 @@
                     <Font size="13.0"/>
                 </font>
             </Button>
-            <Label layoutX="57.0" layoutY="139.0" stylesheets="@style.css" text="Limit" textFill="#e7e5e5"/>
+            <Label layoutX="57.0" layoutY="139.0" stylesheets="@style.css" text="Limit" textFill="black"/>
             <TextField fx:id="clusters_limit" layoutX="100.0" layoutY="139.0" prefHeight="27.0"
-                       prefWidth="31.0"/>
+                       prefWidth="40.0"/>
             <Label fx:id="clusters_number" layoutX="147.0" layoutY="139.0" stylesheets="@style.css"
-                   textFill="#e7e5e5"/>
+                   textFill="black"/>
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="202.0" prefHeight="30.0" prefWidth="760" spacing="130.0" style="-fx-background-color: #02030A;">
+                <children>
+                    <Label text="ID" textFill="#e7e5e5">
+                        <HBox.margin>
+                            <Insets left="5"/>
+                        </HBox.margin>
+                    </Label>
+                    <Label text="Reference Sequence" textFill="#e7e5e5">
+                        <HBox.margin>
+                            <Insets />
+                        </HBox.margin>
+                    </Label>
+                    <Label text="Size" textFill="#e7e5e5">
+                        <HBox.margin>
+                            <Insets />
+                        </HBox.margin>
+                    </Label>
+                </children>
+            </HBox>
             <ScrollPane layoutX="14.0" layoutY="232.0" prefHeight="320.0" prefWidth="760.0"
                         stylesheets="@style.css">
                 <content>
@@ -396,63 +434,65 @@
                 </content>
             </ScrollPane>
         </Pane>
-        <Pane fx:id="pnlBlastApi" prefHeight="200.0" prefWidth="200.0">
-            <Button fx:id="btnBlastApi_send" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
-                    onAction="#sendBlast" stylesheets="@style.css" text="Search">
+        <Pane fx:id="blastAPI_pnl" prefHeight="200.0" prefWidth="200.0">
+            <Button fx:id="btnBlastApi_send" layoutX="660.0" layoutY="54.0" mnemonicParsing="false"
+                    onAction="#blastAPISend" stylesheets="@style.css" text="Search">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Button>
-            <Label layoutX="57.0" layoutY="25.0" text="Blast" textFill="#e7e5e5">
+            <Label layoutX="57.0" layoutY="25.0" text="Blast" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Label>
-            <TextArea fx:id="seq_blast" layoutX="20" layoutY="129.0" prefHeight="247.0" prefWidth="493.0"
-                      stylesheets="@style.css"/>
-            <Label layoutX="57.0" layoutY="99.0" stylesheets="@style.css" text="Sequence" textFill="#e7e5e5"/>
-            <Label fx:id="blast_info" layoutX="57.0" layoutY="139.0" stylesheets="@style.css"
-                   textFill="#e7e5e5"/>
-            <Hyperlink fx:id="blast_link" layoutX="57.0" layoutY="179.0" onAction="#openInBrowser"
-                       stylesheets="@style.css" textFill="#e7e5e5"/>
+            <Label layoutX="57.0" layoutY="99.0" stylesheets="@style.css" text="Sequence" textFill="black"/>
+            <TextField fx:id="blastAPI_seq" layoutX="57" layoutY="129.0" prefHeight="27.0" prefWidth="680.0"/>
+            <Label layoutX="57.0" layoutY="186.0" stylesheets="@style.css" text="Database" textFill="black"/>
+            <ChoiceBox fx:id="blastAPI_database" layoutX="120.0" layoutY="181.0" prefHeight="27.0" prefWidth="90.0"/>
+            <Label layoutX="230.0" layoutY="186.0" stylesheets="@style.css" text="Megablast" textFill="black"/>
+            <ChoiceBox fx:id="blastAPI_megablast" layoutX="300.0" layoutY="181.0" prefHeight="27.0" prefWidth="41.0"/>
+            <Label fx:id="blastAPI_time" layoutX="57.0" layoutY="233.0" stylesheets="@style.css" textFill="black"/>
+            <Button visible="false" fx:id="blastAPI_link" layoutX="57.0" layoutY="263.0" onAction="#blastAPIOpenInBrowser" stylesheets="@style.css" textFill="black"/>
         </Pane>
         <Pane fx:id="pqsfinder_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="PQSfinder info" textFill="#e7e5e5">
+            <Label layoutX="57.0" layoutY="25.0" text="PQSfinder info" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Label>
+            <Text layoutX="57" layoutY="63" text="test"/>
         </Pane>
         <Pane fx:id="pqsareas_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="PQSareas info" textFill="#e7e5e5">
+            <Label layoutX="57.0" layoutY="25.0" text="PQSareas info" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Label>
         </Pane>
         <Pane fx:id="cdhit_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="CDhit info" textFill="#e7e5e5">
+            <Label layoutX="57.0" layoutY="25.0" text="CDhit info" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Label>
         </Pane>
         <Pane fx:id="cdhit2_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="CDhit2 info" textFill="#e7e5e5">
+            <Label layoutX="57.0" layoutY="25.0" text="CDhit2 info" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Label>
         </Pane>
         <Pane fx:id="clusters_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="Clusters info" textFill="#e7e5e5">
+            <Label layoutX="57.0" layoutY="25.0" text="Clusters info" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Label>
         </Pane>
-        <Pane fx:id="blastapi_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="Blast info" textFill="#e7e5e5">
+        <Pane fx:id="blastAPI_infoPnl" prefHeight="200.0" prefWidth="200.0">
+            <Label layoutX="57.0" layoutY="25.0" text="Blast info" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>

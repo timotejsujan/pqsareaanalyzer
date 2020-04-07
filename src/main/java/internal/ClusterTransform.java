@@ -57,7 +57,7 @@ public class ClusterTransform {
 
         String[] temp;
         if (name.charAt(1) == '-') {
-            name = ">m"+name.substring(2, name.length());
+            name = ">m"+name.substring(2);
         }
         temp = name.split("-", 3);
         Character strand = (temp[0].charAt(1) == '+'? '+' : '-');
@@ -88,7 +88,7 @@ public class ClusterTransform {
             if (!st.isEmpty() && st.charAt(0) == '>') {
                 String[] temp;
                 if (st.charAt(1) == '-') {
-                    st = ">m"+st.substring(2, st.length());
+                    st = ">m"+st.substring(2);
                 }
                 temp = st.split("-", 3);
                 Character strand = (temp[0].charAt(1) == '+'? '+' : '-');

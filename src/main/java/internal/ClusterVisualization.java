@@ -55,7 +55,7 @@ public final class ClusterVisualization extends JFrame {
 
     public ClusterVisualization(Cluster c) throws IOException {
         this.cluster = c;
-        BLOCK_WIDTH = 40;//PANEL_WIDTH/c.sequences.get(0).length();
+        BLOCK_WIDTH = PANEL_WIDTH / (c.maxLength+2);//40;//PANEL_WIDTH/c.sequences.get(0).length();
         BLOCK_HEIGHT = 10;//PANEL_WIDTH/c.sequences.size();
 
         setBounds(350, 250, PANEL_WIDTH, PANEL_HEIGHT);
@@ -120,7 +120,7 @@ public final class ClusterVisualization extends JFrame {
             }
         }
         Logo logo = new Logo();
-        double e = 1/Math.log(2)*(4 - 1)/(2*sequences.size());
+        double e = 1.0/Math.log(2)*(4 - 1)/(2*sequences.size());
         for (StringBuilder s : transformedStringBuilder) {
             Bar b = new Bar();
             Integer A = 0, C = 0, T = 0, G = 0;
@@ -139,7 +139,7 @@ public final class ClusterVisualization extends JFrame {
             b.bases.put('G', G);
             b.bases = sortByValue(b.bases);
             double H = - (b.h('A') + b.h('T') + b.h('C') + b.h('G'));
-            b.r = 2 - (H + e);
+            b.r = Math.max(0, 2 - (H + e));
             logo.bars.add(b);
         }
         return logo;
@@ -150,18 +150,28 @@ public final class ClusterVisualization extends JFrame {
         Logo pqsLogo = getLogoFromArray(cluster.pqs);
         Logo rightLogo = getLogoFromArray(cluster.rightArea);
 
+        int marginLeft = 2*(BLOCK_WIDTH)+BLOCK_WIDTH/3;
+        graphics.drawString("left area", marginLeft, 10);
+        paintInformationContentLine(graphics, marginLeft - 25, 20, AMP*2 - 20);
+        graphics.drawString("quadruplex", marginLeft, 260);
+        paintInformationContentLine(graphics, marginLeft - 25, 270, AMP*2 - 20);
+        graphics.drawString("right area", marginLeft, 510);
+        paintInformationContentLine(graphics, marginLeft - 25, 520, AMP*2 - 20);
+
+        int counter = 2;
         for (int j = 1; j <= leftLogo.bars.size(); j++) {
             graphics.setColor(Color.BLACK);
-            graphics.drawString(((Integer)j).toString(), j*(BLOCK_WIDTH)+BLOCK_WIDTH/3, 210);
+            graphics.drawString(((Integer)j).toString(), counter*(BLOCK_WIDTH)+BLOCK_WIDTH/3, 210);
+            counter++;
         }
-        int counter = 1;
+        counter = 2;
         for (int j = leftLogo.bars.size() + 1; j <= leftLogo.bars.size()*2; j++) {
             graphics.setColor(Color.BLACK);
             graphics.drawString(((Integer)j).toString(), counter*(BLOCK_WIDTH)+BLOCK_WIDTH/3, 710);
             counter++;
         }
 
-        counter = 1;
+        counter = 2;
         int height = 0;
         for (Bar b : pqsLogo.bars) {
             double totalHeight = AMP*b.r;
@@ -179,7 +189,7 @@ public final class ClusterVisualization extends JFrame {
             counter++;
         }
 
-        counter = 1;
+        counter = 2;
         for (Bar b : leftLogo.bars) {
             double totalHeight = AMP*b.r;
             height = 0;
@@ -196,7 +206,7 @@ public final class ClusterVisualization extends JFrame {
             counter++;
         }
 
-        counter = 1;
+        counter = 2;
         for (Bar b : rightLogo.bars) {
             double totalHeight = AMP*b.r;
             height = 0;
@@ -212,6 +222,22 @@ public final class ClusterVisualization extends JFrame {
             }
             counter++;
         }
+    }
+
+    private void paintInformationContentLine(Graphics g, int x , int y, int height){
+        int marginX = 30;
+        int marginY = 5;
+        g.drawLine(x, y, x, y + height);
+        g.drawLine(x-5, y, x, y);
+        g.drawString("2", x+5 - marginX, y+marginY);
+        g.drawLine(x-5, y+height/4, x, y+height/4);
+        g.drawString("1.5", x-5 - marginX, y+height/4+marginY);
+        g.drawLine(x-5, y + height/2, x, y+height/2);
+        g.drawString("1", x+5 - marginX, y+height/2+marginY);
+        g.drawLine(x-5, y+(height*3/4), x, y+(height*3/4));
+        g.drawString("0.5", x-5 - marginX, y+(height*3/4)+marginY);
+        g.drawLine(x-5, y+height, x, y+height);
+        g.drawString("0", x+5 - marginX, y+height+marginY);
     }
 
     private Image getImage(Character c) {
@@ -274,18 +300,21 @@ public final class ClusterVisualization extends JFrame {
         }
 
         int count() {
-            return bases.values().stream().reduce(0, Integer::sum);
+            int test =  bases.values().stream().reduce(0, Integer::sum);
+            return test;
         }
 
         double h(Character key) {
-            return relFreq(bases.get(key))*log2(relFreq(bases.get(key)));
+            double relF = relFreq(bases.get(key));
+            double relFlog2 = log2(relFreq(bases.get(key)));
+            return relF*relFlog2;
         }
     }
 
     private static double log2(double x)
     {
         if (x == 0) return 0;
-        return (double) (Math.log(x) / Math.log(2));
+        return Math.log(x) / Math.log(2);
     }
 
     private static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {

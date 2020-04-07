@@ -49,12 +49,12 @@ public class PQSareas {
     }
     private int AREA = 30;
 
-    private String input1Path;
-    private String input2Path;
-    private String outputPath;
-    private String outputName = "test.txt";
-    private String outputNamePQS = "test_pqs.txt";
-    private PrintStream printStream;
+    private String input1Path = "";
+    private String input2Path = "";
+    private String outputPath = "";
+    private String outputName = "";
+    private String outputNamePQS = "";
+    public PrintStream printStream;
 
     private boolean whole = true;
 
@@ -78,14 +78,12 @@ public class PQSareas {
         this.outputPath = outputPath;
     }
 
-    public void setOutputNamePQS(String outputNamePQS) {
-        this.outputNamePQS = outputNamePQS;
-        this.outputNamePQS = outputNamePQS + "_pqs";
+    public void setOutputNamePQS(String outputName) {
+        this.outputName = outputName + ".txt";
+        this.outputNamePQS = outputName + "_pqs.txt";
     }
 
     public void start() throws IOException {
-        java.util.Date date = new java.util.Date();
-        printStatus(date.toString());
         List<File> files = new ArrayList<>();
         files.add(new File(input1Path));
 
@@ -97,17 +95,13 @@ public class PQSareas {
 
         getQuadruplexes(g4s.get(0), sequences.get(0));
 
-        if (Thread.interrupted()) {
-            printStatus("Proces byl zastaven");
-            return;
-        }
         for (Genom g : sequences) {
-            printStatus("Zacinam zkoumat genom " + g.name);
             try {
                 Files.write(Paths.get(outputPath+"/"+outputName), (";"+g.name + "\n").getBytes());
                 Files.write(Paths.get(outputPath+"/"+outputNamePQS), (";"+g.name + "\n").getBytes());
 
                 for (Scaffold s : g.scaffolds) {
+                    if (Thread.interrupted()) return;
                     if (whole) {
                         printPositiveWhole(g, s);
                         printNegativeWhole(g, s);
@@ -115,18 +109,13 @@ public class PQSareas {
                         printPositive(g, s);
                         printNegative(g, s);
                     }
-                    if (Thread.interrupted()) {
-                        printStatus("Proces byl zastaven");
-                        return;
-                    }
                 }
             }catch (IOException ignored) {
                 printStatus("POZOR NEZAPSALO SE" + ignored.toString());
             }
         }
-        date = new java.util.Date();
-        printStatus("pokracuji");
-        printStatus(date.toString());
+        if (Thread.interrupted()) return;
+        printStatus("the process has ended");
     }
 
     private static void getQuadruplexes(File file, Genom g) throws IOException {
@@ -134,9 +123,12 @@ public class PQSareas {
         String st;
         int counter = -1;
         st = br.readLine();
-        while ((st = br.readLine()) != null && !Thread.interrupted()) {
+        while ((st = br.readLine()) != null) {
+            if (Thread.interrupted()) return;
             if (!st.isEmpty() && st.charAt(0) == '>') {
                 counter++;
+                continue;
+            } else if (counter == -1){
                 continue;
             }
             if ("+".equals(st.split(",")[2])) {
@@ -202,9 +194,8 @@ public class PQSareas {
         QuadruplexPositive nextQP;
         Boolean leftSideAlreadyWritten = null;
         for (QuadruplexPositive q : s.QPsPositive) {
-            if (Thread.interrupted()) {
-                return;
-            }
+            if (Thread.interrupted()) return;
+
             nextQP = (QPnumber != s.QPsPositive.size() - 1 ? s.QPsPositive.get(QPnumber+1) : null);
             int j = Math.max(q.position - AREA, 0);
             int maxJ = Math.min(q.position + AREA + q.width, s.sequence.length());
@@ -241,9 +232,8 @@ public class PQSareas {
     private void printPositiveWhole(Genom g, Scaffold s) throws IOException {
         int QPnumber = 0;
         for (QuadruplexPositive q : s.QPsPositive) {
-            if (Thread.interrupted()) {
-                return;
-            }
+            if (Thread.interrupted()) return;
+
             int j = q.position - AREA;
             int maxJ = q.position + q.width + AREA;
             if (j < 0 || maxJ > s.sequence.length()) {
@@ -277,9 +267,7 @@ public class PQSareas {
         QuadruplexNegative nextQP;
         Boolean leftSideAlreadyWritten = null;
         for (QuadruplexNegative q : s.QPsNegative) {
-            if (Thread.interrupted()) {
-                return;
-            }
+            if (Thread.interrupted()) return;
             nextQP = (QPnumber != s.QPsNegative.size() - 1 ? s.QPsNegative.get(QPnumber+1) : null);
             int j = Math.max(q.position - AREA, 0);
             int maxJ = Math.min(q.position + AREA + q.width, s.sequence.length());
@@ -317,9 +305,8 @@ public class PQSareas {
         int QPnumber = 0;
         StringBuilder line = null;
         for (QuadruplexNegative q : s.QPsNegative) {
-            if (Thread.interrupted()) {
-                return;
-            }
+            if (Thread.interrupted()) return;
+
 
             int j = q.position - AREA;
             int maxJ = q.position + q.width + AREA;

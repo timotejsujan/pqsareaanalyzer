@@ -45,7 +45,7 @@ public class VisualizationController implements Initializable {
     }
 
     public void copyToBlast(){
-        this.controller.seq_blast.setText(referenceSeq);
+        this.controller.blastAPI_seq.setText(referenceSeq);
     }
 
     void setInputPath(String inputPath) {
