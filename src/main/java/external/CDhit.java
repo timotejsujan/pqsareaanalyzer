@@ -68,6 +68,11 @@ public class CDhit {
         cs.outputPath = outputPath;
         cs.clusterSort();
 
+        var cdhitOutputClstr = new File(outputPath+"/"+outputName+nameConst+".clstr");
+        var cdhitOutput = new File(outputPath+"/"+outputName+nameConst);
+        deleteFile(cdhitOutputClstr);
+        deleteFile(cdhitOutput);
+
         ClusterTransform ct = new ClusterTransform();
         ct.clstr_file = new File(cs.outputPath +"/"+cs.outputName);
         ct.fasta_file = new File(inputPath);
@@ -76,8 +81,19 @@ public class CDhit {
         ct.outputName = outputName+".clstr";
         ct.getClstrFileWithSequences();
 
+        var cdhitOutputClstrSort = new File(cs.outputPath +"/"+cs.outputName);
+        deleteFile(cdhitOutputClstrSort);
+
         if (Thread.interrupted()) return;
         printStatus("the process has ended");
+    }
+
+    private void deleteFile(File f){
+        try {
+            f.delete();
+        }catch (Exception e){
+            f.deleteOnExit();
+        }
     }
 
     public void setInputPath(String inputPath) {

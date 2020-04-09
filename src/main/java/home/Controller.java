@@ -18,20 +18,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class Controller extends Application implements Initializable {
 
@@ -81,6 +86,8 @@ public class Controller extends Application implements Initializable {
     private TextArea pqsfinder_area;
     @FXML
     private Button pqsfinder_btnStart;
+    @FXML
+    private Text psqfinder_manual;
     @FXML
     private Button pqsfinder_btnStop;
     private PQSfinder pqsfinder;
@@ -135,6 +142,14 @@ public class Controller extends Application implements Initializable {
 
         tt_max_defects.setText("Maximum number of defects in total (#bulges + #mismatches).");
         pqsfinder_maxDefects.setTooltip(tt_max_defects);
+
+        psqfinder_manual.setText(
+                "Pqsfinder is a program for detecting DNA sequence patterns\nthat are likely to fold into an intramolecular G-quadruplex.\n\n" +
+                "After setting the input path to a genom and setting parameters,\nyou will get a file of positions of quadruplexes,\n" +
+                "which you can use in another programs in this application.\n\n" +
+                "Program will run from several minutes to a few hours depending on a size and structure of the genom.\n\n" +
+                "If you hover over the parameter's field, you will get additional information for the concrete parameter.\n\n" +
+                "You can read complete documentation after pressing the button \"Doc\"\nor in the folder \"Documentation\" in the root of the application.");
     }
 
     public void pqsfinderStart() throws Exception {
@@ -220,6 +235,12 @@ public class Controller extends Application implements Initializable {
         }
     }
 
+    public void pqsfinderOpenDoc() throws IOException {
+        Desktop desktop = Desktop.getDesktop();
+        File f = new File("documentation/pqsfinder.pdf");
+        desktop.open(f);
+    }
+
     private void pqsfinderSetOutputName() {
         pqsfinder.setOutputName(pqsfinder_outputName.getText());
     }
@@ -296,6 +317,8 @@ public class Controller extends Application implements Initializable {
     private ExecutorService cdhit_execSer = Executors.newSingleThreadExecutor();
     private Timeline cdhit_timeline;
     @FXML
+    private Text cdhit_manual;
+    @FXML
     private TextField input_path_pqs;
     public void cdhitStart() {
         cdhitSetOutputDir();
@@ -368,6 +391,25 @@ public class Controller extends Application implements Initializable {
         }
     }
 
+    public void cdhitOpenDoc() throws IOException {
+        Desktop desktop = Desktop.getDesktop();
+        File f = new File("documentation/cdhit.pdf");
+        desktop.open(f);
+    }
+
+    public void cdhitInit(){
+        cdhit_manual.setText(
+                "CD-HIT-EST clusters a nucleotide dataset into clusters that meet\na user-defined similarity threshold, " +
+                "usually a sequence identity.\nThe input is a DNA/RNA dataset in fasta format and the output is\n" +
+                "a fasta file of sequences in a list of sorted clusters.\n" +
+                "Since eukaryotic genes usually have long introns, which cause long gaps, it is difficult to make " +
+                "\nfull-length alignments for these genes. \n" +
+                "So, CD-HIT-EST is good for non-intron containing sequences like EST. \n\n"+
+                "Program will run from several seconds to a few hours depending on \n" +
+                "a size and structure of the input file and given parameters.\n\n" +
+                "You can read complete documentation after pressing the button \"Doc\"\nor in the folder \"Documentation\" in the root of the application.");
+    }
+
     // CD hit 2
     @FXML
     private Pane cdhit2_pnl;
@@ -393,6 +435,8 @@ public class Controller extends Application implements Initializable {
     private Thread cdhit2_thread;
     @FXML
     private TextField cdhit2_InputPathPQS;
+    @FXML
+    private Text cdhit2_manual;
     public void cdhit2Start(ActionEvent actionEvent) {
         cdhit2SetOutputName();
         cdhit2SetParams();
@@ -451,6 +495,24 @@ public class Controller extends Application implements Initializable {
         }
     }
 
+    public void cdhit2OpenDoc() throws IOException {
+        cdhitOpenDoc();
+    }
+
+    public void cdhit2Init(){
+        cdhit2_manual.setText(
+            "CD-HIT-EST-2D compares 2 nucleotide datasets (db1, db2).\n" +
+            "It identifies the sequences in db2 that are similar to db1\n" +
+            "at a certain threshold. The input are two DNA/RNA datasets (db1, db2)\n" +
+            "in fasta format and the output are two files: a fasta file of sequences\n" +
+            "in db2 that are not similar to db1 and a text file that lists similar\n" +
+            "sequences between db1 & db2. For same reason as CD-HIT-EST, CD-HIT-EST-2D\n" +
+            "is good for non-intron containing sequences like EST.\n\n" +
+            "Program will run from several seconds to a few hours depending on \n" +
+            "a size and structure of the input file and given parameters.\n\n" +
+            "You can read complete documentation after pressing the button \"Doc\"\nor in the folder \"Documentation\" in the root of the application.");
+    }
+
 
     // pqs areas
     @FXML
@@ -476,13 +538,15 @@ public class Controller extends Application implements Initializable {
     @FXML
     private TextField pqsareas_areaSize;
     @FXML
+    private Text psqareas_manual;
+    @FXML
     private TextArea pqsareas_area;
     private PQSareas pqsareas;
     private ExecutorService pqsareas_execSer = Executors.newSingleThreadExecutor();
     private Timeline pqsareas_timeline = null;
 
     public void pqsareasStart() {
-        pqsareas_setAreaSize();
+        pqsareasSetAreaSize();
         pqsareasSetOutputName();
         pqsareasSetOutputName();
         if (pqsareas_execSer.isShutdown()) {
@@ -551,8 +615,16 @@ public class Controller extends Application implements Initializable {
         pqsareas.setOutputNamePQS(pqsareas_outputName.getText());
     }
 
-    public void pqsareas_setAreaSize() {
+    public void pqsareasSetAreaSize() {
         pqsareas.setAREA(Integer.parseInt(pqsareas_areaSize.getText()));
+    }
+
+    public void pqsareasInit(){
+        psqareas_manual.setText(
+            "PQSareas takes the genom and PQS positions and outputs two files:\n"+
+            "a fasta file of PQS areas and a fasta file of PQS.\n\n"+
+            "Program will run from several seconds to a few minutes depending on \n" +
+            "a size and structure of the input file and given parameters.");
     }
 
 
@@ -572,6 +644,8 @@ public class Controller extends Application implements Initializable {
     @FXML
     private Label clusters_number;
     private ClustersCount clusters_count;
+    @FXML
+    private Text clusters_manual;
     @FXML
     public void clustersStart() throws IOException {
         clustersSetLimit();
@@ -612,10 +686,6 @@ public class Controller extends Application implements Initializable {
         }
     }
 
-    public void clustersStop(){
-        //PQSfinder_thread.interrupt();
-    }
-
     public void clustersSetInputPath() throws IOException {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
@@ -629,6 +699,13 @@ public class Controller extends Application implements Initializable {
     private void clustersSetLimit() {
         if (clusters_limit.getText().isEmpty()) return;
         clusters_count.setLimit(Integer.parseInt(clusters_limit.getText()));
+    }
+
+    private void clustersInit(){
+        clusters_manual.setText(
+            "The program takes the list of clusters (output of CD-hit programs)\n" +
+            "and outputs a table of visualizable clusters."
+        );
     }
 
     // Blast Api
@@ -650,6 +727,8 @@ public class Controller extends Application implements Initializable {
     private ChoiceBox<String> blastAPI_megablast;
     @FXML
     private Button blastAPI_link;
+    @FXML
+    private Text blastAPI_manual;
     private BlastApi blastAPI;
 
     public void blastAPISend() throws IOException {
@@ -668,6 +747,7 @@ public class Controller extends Application implements Initializable {
     private void blastAPIInit(){
         blastAPI_database.getItems().setAll("nt", "refseq_rna", "pdbnt");
         blastAPI_megablast.getItems().setAll("on", "off");
+        blastAPI_manual.setText("Programs sends the given seqnce to NCBI Blast program.");
     }
 
     private void blastAPISetDatabase(){
@@ -698,6 +778,10 @@ public class Controller extends Application implements Initializable {
         pqsareas = new PQSareas(pqsareas_area);
         pqsfinder = new PQSfinder(pqsfinder_area);
         pqsfinderInit();
+        pqsareasInit();
+        cdhitInit();
+        cdhit2Init();
+        clustersInit();
         blastAPIInit();
 
         clusters_count = new ClustersCount();

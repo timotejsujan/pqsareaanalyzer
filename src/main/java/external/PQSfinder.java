@@ -15,7 +15,7 @@ public class PQSfinder {
     public PrintStream printStream;
     public Process p;
 
-    private String RscriptPath = "g4.R";
+    private String RscriptPath = "scripts/g4.R";
     private String inputPath;
     private String outputPath;
     private String outputName = "test.txt";
@@ -138,7 +138,7 @@ public class PQSfinder {
         out.flush();
         out.close();
         in.close();
-
+//todo: osetrit
         inFile.delete();
         outFile.renameTo(inFile);
     }

@@ -8,6 +8,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import java.lang.String?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0"
             prefWidth="1050.0" style="-fx-background-color: #04062d;" xmlns="http://javafx.com/javafx/10.0.2-internal"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.Controller">
@@ -72,7 +73,7 @@
         </HBox>
         <HBox>
             <Button fx:id="cdhit_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0" stylesheets="@style.css" text="CDhit">
+                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0" stylesheets="@style.css" text="CD-hit-est">
                 <padding>
                     <Insets left="50.0"/>
                 </padding>
@@ -87,10 +88,11 @@
                 </padding>
             </Button>
         </HBox>
+        <!--
         <HBox>
             <Button fx:id="cdhit2_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
                     onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0" stylesheets="@style.css"
-                    text="CDhit 2D">
+                    text="CD-hit-est-2D">
                 <padding>
                     <Insets left="50.0"/>
                 </padding>
@@ -105,6 +107,7 @@
                 </padding>
             </Button>
         </HBox>
+        -->
         <HBox>
             <Button fx:id="clusters_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
                     onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0" stylesheets="@style.css"
@@ -164,7 +167,7 @@
             <TextField fx:id="pqsfinder_inputPath" editable="false" layoutX="49.0" layoutY="63.0"
                        stylesheets="@style.css"/>
             <Button fx:id="btnPQSfinder_input" layoutX="369.0" layoutY="63.0" mnemonicParsing="false"
-                    onAction="#pqsfinderSetInputPath" stylesheets="@style.css" text="Input Path">
+                    onAction="#pqsfinderSetInputPath" stylesheets="@style.css" text="Input Genom">
                 <font>
                     <Font size="13.0"/>
                 </font>
@@ -251,7 +254,7 @@
             </Button>
             <TextField fx:id="input2_path_pqsareas" editable="false" layoutX="49.0" layoutY="139.0" stylesheets="@style.css"/>
             <Button layoutX="369" layoutY="139" mnemonicParsing="false"
-                    onAction="#inputPQSareas2" stylesheets="@style.css" text="Input G4 Positions">
+                    onAction="#inputPQSareas2" stylesheets="@style.css" text="Input PQS Positions">
                 <font>
                     <Font size="13.0"/>
                 </font>
@@ -265,7 +268,7 @@
             <Label layoutX="157.0" layoutY="219.0" stylesheets="@style.css" text="Name" textFill="black"/>
             <TextField fx:id="pqsareas_outputName" layoutX="200.0" layoutY="219.0" onAction="#pqsareasSetOutputName" prefHeight="27.0" prefWidth="100.0"/>
             <Label layoutX="57.0" layoutY="219.0" stylesheets="@style.css" text="Area" textFill="black"/>
-            <TextField fx:id="pqsareas_areaSize" layoutX="100.0" text="30" layoutY="219.0" onAction="#pqsareas_setAreaSize" prefHeight="27.0" prefWidth="40.0"/>
+            <TextField fx:id="pqsareas_areaSize" layoutX="100.0" text="30" layoutY="219.0" onAction="#pqsareasSetAreaSize" prefHeight="27.0" prefWidth="40.0"/>
             <TextArea fx:id="pqsareas_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" stylesheets="@style.css"/>
         </Pane>
         <Pane fx:id="cdhit_pnl" prefHeight="200.0" prefWidth="200.0">
@@ -280,13 +283,13 @@
                     <Font size="24.0"/>
                 </font>
             </Button>
-            <Label layoutX="57.0" layoutY="25.0" text="CD hit" textFill="black">
+            <Label layoutX="57.0" layoutY="25.0" text="CD-HIT-EST" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Label>
             <TextField fx:id="cdhit_inputPath" editable="false" layoutX="49.0" layoutY="99.0" stylesheets="@style.css"/>
-            <Button layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#cdhitSetInputPath" stylesheets="@style.css" text="Input">
+            <Button layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#cdhitSetInputPath" stylesheets="@style.css" text="Input PQS areas">
                 <font>
                     <Font size="13.0"/>
                 </font>
@@ -322,7 +325,7 @@
                     <Font size="24.0"/>
                 </font>
             </Button>
-            <Label layoutX="57.0" layoutY="25.0" text="CD hit" textFill="black">
+            <Label layoutX="57.0" layoutY="25.0" text="CD-HIT-EST-2D" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
@@ -330,7 +333,7 @@
             <TextField fx:id="cdhit2_inputPath" editable="false" layoutX="49.0" layoutY="99.0"
                        stylesheets="@style.css"/>
             <Button fx:id="btnCDhit2_input" layoutX="369" layoutY="99" mnemonicParsing="false"
-                    onAction="#cdhit2SetInputPath" stylesheets="@style.css" text="Input">
+                    onAction="#cdhit2SetInputPath" stylesheets="@style.css" text="Input PQS areas">
                 <font>
                     <Font size="13.0"/>
                 </font>
@@ -338,7 +341,7 @@
             <TextField fx:id="cdhit2_inputPath2" editable="false" layoutX="49.0" layoutY="139.0"
                        stylesheets="@style.css"/>
             <Button fx:id="btnCDhit2_input2" layoutX="369" layoutY="139" mnemonicParsing="false"
-                    onAction="#cdhit2SetInputPath2" stylesheets="@style.css" text="Input 2">
+                    onAction="#cdhit2SetInputPath2" stylesheets="@style.css" text="Input PQS areas">
                 <font>
                     <Font size="13.0"/>
                 </font>
@@ -461,7 +464,16 @@
                     <Font size="24.0"/>
                 </font>
             </Label>
-            <Text layoutX="57" layoutY="63" text="test"/>
+            <Text fx:id="psqfinder_manual" layoutX="57" layoutY="100" >
+                <font>
+                    <Font size="15.0"/>
+                </font>
+            </Text>
+            <Button onAction="#pqsfinderOpenDoc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" stylesheets="@style.css" text="Doc">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
         </Pane>
         <Pane fx:id="pqsareas_infoPnl" prefHeight="200.0" prefWidth="200.0">
             <Label layoutX="57.0" layoutY="25.0" text="PQSareas info" textFill="black">
@@ -469,20 +481,52 @@
                     <Font size="24.0"/>
                 </font>
             </Label>
+            <Text fx:id="psqareas_manual" layoutX="57" layoutY="100" >
+                <font>
+                    <Font size="15.0"/>
+                </font>
+            </Text>
+            <!--
+            <Button fx:id="pqsareas_doc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" stylesheets="@style.css" text="Doc">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+            -->
         </Pane>
         <Pane fx:id="cdhit_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="CDhit info" textFill="black">
+            <Label layoutX="57.0" layoutY="25.0" text="CD-HIT-EST info" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Label>
+            <Text fx:id="cdhit_manual" layoutX="57" layoutY="100" >
+                <font>
+                    <Font size="15.0"/>
+                </font>
+            </Text>
+            <Button onAction="#cdhitOpenDoc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" stylesheets="@style.css" text="Doc">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
         </Pane>
         <Pane fx:id="cdhit2_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="CDhit2 info" textFill="black">
+            <Label layoutX="57.0" layoutY="25.0" text="CD-HIT-EST-2D info" textFill="black">
                 <font>
                     <Font size="24.0"/>
                 </font>
             </Label>
+            <Text fx:id="cdhit2_manual" layoutX="57" layoutY="100" >
+                <font>
+                    <Font size="15.0"/>
+                </font>
+            </Text>
+            <Button onAction="#cdhit2OpenDoc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" stylesheets="@style.css" text="Doc">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
         </Pane>
         <Pane fx:id="clusters_infoPnl" prefHeight="200.0" prefWidth="200.0">
             <Label layoutX="57.0" layoutY="25.0" text="Clusters info" textFill="black">
@@ -490,6 +534,18 @@
                     <Font size="24.0"/>
                 </font>
             </Label>
+            <Text fx:id="clusters_manual" layoutX="57" layoutY="100" >
+                <font>
+                    <Font size="15.0"/>
+                </font>
+            </Text>
+            <!--
+            <Button fx:id="clusters_doc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" stylesheets="@style.css" text="Doc">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+            -->
         </Pane>
         <Pane fx:id="blastAPI_infoPnl" prefHeight="200.0" prefWidth="200.0">
             <Label layoutX="57.0" layoutY="25.0" text="Blast info" textFill="black">
@@ -497,6 +553,18 @@
                     <Font size="24.0"/>
                 </font>
             </Label>
+            <Text fx:id="blastAPI_manual" layoutX="57" layoutY="100" >
+                <font>
+                    <Font size="15.0"/>
+                </font>
+            </Text>
+            <!--
+            <Button fx:id="blastAPI_doc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" stylesheets="@style.css" text="Doc">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Button>
+            -->
         </Pane>
     </StackPane>
 </AnchorPane>
