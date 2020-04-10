@@ -5,6 +5,7 @@ import internal.ClusterVisualization;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.io.File;
@@ -28,6 +29,7 @@ public class VisualizationController implements Initializable {
     private Label cluster_refSeq;
     @FXML
     private Label cluster_size;
+    @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -44,8 +46,15 @@ public class VisualizationController implements Initializable {
         cv.export();
     }
 
-    public void copyToBlast(){
+    public void copyToBlast(ActionEvent event){
         this.controller.blastAPI_seq.setText(referenceSeq);
+        Button lastButtonClicked = controller.clusters_lastButtonClicked;
+        if (lastButtonClicked != null){
+            lastButtonClicked.setText("Copy to Blast");
+        }
+        Button b = (Button) event.getSource();
+        b.setText("Copied");
+        this.controller.clusters_lastButtonClicked = b;
     }
 
     void setInputPath(String inputPath) {

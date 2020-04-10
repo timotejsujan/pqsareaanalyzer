@@ -13,7 +13,7 @@ for (i in 1:length(seq)) {
   cat(paste0(">",names(seq)[i]),file=args[2],sep="\n",append=TRUE)
   # following lines cannot be changed
   # id = 3A892
-pqs <- pqsfinder(seq[[i]], strand="*", overlapping=FALSE, min_score=52)
+pqs <- pqsfinder(seq[[i]], strand="*", overlapping=FALSE, min_score=20)
   # --------------------------------
   if (length(pqs@elementMetadata@listData[["score"]]) > 0) {
     # str <- paste0(str, "\n", start(pqs), ",", width(pqs),",",strand(pqs),",", score(pqs),pqs)

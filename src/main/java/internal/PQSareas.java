@@ -122,7 +122,7 @@ public class PQSareas {
         BufferedReader br = new BufferedReader(new FileReader(file));
         String st;
         int counter = -1;
-        st = br.readLine();
+        //st = br.readLine();
         while ((st = br.readLine()) != null) {
             if (Thread.interrupted()) return;
             if (!st.isEmpty() && st.charAt(0) == '>') {

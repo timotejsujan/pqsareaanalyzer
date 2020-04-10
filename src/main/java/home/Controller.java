@@ -647,6 +647,8 @@ public class Controller extends Application implements Initializable {
     @FXML
     private Text clusters_manual;
     @FXML
+    public Button clusters_lastButtonClicked;
+    @FXML
     public void clustersStart() throws IOException {
         clustersSetLimit();
         //clusters_count.loadCluster();
