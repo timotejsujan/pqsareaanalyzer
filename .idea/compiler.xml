@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="pqsAreaAnalyzer" target="10" />
+      <module name="pqsAreaAnalyzer" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

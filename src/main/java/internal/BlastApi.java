@@ -26,10 +26,13 @@ import java.util.regex.Pattern;
  * @author Timotej Sujan
  */
 public class BlastApi {
+    // private
     private static final Pattern p_id = Pattern.compile("(RID = )(.*)(\n)");
     private static final Pattern p_time = Pattern.compile("(RTOE = )(.*)(\n)");
     private String database = "nt";
-    private String megablast= "on";
+    private String megablast = "on";
+
+    // public
     public String id = "";
     public String time = "";
 
@@ -63,20 +66,16 @@ public class BlastApi {
 
         if (entity != null) {
             try (InputStream instream = entity.getContent()) {
+
                 Scanner s = new Scanner(instream).useDelimiter("\\A");
                 String result = s.hasNext() ? s.next() : "";
+
                 Matcher m = p_id.matcher(result);
-                if (m.find()) {
-                    id = m.group(2);
-                }
+                if (m.find()) id = m.group(2);
+
                 m = p_time.matcher(result);
-                if (m.find()) {
-                    time = m.group(2);
-                }
-                //System.out.println(result);
+                if (m.find()) time = m.group(2);
             }
         }
-
-
     }
 }

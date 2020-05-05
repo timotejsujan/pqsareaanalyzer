@@ -12,18 +12,23 @@ import java.util.Map;
  * @author Timotej Sujan
  */
 public class ClustersCount {
+    // private
     private int length = 0;
     private int limit = 0;
     private String inputPath;
     private Map<Integer, Cluster> referenceSeqs = new HashMap();
 
+    // public
     public void loadCluster() throws IOException {
+
         BufferedReader br = new BufferedReader(new FileReader(inputPath));
-        String st;
+
+        String str;
         Integer counter = 0;
         int sizeCounter = 0;
-        while ((st = br.readLine()) != null) {
-            if (st.startsWith(">Cluster ")) {
+
+        while ((str = br.readLine()) != null) {
+            if (str.startsWith(">Cluster ")) {
                 if (counter != 0){
                     referenceSeqs.get(counter - 1).size = sizeCounter;
                 }

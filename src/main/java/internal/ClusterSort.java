@@ -19,44 +19,42 @@ public class ClusterSort {
 
     public void clusterSort() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(inputPath));
-        String st = "";
-        int counter = 0;
-        Cluster c = new Cluster();
-        Clusters cs = new Clusters();
-        while ((st = br.readLine()) != null &&!Thread.interrupted()) {
-            if (!st.isEmpty() && st.charAt(0) == '>') {
-                cs.clusters.add(c);
-                counter++;
-                c = new Cluster();
-                c.rows.add(st+"\n");
+        String str = "";
+        Cluster clstr = new Cluster();
+        Clusters clusters = new Clusters();
+        while ((str = br.readLine()) != null &&!Thread.interrupted()) {
+            if (!str.isEmpty() && str.charAt(0) == '>') {
+                clusters.clusters.add(clstr);
+                clstr = new Cluster();
+                clstr.rows.add(str+"\n");
             } else {
-                c.rows.add(st+"\n");
+                clstr.rows.add(str+"\n");
             }
         }
-        cs.clusters.remove(0);
-        cs.clusters.sort(new ClusterComparator());
+        clusters.clusters.remove(0);
+        clusters.clusters.sort(new ClusterComparator());
 
         Files.write(Paths.get(outputPath+"/"+outputName), "".getBytes());
         StringBuilder outputString = new StringBuilder();
-        Integer i = 0;
-        for (Cluster cluster : cs.clusters) {
+        int i = 0;
+        for (Cluster cluster : clusters.clusters) {
             cluster.rows.set(0, ">Cluster "+i+"\n");
-            outputString.append(String.join("",cluster.rows));
+            outputString.append(String.join("", cluster.rows));
             i++;
         }
         Files.write(Paths.get(outputPath+"/"+outputName), outputString.toString().getBytes(), StandardOpenOption.APPEND);
     }
 
-    private class Clusters
+    private static class Clusters
     {
         ArrayList<Cluster> clusters = new ArrayList<>();
     }
 
-    private class Cluster{
+    private static class Cluster{
         ArrayList<String> rows = new ArrayList<>();
     }
 
-    public class ClusterComparator implements Comparator<Cluster> {
+    public static class ClusterComparator implements Comparator<Cluster> {
         @Override
         public int compare(Cluster o1, Cluster o2) {
             return (-1)*Integer.compare(o1.rows.size(), o2.rows.size());

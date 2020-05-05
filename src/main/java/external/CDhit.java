@@ -68,8 +68,8 @@ public class CDhit {
         cs.outputPath = outputPath;
         cs.clusterSort();
 
-        var cdhitOutputClstr = new File(outputPath+"/"+outputName+nameConst+".clstr");
-        var cdhitOutput = new File(outputPath+"/"+outputName+nameConst);
+        File cdhitOutputClstr = new File(outputPath+"/"+outputName+nameConst+".clstr");
+        File cdhitOutput = new File(outputPath+"/"+outputName+nameConst);
         deleteFile(cdhitOutputClstr);
         deleteFile(cdhitOutput);
 
@@ -81,7 +81,7 @@ public class CDhit {
         ct.outputName = outputName+".clstr";
         ct.getClstrFileWithSequences();
 
-        var cdhitOutputClstrSort = new File(cs.outputPath +"/"+cs.outputName);
+        File cdhitOutputClstrSort = new File(cs.outputPath +"/"+cs.outputName);
         deleteFile(cdhitOutputClstrSort);
 
         if (Thread.interrupted()) return;

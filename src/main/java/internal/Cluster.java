@@ -16,15 +16,22 @@ public class Cluster {
     ArrayList<String> rightArea = new ArrayList<>();
 
     public Cluster(Integer number, File file) throws IOException {
+
         BufferedReader br = new BufferedReader(new FileReader(file));
-        String st;
-        while ((st = br.readLine()) != null) {
-            if (st.equals(">Cluster " + number.toString())) {
-                while ((st = br.readLine()) != null && !st.startsWith(">")){
-                    String[] temp = st.split(" ");
+        String str;
+
+        while ((str = br.readLine()) != null) {
+
+            if (str.equals(">Cluster " + number.toString())) {
+
+                while ((str = br.readLine()) != null && !str.startsWith(">")){
+
+                    String[] temp = str.split(" ");
+
                     leftArea.add(temp[0]);
                     rightArea.add(temp[1]);
                     pqs.add(temp[2]);
+
                     maxLength = Math.max(maxLength, Math.max(temp[0].length(), temp[2].length()));
                 }
                 break;

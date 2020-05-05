@@ -1,12 +1,12 @@
 package internal;
 
-import javax.swing.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Timotej Sujan
@@ -30,19 +30,19 @@ public class ClusterTransform {
         String st;
         st = br.readLine();
         Files.write(Paths.get(outputPath+"/"+outputName), st.getBytes());
-        int sequenceCounter = 0;
+        AtomicInteger sequenceCounter = new AtomicInteger();
         while ((st = br.readLine()) != null && !Thread.interrupted()) {
             if (!st.isEmpty() && st.charAt(0) == '>') {
-                if (sequenceCounter == 1) {
+                if (sequenceCounter.get() == 1) {
                     break;
                 } else {
-                    sequenceCounter = 0;
+                    sequenceCounter.set(0);
                 }
                 st = "\n"+st;
                 Files.write(Paths.get(outputPath+"/"+outputName), st.getBytes(), StandardOpenOption.APPEND);
                 continue;
             }
-            sequenceCounter++;
+            sequenceCounter.getAndIncrement();
             String name = st.split(">")[1];
             name = name.split("\\.\\.\\.")[0];
 
@@ -135,24 +135,24 @@ public class ClusterTransform {
         }
     }
 
-    private class Genom {
+    private static class Genom {
         Map<Character, Strand> strands = new HashMap<>();
     }
 
-    private class Strand {
+    private static class Strand {
         Map<Character, Side> sides = new HashMap<>();
 
     }
 
-    private class Side {
+    private static class Side {
         Map<String, Scaffold> scaffolds = new HashMap<>();
     }
 
-    private class Scaffold {
+    private static class Scaffold {
         Map<String, Row> sequences = new HashMap<>();
     }
 
-    private class Row {
+    private static class Row {
         String leftArea;
         String pqs;
         String rightArea;
