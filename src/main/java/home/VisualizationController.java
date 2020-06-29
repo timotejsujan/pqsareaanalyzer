@@ -1,7 +1,7 @@
 package home;
 
-import internal.Cluster;
-import internal.ClusterVisualization;
+import external.cluster;
+import external.cluster_visualization;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,8 +19,7 @@ import java.util.ResourceBundle;
 public class VisualizationController implements Initializable {
     private String inputPath;
     private Integer id;
-    private ClusterVisualization cv;
-    private Integer size;
+    private cluster_visualization cv;
     private String referenceSeq;
     private Controller controller;
     @FXML
@@ -36,47 +35,46 @@ public class VisualizationController implements Initializable {
     public void clusterVisualize(ActionEvent actionEvent) throws IOException {
         //final Node source = (Node) actionEvent.getSource();
         //String id = source.getId();
-        cv = new ClusterVisualization(new Cluster(id, new File(inputPath)));
+        cv = new cluster_visualization(new cluster(id, new File(inputPath)));
         cv.showSequence();
     }
 
     public void clusterExport(ActionEvent actionEvent) throws IOException {
-        cv = new ClusterVisualization(new Cluster(id, new File(inputPath)));
+        cv = new cluster_visualization(new cluster(id, new File(inputPath)));
         //cv.showSequence(false);
         cv.export();
     }
 
     public void copyToBlast(ActionEvent event){
-        this.controller.blastAPI_seq.setText(referenceSeq);
+        controller.blastAPI_seq.setText(referenceSeq);
         Button lastButtonClicked = controller.clusters_lastButtonClicked;
         if (lastButtonClicked != null){
             lastButtonClicked.setText("Copy to Blast");
         }
         Button b = (Button) event.getSource();
         b.setText("Copied");
-        this.controller.clusters_lastButtonClicked = b;
+        controller.clusters_lastButtonClicked = b;
     }
 
-    void setInputPath(String inputPath) {
-        this.inputPath = inputPath;
+    void setInputPath(String s) {
+        inputPath = s;
     }
 
-    public void setId(int id) {
-        this.id = id;
-        cluster_id.setText(this.id.toString());
+    public void setId(int n) {
+        id = n;
+        cluster_id.setText(id.toString());
     }
 
     public void setSize(int size) {
-        this.size = size;
-        cluster_size.setText(this.size.toString());
+        cluster_size.setText(Integer.toString(size));
     }
 
-    public void setReferenceSeq(String referenceSeq) {
-        this.referenceSeq = referenceSeq;
-        cluster_refSeq.setText(referenceSeq);
+    public void setReferenceSeq(String s) {
+        referenceSeq = s;
+        cluster_refSeq.setText(s);
     }
 
-    public void setcontroller(Controller controller) {
-        this.controller = controller;
+    public void setcontroller(Controller c) {
+        controller = c;
     }
 }

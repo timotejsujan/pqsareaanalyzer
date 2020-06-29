@@ -1,12 +1,12 @@
 package home;
 
-import external.CDhit;
-import external.CDhit2;
-import external.PQSfinder;
+import external.cd_hit_est;
+import external.cd_hit_est_2D;
+import external.pqsfinder;
 
-import internal.BlastApi;
-import internal.ClustersCount;
-import internal.PQSareas;
+import external.blast_api;
+import external.clusters_count;
+import external.pqs_areas;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,11 +17,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -30,7 +31,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -40,108 +41,65 @@ import java.util.concurrent.Executors;
 
 public class Controller extends Application implements Initializable {
 
-    private String background_color = "gray";
-
     @FXML
-    private VBox pnItems = null;
+    private final VBox pnItems = null;
 
     // pqs finder
     @FXML
-    private Pane pqsfinder_pnl;
-    @FXML
-    private Pane pqsfinder_infoPnl;
+    private Pane pqsfinder_pnl, pqsfinder_infoPnl;
     @FXML
     private TextField pqsfinder_inputPath;
     @FXML
-    private Button pqsfinder_btn;
+    private Button pqsfinder_btn, pqsfinder_info;
     @FXML
-    private Button pqsfinder_info;
+    private TextField pqsfinder_outputDir, pqsfinder_outputName;
     @FXML
-    private TextField pqsfinder_outputDir;
+    private ChoiceBox<String> pqsfinder_strand, pqsfinder_overlapping;
     @FXML
-    private TextField pqsfinder_outputName;
+    private TextField pqsfinder_maxLen, pqsfinder_minScore, pqsfinder_runMinLen, pqsfinder_runMaxLen;
     @FXML
-    private ChoiceBox<String> pqsfinder_strand;
-    @FXML
-    private ChoiceBox<String> pqsfinder_overlapping;
-    @FXML
-    private TextField pqsfinder_maxLen;
-    @FXML
-    private TextField pqsfinder_minScore;
-    @FXML
-    private TextField pqsfinder_runMinLen;
-    @FXML
-    private TextField pqsfinder_runMaxLen;
-    @FXML
-    private TextField pqsfinder_loopMinLen;
-    @FXML
-    private TextField pqsfinder_loopMaxLen;
-    @FXML
-    private TextField pqsfinder_maxBulges;
-    @FXML
-    private TextField pqsfinder_maxMismatches;
+    private TextField pqsfinder_loopMinLen, pqsfinder_loopMaxLen, pqsfinder_maxBulges, pqsfinder_maxMismatches;
     @FXML
     private TextField pqsfinder_maxDefects;
     @FXML
     private TextArea pqsfinder_area;
     @FXML
-    private Button pqsfinder_btnStart;
+    private Button pqsfinder_btnStart, pqsfinder_btnStop;
     @FXML
     private Text psqfinder_manual;
-    @FXML
-    private Button pqsfinder_btnStop;
-    private PQSfinder pqsfinder;
+    private external.pqsfinder pqsfinder;
     private ExecutorService pqsfinder_execSer = Executors.newSingleThreadExecutor();
-    private Tooltip tt_strand = new Tooltip();
-    private Tooltip tt_overlapping = new Tooltip();
-    private Tooltip tt_max_len = new Tooltip();
-    private Tooltip tt_min_score = new Tooltip();
-    private Tooltip tt_run_min_len = new Tooltip();
-    private Tooltip tt_run_max_len = new Tooltip();
-    private Tooltip tt_loop_min_len = new Tooltip();
-    private Tooltip tt_loop_max_len = new Tooltip();
-    private Tooltip tt_max_bulges = new Tooltip();
-    private Tooltip tt_max_mismatches = new Tooltip();
-    private Tooltip tt_max_defects = new Tooltip();
     private Timeline pqsfinder_timeline = null;
 
     private void pqsfinderInit(){
         pqsfinder_strand.getItems().setAll("", "*", "+", "-");
         pqsfinder_strand.setValue("*");
-        tt_strand.setText("Strand specification (+, - or *).");
-        pqsfinder_strand.setTooltip(tt_strand);
+        pqsfinder_strand.setTooltip(new Tooltip("Strand specification (+, - or *)."));
 
         pqsfinder_overlapping.getItems().setAll("", "TRUE", "FALSE");
         pqsfinder_overlapping.setValue("FALSE");
-        tt_overlapping.setText("If true, than overlapping PQS will be reported.");
-        pqsfinder_overlapping.setTooltip(tt_overlapping);
+        pqsfinder_overlapping.setTooltip(new Tooltip("If true, than overlapping PQS will be reported."));
 
-        tt_max_len.setText("Maximal total length of PQS.");
-        pqsfinder_maxLen.setTooltip(tt_max_len);
+        pqsfinder_maxLen.setTooltip(new Tooltip("Maximal total length of PQS."));
 
-        tt_min_score.setText("Minimal score of PQS to be reported. The default value 52 shows the best balanced accuracy on human G4 sequencing data (Chambers et al. 2015).");
-        pqsfinder_minScore.setTooltip(tt_min_score);
+        pqsfinder_minScore.setTooltip(new Tooltip("Minimal score of PQS to be reported. " +
+                "The default value 52 shows the best " +
+                "balanced accuracy on human G4 " +
+                "sequencing data (Chambers et al. 2015)."));
 
-        tt_run_min_len.setText("Minimal length of each PQS run (G-run).");
-        pqsfinder_runMinLen.setTooltip(tt_run_min_len);
+        pqsfinder_runMinLen.setTooltip(new Tooltip("Minimal length of each PQS run (G-run)."));
 
-        tt_run_max_len.setText("Maximal length of each PQS run.");
-        pqsfinder_runMaxLen.setTooltip(tt_run_max_len);
+        pqsfinder_runMaxLen.setTooltip(new Tooltip("Maximal length of each PQS run."));
 
-        tt_loop_min_len.setText("Minimal length of each PQS inner loop.");
-        pqsfinder_loopMinLen.setTooltip(tt_loop_min_len);
+        pqsfinder_loopMinLen.setTooltip(new Tooltip("Minimal length of each PQS inner loop."));
 
-        tt_loop_max_len.setText("Maximal length of each PQS inner loop.");
-        pqsfinder_loopMaxLen.setTooltip(tt_loop_max_len);
+        pqsfinder_loopMaxLen.setTooltip(new Tooltip("Maximal length of each PQS inner loop."));
 
-        tt_max_bulges.setText("Maximal number of runs containing a bulge.");
-        pqsfinder_maxBulges.setTooltip(tt_max_bulges);
+        pqsfinder_maxBulges.setTooltip(new Tooltip("Maximal number of runs containing a bulge."));
 
-        tt_max_mismatches.setText("Maximal number of runs containing a mismatch.");
-        pqsfinder_maxMismatches.setTooltip(tt_max_mismatches);
+        pqsfinder_maxMismatches.setTooltip(new Tooltip("Maximal number of runs containing a mismatch."));
 
-        tt_max_defects.setText("Maximum number of defects in total (#bulges + #mismatches).");
-        pqsfinder_maxDefects.setTooltip(tt_max_defects);
+        pqsfinder_maxDefects.setTooltip(new Tooltip("Maximum number of defects in total (#bulges + #mismatches)."));
 
         psqfinder_manual.setText(
                 "Pqsfinder is a program for detecting DNA sequence patterns\nthat are likely to fold into an intramolecular G-quadruplex.\n\n" +
@@ -152,8 +110,12 @@ public class Controller extends Application implements Initializable {
                 "You can read complete documentation after pressing the button \"Doc\"\nor in the folder \"Documentation\" in the root of the application.");
     }
 
-    public void pqsfinderStart() throws Exception {
+    public void pqsfinderStart() {
         pqsfinderSetOutputName();
+        if (!pqsfinder.is_base_valid()) {
+            pqsfinder.print_stream.println("values are NOT valid, something is missing!");
+            return;
+        }
         pqsfinderSetStrand();
         pqsfinderSetOverlapping();
         pqsfinderSetMax_len();
@@ -190,11 +152,11 @@ public class Controller extends Application implements Initializable {
         });
         //pqsfinder_thread.start();
         java.util.Date date = new java.util.Date();
-        pqsfinder.printStream.println(date.toString() + " the process has started");
+        pqsfinder.print_stream.println(date.toString() + " the process has started");
         Runnable pqsfinder_runnable = () -> {
             if(!pqsfinder_execSer.isShutdown()){
                 java.util.Date date1 = new java.util.Date();
-                pqsfinder.printStream.println(date1.toString() + " the process is running");
+                pqsfinder.print_stream.println(date1.toString() + " the process is running");
             } else {
                 if(pqsfinder_timeline != null) {
                     pqsfinder_timeline.stop();
@@ -213,7 +175,7 @@ public class Controller extends Application implements Initializable {
             pqsfinder.p.destroy();
         }
         java.util.Date date = new java.util.Date();
-        pqsfinder.printStream.println(date.toString() + " the process has been stopped externally");
+        pqsfinder.print_stream.println(date.toString() + " the process has been stopped externally");
         pqsfinder_execSer.shutdownNow();
         pqsfinder_btnStart.setDisable(false);
         pqsfinder_btnStop.setDisable(true);
@@ -223,7 +185,7 @@ public class Controller extends Application implements Initializable {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             pqsfinder_inputPath.setText(file.getName());
-            pqsfinder.setInputPath(file.getAbsolutePath());
+            pqsfinder.set_input_path(file.getAbsolutePath());
         }
     }
 
@@ -231,18 +193,18 @@ public class Controller extends Application implements Initializable {
         File file = directoryChooser.showDialog(null);
         if (file != null) {
             pqsfinder_outputDir.setText(file.getName());
-            pqsfinder.setOutputDir(file.getAbsolutePath());
+            pqsfinder.set_output_path(file.getAbsolutePath());
         }
     }
 
     public void pqsfinderOpenDoc() throws IOException {
         Desktop desktop = Desktop.getDesktop();
-        File f = new File("documentation/pqsfinder.pdf");
+        File f = new File(Main.jar_folder_path+"/documentation/pqsfinder.pdf");
         desktop.open(f);
     }
 
     private void pqsfinderSetOutputName() {
-        pqsfinder.setOutputName(pqsfinder_outputName.getText());
+        pqsfinder.set_output_name(pqsfinder_outputName.getText());
     }
 
     private void pqsfinderSetStrand() {
@@ -292,36 +254,25 @@ public class Controller extends Application implements Initializable {
 
     // CD hit
     @FXML
-    private Pane cdhit_pnl;
+    private Pane cdhit_pnl, cdhit_infoPnl;
     @FXML
-    private Button cdhit_btn;
+    private Button cdhit_btn, cdhit_btnStart, cdhit_btnStop, cdhit_info;
     @FXML
-    private Button cdhit_btnStart;
-    @FXML
-    private Button cdhit_btnStop;
-    @FXML
-    private Pane cdhit_infoPnl;
-    @FXML
-    private Button cdhit_info;
-    @FXML
-    private TextField cdhit_inputPath;
-    @FXML
-    private TextField cdhit_outputDir;
-    @FXML
-    private TextField cdhit_outputName;
-    @FXML
-    private TextField cdhit_params;
+    private TextField cdhit_inputPath, cdhit_outputDir, cdhit_outputName, cdhit_params, input_path_pqs;
     @FXML
     private TextArea cdhit_area;
-    private CDhit cdhit;
+    private cd_hit_est cdhit;
     private ExecutorService cdhit_execSer = Executors.newSingleThreadExecutor();
     private Timeline cdhit_timeline;
     @FXML
     private Text cdhit_manual;
-    @FXML
-    private TextField input_path_pqs;
+
     public void cdhitStart() {
         cdhitSetOutputDir();
+        if (!cdhit.is_base_valid()) {
+            cdhit.print_stream.println("values are NOT valid, something is missing!");
+            return;
+        }
         cdhitSetParams();
         if (cdhit_execSer.isShutdown()) {
             cdhit_execSer = Executors.newSingleThreadExecutor();
@@ -355,27 +306,27 @@ public class Controller extends Application implements Initializable {
         cdhit_btnStart.setDisable(false);
         cdhit_btnStop.setDisable(true);
         java.util.Date date = new java.util.Date();
-        cdhit.printStream.println(date.toString() + " the process has been stopped externally");
+        cdhit.print_stream.println(date.toString() + " the process has been stopped externally");
     }
 
-    public void cdhitSetInputPath(ActionEvent actionEvent) {
+    public void cdhitSetInputPath() {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             cdhit_inputPath.setText(file.getName());
-            cdhit.setInputPath(file.getAbsolutePath());
+            cdhit.set_input_path(file.getAbsolutePath());
             //parameters_cdhit.appendText(" -i "+file.getPath()+" ");
         }
     }
 
     private void cdhitSetOutputDir() {
-        cdhit.setOutputName(cdhit_outputDir.getText());
+        cdhit.set_output_name(cdhit_outputDir.getText());
     }
 
     private void cdhitSetParams() {
         cdhit.setParameters(cdhit_params.getText());
     }
 
-    public void cdhitSetInputPQS(ActionEvent actionEvent) {
+    public void cdhitSetInputPQS() {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             input_path_pqs.setText(file.getName());
@@ -383,17 +334,17 @@ public class Controller extends Application implements Initializable {
         }
     }
 
-    public void cdhitSetOutputName(ActionEvent actionEvent) {
+    public void cdhitSetOutputName() {
         File file = directoryChooser.showDialog(null);
         if (file != null) {
             cdhit_outputName.setText(file.getName());
-            cdhit.setOutputPath(file.getAbsolutePath());
+            cdhit.set_output_path(file.getAbsolutePath());
         }
     }
 
     public void cdhitOpenDoc() throws IOException {
         Desktop desktop = Desktop.getDesktop();
-        File f = new File("documentation/cdhit.pdf");
+        File f = new File(Main.jar_folder_path+"/documentation/cdhit.pdf");
         desktop.open(f);
     }
 
@@ -412,33 +363,25 @@ public class Controller extends Application implements Initializable {
 
     // CD hit 2
     @FXML
-    private Pane cdhit2_pnl;
+    private Pane cdhit2_pnl, cdhit2_infoPnl;
     @FXML
-    private Button cdhit2_btn;
+    private Button cdhit2_btn, cdhit2_info;
     @FXML
-    private Pane cdhit2_infoPnl;
-    @FXML
-    private Button cdhit2_info;
-    @FXML
-    private TextField cdhit2_inputPath;
-    @FXML
-    private TextField cdhit2_inputPath2;
-    @FXML
-    private TextField cdhit2_outputName;
-    @FXML
-    private TextField cdhit2_outputDir;
-    @FXML
-    private TextField cdhit2_params;
-    @FXML
-    private TextArea cdhit2_area;
-    private CDhit2 cdhit2;
-    private Thread cdhit2_thread;
+    private TextField cdhit2_inputPath, cdhit2_inputPath2, cdhit2_outputName, cdhit2_outputDir, cdhit2_params;
     @FXML
     private TextField cdhit2_InputPathPQS;
     @FXML
+    private TextArea cdhit2_area;
+    private cd_hit_est_2D cdhit2;
+    private Thread cdhit2_thread;
+    @FXML
     private Text cdhit2_manual;
-    public void cdhit2Start(ActionEvent actionEvent) {
+    public void cdhit2Start() {
         cdhit2SetOutputName();
+        if (!cdhit2.is_base_valid()) {
+            cdhit2.print_stream.println("values are NOT valid, something is missing!");
+            return;
+        }
         cdhit2SetParams();
         cdhit2_thread = new Thread(() -> {
             try {
@@ -451,19 +394,19 @@ public class Controller extends Application implements Initializable {
 
     }
 
-    public void cdhit2Stop(ActionEvent actionEvent){
+    public void cdhit2Stop(){
         cdhit2_thread.interrupt();
     }
 
-    public void cdhit2SetInputPath(ActionEvent actionEvent) {
+    public void cdhit2SetInputPath() {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             cdhit2_inputPath.setText(file.getName());
-            cdhit2.setInputPath(file.getAbsolutePath());
+            cdhit2.set_input_path(file.getAbsolutePath());
         }
     }
 
-    public void cdhit2SetInputPath2(ActionEvent actionEvent) {
+    public void cdhit2SetInputPath2() {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             cdhit2_inputPath2.setText(file.getName());
@@ -472,7 +415,7 @@ public class Controller extends Application implements Initializable {
     }
 
     public void cdhit2SetOutputName() {
-        cdhit2.setOutputName(cdhit2_outputName.getText());
+        cdhit2.set_output_name(cdhit2_outputName.getText());
     }
 
     public void cdhit2SetParams() {
@@ -491,7 +434,7 @@ public class Controller extends Application implements Initializable {
         File file = directoryChooser.showDialog(null);
         if (file != null) {
             cdhit2_outputDir.setText(file.getName());
-            cdhit2.setOutputPath(file.getAbsolutePath());
+            cdhit2.set_output_path(file.getAbsolutePath());
         }
     }
 
@@ -516,39 +459,28 @@ public class Controller extends Application implements Initializable {
 
     // pqs areas
     @FXML
-    private Pane pqsareas_pnl;
+    private Pane pqsareas_pnl, pqsareas_infoPnl;
     @FXML
-    private Pane pqsareas_infoPnl;
-    @FXML
-    private TextField input1_path_pqsareas;
-    @FXML
-    private TextField input2_path_pqsareas;
-    @FXML
-    private TextField pqsareas_outputName;
-    @FXML
-    private TextField pqsareas_outputDir;
-    @FXML
-    private Button pqsareas_btn;
-    @FXML
-    private Button pqsareas_btnStart;
-    @FXML
-    private Button pqsareas_btnStop;
-    @FXML
-    private Button pqsareas_info;
+    private TextField input1_path_pqsareas, input2_path_pqsareas, pqsareas_outputName, pqsareas_outputDir;
     @FXML
     private TextField pqsareas_areaSize;
+    @FXML
+    private Button pqsareas_btn, pqsareas_btnStart, pqsareas_btnStop, pqsareas_info;
     @FXML
     private Text psqareas_manual;
     @FXML
     private TextArea pqsareas_area;
-    private PQSareas pqsareas;
+    private pqs_areas pqsareas;
     private ExecutorService pqsareas_execSer = Executors.newSingleThreadExecutor();
     private Timeline pqsareas_timeline = null;
 
     public void pqsareasStart() {
+        pqsareasSetOutputName();
+        if (!pqsareas.is_base_valid()) {
+            pqsareas.print_stream.println("values are NOT valid, something is missing!");
+            return;
+        }
         pqsareasSetAreaSize();
-        pqsareasSetOutputName();
-        pqsareasSetOutputName();
         if (pqsareas_execSer.isShutdown()) {
             pqsareas_execSer = Executors.newSingleThreadExecutor();
         }
@@ -563,11 +495,11 @@ public class Controller extends Application implements Initializable {
         pqsareas_btnStart.setDisable(true);
         pqsareas_btnStop.setDisable(false);
         java.util.Date date = new java.util.Date();
-        pqsareas.printStream.println(date.toString() + " the process has started");
+        pqsareas.print_stream.println(date.toString() + " the process has started");
         Runnable pqsareas_runnable = () -> {
             if(!pqsareas_execSer.isShutdown()){
                 java.util.Date date1 = new java.util.Date();
-                pqsareas.printStream.println(date1.toString() + " the process is running");
+                pqsareas.print_stream.println(date1.toString() + " the process is running");
             } else {
                 pqsareas_timeline.stop();
                 pqsareas_btnStart.setDisable(false);
@@ -581,7 +513,7 @@ public class Controller extends Application implements Initializable {
 
     public void pqsareasStop(){
         java.util.Date date = new java.util.Date();
-        pqsareas.printStream.println(date.toString() + " the process has been stopped externally");
+        pqsareas.print_stream.println(date.toString() + " the process has been stopped externally");
         pqsareas_execSer.shutdownNow();
         pqsareas_btnStart.setDisable(false);
         pqsareas_btnStop.setDisable(true);
@@ -591,7 +523,7 @@ public class Controller extends Application implements Initializable {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             input1_path_pqsareas.setText(file.getName());
-            pqsareas.setInput1Path(file.getAbsolutePath());
+            pqsareas.set_input_path(file.getAbsolutePath());
         }
     }
 
@@ -607,7 +539,7 @@ public class Controller extends Application implements Initializable {
         File file = directoryChooser.showDialog(null);
         if (file != null) {
             pqsareas_outputDir.setText(file.getName());
-            pqsareas.setOutputPath(file.getAbsolutePath());
+            pqsareas.set_output_path(file.getAbsolutePath());
         }
     }
 
@@ -616,10 +548,10 @@ public class Controller extends Application implements Initializable {
     }
 
     public void pqsareasSetAreaSize() {
-        pqsareas.setAREA(Integer.parseInt(pqsareas_areaSize.getText()));
+        pqsareas.set_area(Integer.parseInt(pqsareas_areaSize.getText()));
     }
 
-    public void pqsareasInit(){
+    private void pqsareasInit(){
         psqareas_manual.setText(
             "PQSareas takes the genom and PQS positions and outputs two files:\n"+
             "a fasta file of PQS areas and a fasta file of PQS.\n\n"+
@@ -630,26 +562,20 @@ public class Controller extends Application implements Initializable {
 
     // clusters
     @FXML
-    private Pane clusters_pnl;
+    private Pane clusters_pnl, clusters_infoPnl;
     @FXML
-    private Button clusters_btn;
-    @FXML
-    private Pane clusters_infoPnl;
-    @FXML
-    private Button clusters_info;
-    @FXML
-    private TextField clusters_inputPath;
-    @FXML
-    private TextField clusters_limit;
-    @FXML
-    private Label clusters_number;
-    private ClustersCount clusters_count;
-    @FXML
-    private Text clusters_manual;
+    private Button clusters_btn, clusters_info;
     @FXML
     public Button clusters_lastButtonClicked;
     @FXML
-    public void clustersStart() throws IOException {
+    private TextField clusters_inputPath, clusters_limit;
+    @FXML
+    private Label clusters_number;
+    private external.clusters_count clusters_count;
+    @FXML
+    private Text clusters_manual;
+    @FXML
+    public void clustersStart() {
         clustersSetLimit();
         //clusters_count.loadCluster();
         Node[] nodes = new Node[Math.min(clusters_count.getLimit(), clusters_count.getLength())];
@@ -660,12 +586,13 @@ public class Controller extends Application implements Initializable {
         vc.setInputPath(clustersCount.getInputPath());
          */
         pnItems.getChildren().clear();
-        for (Integer i = 0; i < nodes.length; i++) {
+        for (int i = 0; i < nodes.length; i++) {
             try {
 
                 final int j = i;
-                URL url = new File("src/main/resources/Item.fxml").toURI().toURL();
-                FXMLLoader loader = new FXMLLoader(url);
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Item.fxml"));
+                //URL url = new File("src/main/resources/Item.fxml").toURI().toURL();
+                //FXMLLoader loader = new FXMLLoader(url);
                 nodes[j] = loader.load();
                 VisualizationController vc = loader.getController();
                 vc.setInputPath(clusters_count.getInputPath());
@@ -674,12 +601,8 @@ public class Controller extends Application implements Initializable {
                 vc.setReferenceSeq(clusters_count.getReferenceSeqs().get(i).reference_sequence);
                 vc.setcontroller(this);
 
-                nodes[i].setOnMouseEntered(event -> {
-                    nodes[j].setStyle("-fx-background-color : #0A0E3F");
-                });
-                nodes[i].setOnMouseExited(event -> {
-                    nodes[j].setStyle("-fx-background-color : #02030A");
-                });
+                nodes[i].setOnMouseEntered(event -> nodes[j].setStyle("-fx-background-color : #FFFFFF"));
+                nodes[i].setOnMouseExited(event -> nodes[j].setStyle("-fx-background-color : #FFFFFF"));
                 //nodes[j].setId(i.toString());
                 pnItems.getChildren().add(nodes[i]);
             } catch (IOException e) {
@@ -693,7 +616,7 @@ public class Controller extends Application implements Initializable {
         if (file != null) {
             clusters_inputPath.setText(file.getName());
             clusters_count.setInputPath(file.getAbsolutePath());
-            clusters_count.loadCluster();
+            clusters_count.load_cluster();
             clusters_number.setText("(max " + clusters_count.getLength() + ")");
         }
     }
@@ -712,31 +635,23 @@ public class Controller extends Application implements Initializable {
 
     // Blast Api
     @FXML
-    private Button blastAPI_btn;
+    private Button blastAPI_btn, blastAPI_info, blastAPI_link;
     @FXML
-    private Pane blastAPI_pnl;
-    @FXML
-    private Button blastAPI_info;
-    @FXML
-    private Pane blastAPI_infoPnl;
+    private Pane blastAPI_pnl, blastAPI_infoPnl;
     @FXML
     public TextField blastAPI_seq;
     @FXML
     private Label blastAPI_time;
     @FXML
-    public ChoiceBox<String> blastAPI_database;
-    @FXML
-    private ChoiceBox<String> blastAPI_megablast;
-    @FXML
-    private Button blastAPI_link;
+    public ChoiceBox<String> blastAPI_database, blastAPI_megablast;
     @FXML
     private Text blastAPI_manual;
-    private BlastApi blastAPI;
+    private blast_api blastAPI;
 
-    public void blastAPISend() throws IOException {
+    public void blastAPISend() throws Exception {
         blastAPISetDatabase();
         blastAPISetMegablast();
-        blastAPI.Send(blastAPI_seq.getText());
+        blastAPI.send(blastAPI_seq.getText());
         blastAPI_time.setText("The results with id "+blastAPI.id+" will be available in estimated "+blastAPI.time+" seconds.");
         blastAPI_link.setText("Show results");
         blastAPI_link.setVisible(true);
@@ -753,11 +668,11 @@ public class Controller extends Application implements Initializable {
     }
 
     private void blastAPISetDatabase(){
-        blastAPI.setDatabase(blastAPI_database.getValue());
+        blastAPI.set_database(blastAPI_database.getValue());
     }
 
     private void blastAPISetMegablast(){
-        blastAPI.setMegablast(blastAPI_megablast.getValue());
+        blastAPI.set_megablast(blastAPI_megablast.getValue());
     }
 
     // others
@@ -775,10 +690,14 @@ public class Controller extends Application implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         pqsfinder_btn.fire();
-        cdhit = new CDhit(cdhit_area);
-        cdhit2 = new CDhit2(cdhit2_area);
-        pqsareas = new PQSareas(pqsareas_area);
-        pqsfinder = new PQSfinder(pqsfinder_area);
+        cdhit = new cd_hit_est(cdhit_area);
+        cdhit.set_program_path(Main.jar_folder_path + "/cd-hit-v4.8.1-2019-0228/cd-hit-est");
+        cdhit2 = new cd_hit_est_2D(cdhit2_area);
+        cdhit2.set_program_path(Main.jar_folder_path + "/cd-hit-v4.8.1-2019-0228/cd-hit-est-2d");
+        pqsareas = new pqs_areas(pqsareas_area);
+        pqsfinder = new pqsfinder(pqsfinder_area);
+        pqsfinder.set_program_path(Main.jar_folder_path + "/g4.R");
+
         pqsfinderInit();
         pqsareasInit();
         cdhitInit();
@@ -786,8 +705,8 @@ public class Controller extends Application implements Initializable {
         clustersInit();
         blastAPIInit();
 
-        clusters_count = new ClustersCount();
-        blastAPI = new BlastApi();
+        clusters_count = new clusters_count();
+        blastAPI = new blast_api();
 
         btn_exit.setOnAction(actionEvent -> Platform.exit());
     }
@@ -795,76 +714,27 @@ public class Controller extends Application implements Initializable {
 
 
     public void handleClicks(ActionEvent actionEvent) {
-        if (actionEvent.getSource() == clusters_btn) {
-            clusters_pnl.setStyle("-fx-background-color : "+background_color);
-            clusters_pnl.toFront();
-            return;
-        }
-        if (actionEvent.getSource() == clusters_info) {
-            clusters_infoPnl.setStyle("-fx-background-color : "+background_color);
-            clusters_infoPnl.toFront();
-            return;
-        }
-        if (actionEvent.getSource() == pqsareas_btn) {
-            pqsareas_pnl.setStyle("-fx-background-color : "+background_color);
-            pqsareas_pnl.toFront();
-            return;
-        }
-        if (actionEvent.getSource() == pqsareas_info) {
-            pqsareas_infoPnl.setStyle("-fx-background-color : "+background_color);
-            pqsareas_infoPnl.toFront();
-            return;
-        }
-        if (actionEvent.getSource() == pqsfinder_btn) {
-            pqsfinder_pnl.setStyle("-fx-background-color : "+background_color);
-            pqsfinder_pnl.toFront();
-            return;
-        }
-        if (actionEvent.getSource() == pqsfinder_info) {
-            pqsfinder_infoPnl.setStyle("-fx-background-color : "+background_color);
-            pqsfinder_infoPnl.toFront();
-            return;
-        }
-        if(actionEvent.getSource()== cdhit_btn)
-        {
-            cdhit_pnl.setStyle("-fx-background-color : "+background_color);
-            cdhit_pnl.toFront();
-            return;
-        }
-        if(actionEvent.getSource()== cdhit_info)
-        {
-            cdhit_infoPnl.setStyle("-fx-background-color : "+background_color);
-            cdhit_infoPnl.toFront();
-            return;
-        }
-        if(actionEvent.getSource()== cdhit2_btn)
-        {
-            cdhit2_pnl.setStyle("-fx-background-color : "+background_color);
-            cdhit2_pnl.toFront();
-            return;
-        }
-        if(actionEvent.getSource()== cdhit2_info)
-        {
-            cdhit2_infoPnl.setStyle("-fx-background-color : "+background_color);
-            cdhit2_infoPnl.toFront();
-            return;
-        }
-        if(actionEvent.getSource()== blastAPI_btn)
-        {
-            blastAPI_pnl.setStyle("-fx-background-color : "+background_color);
-            blastAPI_pnl.toFront();
-            return;
-        }
-        if(actionEvent.getSource()== blastAPI_info)
-        {
-            blastAPI_infoPnl.setStyle("-fx-background-color : "+background_color);
-            blastAPI_infoPnl.toFront();
-            return;
-        }
+        Object source = actionEvent.getSource();
+        Pane current_pnl = new Pane();
+        if (source == clusters_btn) current_pnl = clusters_pnl;
+        else if (source == clusters_info) current_pnl = clusters_infoPnl;
+        else if (source == pqsareas_btn) current_pnl = pqsareas_pnl;
+        else if (source == pqsareas_info) current_pnl = pqsareas_infoPnl;
+        else if (source == pqsfinder_btn) current_pnl = pqsfinder_pnl;
+        else if (source == pqsfinder_info) current_pnl = pqsfinder_infoPnl;
+        else if(source== cdhit_btn) current_pnl = cdhit_pnl;
+        else if(source== cdhit_info) current_pnl = cdhit_infoPnl;
+        else if(source== cdhit2_btn) current_pnl = cdhit2_pnl;
+        else if(source== cdhit2_info) current_pnl = cdhit2_infoPnl;
+        else if(source== blastAPI_btn) current_pnl = blastAPI_pnl;
+        else if(source== blastAPI_info) current_pnl = blastAPI_infoPnl;
+
+        current_pnl.setStyle("-fx-background-color : #FFFFFF");
+        current_pnl.toFront();
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
     }
 }

@@ -1,7 +1,5 @@
 package external;
 
-import internal.CustomOutputStream;
-import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 
 import java.io.*;
@@ -9,16 +7,9 @@ import java.io.*;
 /**
  * @author Timotej Sujan
  */
-public class PQSfinder {
+public class pqsfinder extends base {
 
-    private TextArea outputArea;
-    public PrintStream printStream;
-    public Process p;
-
-    private String RscriptPath = "scripts/g4.R";
-    private String inputPath;
-    private String outputPath;
-    private String outputName = "test.txt";
+    //private String outputName = "";
     private final String line_id_inRscript = "3A892";
     private final String line_start = "pqs <- pqsfinder(seq[[i]]";
 
@@ -37,64 +28,39 @@ public class PQSfinder {
     private String max_mismatches = ""; // Maximal number of runs containing a mismatch.
     private String max_defects = ""; // Maximum number of defects in total (#bulges + #mismatches).
 
-    public PQSfinder(TextArea outputArea) {
-        this.outputArea = outputArea;
-        this.printStream = new PrintStream(new CustomOutputStream(outputArea));
-        //System.setOut(printStream);
-        //System.setErr(printStream);
-    }
+    public Process p;
 
-    public void setOutputDir(String outputPath) {
-        this.outputPath = outputPath;
-    }
-
-    public void printStatus(String status) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                printStream.println(status);
-            }
-        });
+    public pqsfinder(TextArea outputArea) {
+        super(outputArea);
     }
 
     public void start() throws Exception {
         changeParameters();
-        p = Runtime.getRuntime().exec(new String[] { "Rscript", RscriptPath, inputPath, outputPath+"/"+outputName+".txt"});
+        p = Runtime.getRuntime().exec(new String[] { "Rscript", program_path, input_path, output_path +"/"+ output_name +".txt"});
 
-
-        String line = "";
+        String line;
         BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
         BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-        while((line = error.readLine()) != null){
-            if (Thread.interrupted()) return;
+        while(!Thread.interrupted() && (line = error.readLine()) != null){
             System.out.println(line);
             //printStatus(line);
         }
 
-        while((line=input.readLine()) != null){
-            if (Thread.interrupted()) return;
+        while(!Thread.interrupted() && (line=input.readLine()) != null){
             System.out.println(line);
             //printStatus(line);
         }
         error.close();
         input.close();
 
-        //while(p.isAlive()){
-            //java.util.Date date = new java.util.Date();
-            //printStatus(date.toString() + " the process is running");
-            //Thread.sleep(5000);
-        //}
         if (Thread.interrupted()) return;
-        printStatus("the process has ended");
-
+        print_status("the process has ended");
     }
 
 
 
-    public void changeParameters() throws Exception {
-        File f = new File(RscriptPath);
-        int line_to_replace = findLineInFIle(f, line_id_inRscript);
+    private void changeParameters() throws Exception {
         String extraParams = "";
         if (strand != null && !strand.isEmpty()) extraParams += ", strand=\""+strand+"\"";
         if (overlapping != null && !overlapping.isEmpty()) extraParams += ", overlapping="+overlapping;
@@ -108,10 +74,12 @@ public class PQSfinder {
         if (!max_mismatches.isEmpty()) extraParams += ", max_mismatches="+max_mismatches;
         if (!max_defects.isEmpty()) extraParams += ", max_defects="+max_defects;
 
+        File f = new File(program_path);
+        int line_to_replace = findLineInFIle(f, line_id_inRscript);
         replaceStringInFile(f, line_to_replace, line_start+extraParams+ ")");
 
     }
-    public void replaceStringInFile (File inFile, int lineno, String lineToBeInserted)
+    private void replaceStringInFile(File inFile, int lineno, String lineToBeInserted)
             throws Exception {
         // temp file
         File outFile = new File("$$$$$$$$.tmp");
@@ -125,15 +93,15 @@ public class PQSfinder {
         FileOutputStream fos = new FileOutputStream(outFile);
         PrintWriter out = new PrintWriter(fos);
 
-        String thisLine = "";
-        int i =1;
-        while ((thisLine = in.readLine()) != null) {
-            if(i == lineno) {
+        String line;
+        int counter =1;
+        while ((line = in.readLine()) != null) {
+            if(counter == lineno) {
                 out.println(lineToBeInserted);
             } else {
-                out.println(thisLine);
+                out.println(line);
             }
-            i++;
+            counter++;
         }
         out.flush();
         out.close();
@@ -143,29 +111,19 @@ public class PQSfinder {
         outFile.renameTo(inFile);
     }
 
-    private int findLineInFIle(File file, String to_find) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String st;
+    private int findLineInFIle(File f, String id) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        String line;
         int counter = 0;
-        while ((st = br.readLine()) != null) {
+        while ((line = br.readLine()) != null) {
             counter++;
-            if (st.contains(to_find)) {
-                while (!(st = br.readLine()).startsWith(">")){
-                    return counter + 1;
-                }
-                break;
+            if (line.contains(id)) {
+                return counter + 1;
             }
         }
         return 0;
     }
     // SETTERS
-    public void setInputPath(String inputPath) {
-        this.inputPath = inputPath;
-    }
-
-    public void setOutputName(String outputName) {
-        this.outputName = outputName;
-    }
 
     public void setStrand(String strand) {
         this.strand = strand;

@@ -1,23 +1,26 @@
-.button
-{
--fx-background-color : #04062d;
--fx-text-fill : #e7e5e5;
-}
-.button:hover{
--fx-background-color : #5c3759;
-}
-.button:pressed
-{
--fx-background-color : #28465f;
+AnchorPane {
+    -fx-font-size: 14;
+    -fx-font-family: sans-serif;
 }
 
-.text-field
+.button
 {
-    -fx-pref-width: 300;
+    -fx-background-color : #184357;
+    -fx-text-fill : #FFFFFF;
+}
+
+.button:hover{
+    -fx-background-color : #87A0AB;
+    -fx-text-fill : #FFFFFF;
+}
+
+.button:pressed
+{
+    -fx-background-color : #87A0AB;
 }
 
 .scroll-pane {
-    -fx-background-color: #02030A;
+    -fx-background-color: #87A0AB;
 }
 
 .scroll-bar:horizontal, .scroll-bar:vertical{
@@ -38,14 +41,22 @@
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color: #10165F;
+    -fx-background-color: #87A0AB;
     -fx-background-radius: 5em;
 }
 
 .scroll-pane > .corner {
-    -fx-background-color: black;
+    -fx-background-color: #87A0AB;
 }
 
 .text-area {
     -fx-pref-width: 755;
+}
+
+HBox > .button {
+    -fx-font-size: 18;
+}
+
+.input{
+    -fx-pref-width: 300;
 }

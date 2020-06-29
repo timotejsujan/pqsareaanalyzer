@@ -4,20 +4,31 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
-import java.net.URL;
+import java.util.Objects;
 
 public class Main extends Application {
     private double x, y;
+    public static String jar_folder_path;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL url = new File("src/main/resources/Home.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
+        jar_folder_path = "src";//System.getProperty("java.home");
+        jar_folder_path += "/resources";
+        //jar_folder_path = new File(Main.class.getProtectionDomain().getCodeSource().getLocation()
+        //        .toURI()).getPath();
+        /*
+        int last_slash = jar_folder_path.lastIndexOf('/');
+        if (last_slash == -1){
+            last_slash = jar_folder_path.lastIndexOf('\\');
+        }
+        jar_folder_path =  jar_folder_path.substring(0,last_slash)+ "/resources";
+        */
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("Home.fxml")));
+
         primaryStage.setScene(new Scene(root));
         //set stage borderless
         primaryStage.initStyle(StageStyle.UNDECORATED);
