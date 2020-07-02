@@ -33,6 +33,7 @@ public class cluster_transform {
         st = br.readLine();
         Files.write(Paths.get(outputPath+"/"+outputName), st.getBytes());
         AtomicInteger sequenceCounter = new AtomicInteger();
+        StringBuilder to_write = new StringBuilder();
         while ((st = br.readLine()) != null && !Thread.interrupted()) {
             if (!st.isEmpty() && st.charAt(0) == '>') {
                 if (sequenceCounter.get() == 1) {
@@ -40,34 +41,39 @@ public class cluster_transform {
                 } else {
                     sequenceCounter.set(0);
                 }
+                //Files.write(Paths.get(outputPath+"/"+outputName), st.getBytes(), StandardOpenOption.APPEND);
+                Files.write(Paths.get(outputPath+"/"+outputName), to_write.toString().getBytes(), StandardOpenOption.APPEND);
+                to_write = new StringBuilder();
                 st = "\n"+st;
-                Files.write(Paths.get(outputPath+"/"+outputName), st.getBytes(), StandardOpenOption.APPEND);
+                to_write.append(st);
                 continue;
             }
             sequenceCounter.getAndIncrement();
             String name = st.split(">")[1];
             name = name.split("\\.\\.\\.")[0];
 
-            Row curr_r = GetSeqByName(">"+name);
+            Pqs curr_r = GetSeqByName(">"+name);
             String line = "\n" + curr_r.leftArea + " " + curr_r.rightArea + " " + curr_r.pqs;
-
-            Files.write(Paths.get(outputPath+"/"+outputName), line.getBytes(), StandardOpenOption.APPEND);
+            to_write.append(line);
+            //Files.write(Paths.get(outputPath+"/"+outputName), line.getBytes(), StandardOpenOption.APPEND);
+        }
+        if (sequenceCounter.get() != 1){
+            Files.write(Paths.get(outputPath+"/"+outputName), to_write.toString().getBytes(), StandardOpenOption.APPEND);
         }
     }
 
-    private Row GetSeqByName(String name) throws IOException {
+    private Pqs GetSeqByName(String name) throws IOException {
 
         String[] temp;
         if (name.charAt(1) == '-') {
             name = ">m"+name.substring(2);
         }
         temp = name.split("-", 3);
-        Character strand = (temp[0].charAt(1) == '+'? '+' : '-');
-        Character side = temp[0].charAt(2);
-        String scaffold = temp[1];
-        String area = temp[2];
+        Boolean strand = (temp[0].charAt(1) == '+');
+        Integer segment = Integer.parseInt(temp[1]);
+        Integer area = Integer.parseInt(temp[2]);
 
-        return genom.strands.get(strand).sides.get(side).scaffolds.get(scaffold).sequences.get(area);
+        return genom.strands.get(strand).segments.get(segment).sequences.get(area);
     }
 
     /*
@@ -77,40 +83,34 @@ public class cluster_transform {
     }*/
 
     private void loadClass() throws IOException {
-        genom.strands.put('+', new Strand());
-        genom.strands.put('-', new Strand());
-        genom.strands.get('+').sides.put('R', new Side());
-        genom.strands.get('-').sides.put('R', new Side());
-        genom.strands.get('+').sides.put('L', new Side());
-        genom.strands.get('-').sides.put('L', new Side());
+        genom.strands.put(true, new Strand());
+        genom.strands.put(false, new Strand());
 
         BufferedReader br = new BufferedReader(new FileReader(fasta_file));
-        String str = "";
+        String line = "";
         br.readLine();
-        while ((str = br.readLine()) != null &&!Thread.interrupted()) {
-            if (!str.isEmpty() && str.charAt(0) == '>') {
+        while ((line = br.readLine()) != null &&!Thread.interrupted()) {
+            if (!line.isEmpty() && line.charAt(0) == '>') {
                 String[] temp;
-                if (str.charAt(1) == '-') {
-                    str = ">m"+str.substring(2);
+                if (line.charAt(1) == '-') {
+                    line = ">m"+line.substring(2);
                 }
-                temp = str.split("-", 3);
-                Character strand = (temp[0].charAt(1) == '+'? '+' : '-');
-                Character side = temp[0].charAt(2);
-                String scaffold = temp[1];
-                String area = temp[2];
+                temp = line.split("-", 3);
+                Boolean strand = (temp[0].charAt(1) == '+');
+                Integer segment = Integer.parseInt(temp[1]);
+                Integer area = Integer.parseInt(temp[2]);
                 String seq = br.readLine();
 
-                Row new_row = new Row();
-                new_row.leftArea = seq.substring(0, seq.length()/2);
-                new_row.rightArea = seq.substring(seq.length()/2);
+                Pqs new_pqs = new Pqs();
+                new_pqs.leftArea = seq.substring(0, seq.length()/2);
+                new_pqs.rightArea = seq.substring(seq.length()/2);
 
-                if (genom.strands.get(strand).sides.get(side).scaffolds.containsKey(scaffold)) {
-                    genom.strands.get(strand).sides.get(side).scaffolds.get(scaffold).sequences.put(area, new_row);
+                if (genom.strands.get(strand).segments.containsKey(segment)) {
+                    genom.strands.get(strand).segments.get(segment).sequences.put(area, new_pqs);
                 } else {
-                    Scaffold new_scaffold = new Scaffold();
-
-                    new_scaffold.sequences.put(area, new_row);
-                    genom.strands.get(strand).sides.get(side).scaffolds.put(scaffold, new_scaffold);
+                    Segment new_segment = new Segment();
+                    new_segment.sequences.put(area, new_pqs);
+                    genom.strands.get(strand).segments.put(segment, new_segment);
                 }
             }
         }
@@ -118,9 +118,33 @@ public class cluster_transform {
 
     private void loadPQS() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(pqs_file));
-        String st = "";
-        br.readLine();
-        while ((st = br.readLine()) != null && !Thread.interrupted()) {
+        String line;
+        int counter = -1;
+        int pos_pqs_number = 0;
+        int neg_pqs_number = 0;
+        while ((line = br.readLine()) != null && !Thread.interrupted()) {
+            if (line.startsWith(";")) {
+                counter = Integer.parseInt(line.split(": ")[1]);
+                pos_pqs_number = neg_pqs_number = 0;
+            } else if (counter != -1 && line.startsWith(">")){
+                String[] info = line.split(";");
+                Boolean strand = (info[4].split("=")[1].equals("+"));
+
+                String pqs = br.readLine().toUpperCase();
+                int pqs_number;
+                if (strand) {
+                    pqs_number = pos_pqs_number;
+                    pos_pqs_number++;
+                } else {
+                    pqs = get_reverse_sequence(new StringBuilder(pqs)).toString();
+                    pqs_number = neg_pqs_number;
+                    neg_pqs_number++;
+                }
+
+                genom.strands.get(strand).segments.get(counter).
+                        sequences.get(pqs_number).pqs = pqs;
+            }
+            /*
             if (!st.isEmpty() && st.charAt(0) == '>') {
                 String[] temp;
                 if (st.charAt(1) == '-') {
@@ -133,30 +157,38 @@ public class cluster_transform {
                 String area = temp[2];
 
                 genom.strands.get(strand).sides.get(side).scaffolds.get(scaffold).sequences.get(area).pqs = br.readLine();
-            }
+            }*/
         }
     }
 
     private class Genom {
-        Map<Character, Strand> strands = new HashMap<>();
+        Map<Boolean, Strand> strands = new HashMap<>();
     }
 
     private class Strand {
-        Map<Character, Side> sides = new HashMap<>();
-
+        Map<Integer, Segment> segments = new HashMap<>();
     }
 
-    private class Side {
-        Map<String, Scaffold> scaffolds = new HashMap<>();
+    private class Segment {
+        Map<Integer, Pqs> sequences = new HashMap<>();
     }
 
-    private class Scaffold {
-        Map<String, Row> sequences = new HashMap<>();
+    private class Pqs {
+        String leftArea, pqs, rightArea;
     }
 
-    private class Row {
-        String leftArea;
-        String pqs;
-        String rightArea;
+    private StringBuilder get_reverse_sequence(StringBuilder s) {
+        s.reverse();
+        StringBuilder n = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            switch (s.charAt(i)) {
+                case 'A': n.append('T'); break;
+                case 'T': n.append('A'); break;
+                case 'C': n.append('G'); break;
+                case 'G': n.append('C'); break;
+                default: n.append('N'); break;
+            }
+        }
+        return n;
     }
 }

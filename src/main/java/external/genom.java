@@ -11,5 +11,5 @@ class genom {
         this.name = name;
     }
     String name;
-    List<scaffold> scaffolds = new ArrayList<>();
+    List<segment> segments = new ArrayList<>();
 }

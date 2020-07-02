@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * @author Timotej Sujan
  */
-class scaffold {
-    scaffold(int n) {
+class segment {
+    segment(int n) {
         number = n;
     }
     int number;

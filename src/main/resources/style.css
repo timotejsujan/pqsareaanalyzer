@@ -3,6 +3,10 @@ AnchorPane {
     -fx-font-family: sans-serif;
 }
 
+Pane {
+    -fx-background-color: #FFFFFF;
+}
+
 .button
 {
     -fx-background-color : #184357;

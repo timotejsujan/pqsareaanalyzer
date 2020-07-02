@@ -1,13 +1,6 @@
 package home;
 
-import external.cd_hit_est;
-import external.cd_hit_est_2D;
-import external.pqsfinder;
-
-import external.blast_api;
-import external.clusters_count;
-import external.pqs_areas;
-
+import external.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -18,20 +11,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +35,7 @@ import java.util.concurrent.Executors;
 public class Controller extends Application implements Initializable {
 
     @FXML
-    private final VBox pnItems = null;
+    private VBox pnItems;
 
     // pqs finder
     @FXML
@@ -114,6 +107,8 @@ public class Controller extends Application implements Initializable {
         pqsfinderSetOutputName();
         if (!pqsfinder.is_base_valid()) {
             pqsfinder.print_stream.println("values are NOT valid, something is missing!");
+            showAlert(Alert.AlertType.ERROR, cdhit_pnl.getScene().getWindow(), "Not valid!",
+                    "Values are NOT valid, something is missing!");
             return;
         }
         pqsfinderSetStrand();
@@ -147,6 +142,8 @@ public class Controller extends Application implements Initializable {
                 pqsfinder.start();
                 pqsfinder_execSer.shutdownNow();
             } catch (Exception e) {
+                pqsfinder.print_stream.println(e.toString());
+                pqsfinder_execSer.shutdownNow();
                 e.printStackTrace();
             }
         });
@@ -269,7 +266,7 @@ public class Controller extends Application implements Initializable {
 
     public void cdhitStart() {
         cdhitSetOutputDir();
-        if (!cdhit.is_base_valid()) {
+        if (!cdhit.is_base_valid() || !cdhit.is_valid()) {
             cdhit.print_stream.println("values are NOT valid, something is missing!");
             return;
         }
@@ -282,6 +279,8 @@ public class Controller extends Application implements Initializable {
                 cdhit.start();
                 cdhit_execSer.shutdownNow();
             } catch (IOException e) {
+                cdhit.print_stream.println(e.toString());
+                cdhit_execSer.shutdownNow();
                 e.printStackTrace();
             }
         });
@@ -378,7 +377,7 @@ public class Controller extends Application implements Initializable {
     private Text cdhit2_manual;
     public void cdhit2Start() {
         cdhit2SetOutputName();
-        if (!cdhit2.is_base_valid()) {
+        if (!cdhit2.is_base_valid() || cdhit2.is_valid()) {
             cdhit2.print_stream.println("values are NOT valid, something is missing!");
             return;
         }
@@ -422,7 +421,7 @@ public class Controller extends Application implements Initializable {
         cdhit2.setParams(cdhit2_params.getText());
     }
 
-    public void cdhit2SetInputPQS(ActionEvent actionEvent) {
+    public void cdhit2SetInputPQS() {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             cdhit2_InputPathPQS.setText(file.getName());
@@ -430,7 +429,7 @@ public class Controller extends Application implements Initializable {
         }
     }
 
-    public void cdhit2SetOutputDir(ActionEvent actionEvent) {
+    public void cdhit2SetOutputDir() {
         File file = directoryChooser.showDialog(null);
         if (file != null) {
             cdhit2_outputDir.setText(file.getName());
@@ -476,7 +475,8 @@ public class Controller extends Application implements Initializable {
 
     public void pqsareasStart() {
         pqsareasSetOutputName();
-        if (!pqsareas.is_base_valid()) {
+        pqsareas.set_program_path("dummy");
+        if (!pqsareas.is_base_valid() || !pqsareas.is_valid()) {
             pqsareas.print_stream.println("values are NOT valid, something is missing!");
             return;
         }
@@ -489,6 +489,8 @@ public class Controller extends Application implements Initializable {
                 pqsareas.start();
                 pqsareas_execSer.shutdownNow();
             } catch (IOException e) {
+                pqsareas.print_stream.println(e.toString());
+                pqsareas_execSer.shutdownNow();
                 e.printStackTrace();
             }
         });
@@ -527,7 +529,7 @@ public class Controller extends Application implements Initializable {
         }
     }
 
-    public void inputPQSareas2(ActionEvent actionEvent) {
+    public void inputPQSareas2() {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             input2_path_pqsareas.setText(file.getName());
@@ -535,7 +537,7 @@ public class Controller extends Application implements Initializable {
         }
     }
 
-    public void pqsareasSetOutputDir(ActionEvent actionEvent) {
+    public void pqsareasSetOutputDir() {
         File file = directoryChooser.showDialog(null);
         if (file != null) {
             pqsareas_outputDir.setText(file.getName());
@@ -689,11 +691,16 @@ public class Controller extends Application implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        String cdhit_path = "";
+        if (Main.isWindows()) cdhit_path = "cdhit-windows";
+        if (Main.isUnix()) cdhit_path = "cdhit-linux";
+        if (Main.isMac()) cdhit_path = "cdhit-osx";
+
         pqsfinder_btn.fire();
         cdhit = new cd_hit_est(cdhit_area);
-        cdhit.set_program_path(Main.jar_folder_path + "/cd-hit-v4.8.1-2019-0228/cd-hit-est");
+        cdhit.set_program_path(Main.jar_folder_path + "/"+cdhit_path+"/cd-hit-est");
         cdhit2 = new cd_hit_est_2D(cdhit2_area);
-        cdhit2.set_program_path(Main.jar_folder_path + "/cd-hit-v4.8.1-2019-0228/cd-hit-est-2d");
+        cdhit2.set_program_path(Main.jar_folder_path + "/"+cdhit_path+"/cd-hit-est-2d");
         pqsareas = new pqs_areas(pqsareas_area);
         pqsfinder = new pqsfinder(pqsfinder_area);
         pqsfinder.set_program_path(Main.jar_folder_path + "/g4.R");
@@ -729,12 +736,20 @@ public class Controller extends Application implements Initializable {
         else if(source== blastAPI_btn) current_pnl = blastAPI_pnl;
         else if(source== blastAPI_info) current_pnl = blastAPI_infoPnl;
 
-        current_pnl.setStyle("-fx-background-color : #FFFFFF");
         current_pnl.toFront();
     }
 
     @Override
     public void start(Stage stage) {
 
+    }
+
+    public void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        alert.show();
     }
 }

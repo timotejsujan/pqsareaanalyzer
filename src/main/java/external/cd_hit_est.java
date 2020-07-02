@@ -24,8 +24,11 @@ public class cd_hit_est extends base {
     private final String nameConst = "_cdhit";
     public Process p;
 
+    public boolean is_valid(){
+        return !inputPathPqs.isEmpty();
+    }
+
     public void start() throws IOException {
-        if (!is_base_valid()) return;
 
         String[] paramsInit = {program_path, "-i", input_path, "-o", output_path + "/" + output_name + nameConst};
         String[] params = parameters.split(" ");

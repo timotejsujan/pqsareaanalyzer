@@ -13,11 +13,14 @@ public class cd_hit_est_2D extends base {
         super(outputArea);
     }
 
-    private TextArea outputArea;
     private String inputPath2 = "";
     private String inputPathPqs = "";
     private String params = "";
     private final String nameConst = "_cdhit2";
+
+    public boolean is_valid(){
+        return !inputPathPqs.isEmpty() && !inputPath2.isEmpty();
+    }
 
     public void start() throws IOException {
         if (!is_base_valid()) return;

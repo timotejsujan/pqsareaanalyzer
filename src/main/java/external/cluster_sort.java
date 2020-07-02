@@ -19,7 +19,7 @@ public class cluster_sort {
 
     public void sort() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(inputPath));
-        String line = "";
+        String line;
         Cluster clstr = new Cluster();
         Clusters clusters = new Clusters();
         while ((line = br.readLine()) != null &&!Thread.interrupted()) {

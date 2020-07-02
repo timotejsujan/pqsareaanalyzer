@@ -7,7 +7,7 @@
 
 <HBox fx:controller="home.VisualizationController" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity"
       minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="695.0" spacing="10.0"
-      style="-fx-background-color: #87A0AB; -fx-background-radius: 5; -fx-background-insets: 0;"
+      style="-fx-background-color: #FFFFFF; -fx-background-radius: 5; -fx-background-insets: 0;"
       xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
 
     <!--
@@ -36,23 +36,23 @@
         </HBox.margin>
     </Label>
     -->
-    <Label fx:id="cluster_id" prefWidth="20" stylesheets="@style.css" textFill="#e7e5e5"/>
-    <Label fx:id="cluster_refSeq" stylesheets="@style.css" textFill="#e7e5e5" maxWidth="350"/>
-    <Label fx:id="cluster_size" prefWidth="20" stylesheets="@style.css" textFill="#e7e5e5"/>
+    <Label fx:id="cluster_id" prefWidth="20" stylesheets="@style.css" />
+    <Label fx:id="cluster_refSeq" stylesheets="@style.css" maxWidth="350"/>
+    <Label fx:id="cluster_size" prefWidth="20" stylesheets="@style.css"/>
     <Button onAction="#clusterVisualize" mnemonicParsing="false" prefHeight="10.0" prefWidth="60.0"
-            style="-fx-border-color: #184357; -fx-border-radius: 20;" stylesheets="@style.css" text="Show">
+            style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css" text="Show">
         <HBox.margin>
             <Insets/>
         </HBox.margin>
     </Button>
     <Button onAction="#clusterExport" mnemonicParsing="false" prefHeight="10.0" prefWidth="60.0"
-            style="-fx-border-color: #184357; -fx-border-radius: 20;" stylesheets="@style.css" text="Export">
+            style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css" text="Export">
         <HBox.margin>
             <Insets/>
         </HBox.margin>
     </Button>
     <Button onAction="#copyToBlast" mnemonicParsing="false" prefHeight="10.0" prefWidth="105.0"
-            style="-fx-border-color: #184357; -fx-border-radius: 20;" stylesheets="@style.css" text="Copy to Blast">
+            style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css" text="Copy to Blast">
         <HBox.margin>
             <Insets/>
         </HBox.margin>
