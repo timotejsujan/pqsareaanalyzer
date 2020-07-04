@@ -15,7 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
@@ -34,6 +36,7 @@ import java.util.concurrent.Executors;
 
 public class Controller extends Application implements Initializable {
 
+    public StackPane main_pnl;
     @FXML
     private VBox pnItems;
 
@@ -122,16 +125,7 @@ public class Controller extends Application implements Initializable {
         pqsfinderSetMax_bulges();
         pqsfinderSetMax_mismatches();
         pqsfinderSetMax_defects();
-        //pqsfinder_thread
 
-        /*
-        pqsfinder_thread = new Thread(() -> {
-            try {
-                pqsfinder.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });*/
         if (pqsfinder_execSer.isShutdown()){
             pqsfinder_execSer = Executors.newSingleThreadExecutor();
         }
@@ -147,7 +141,6 @@ public class Controller extends Application implements Initializable {
                 e.printStackTrace();
             }
         });
-        //pqsfinder_thread.start();
         java.util.Date date = new java.util.Date();
         pqsfinder.print_stream.println(date.toString() + " the process has started");
         Runnable pqsfinder_runnable = () -> {
@@ -322,14 +315,14 @@ public class Controller extends Application implements Initializable {
     }
 
     private void cdhitSetParams() {
-        cdhit.setParameters(cdhit_params.getText());
+        cdhit.set_params(cdhit_params.getText());
     }
 
     public void cdhitSetInputPQS() {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             input_path_pqs.setText(file.getName());
-            cdhit.setInputPathPqs(file.getPath());
+            cdhit.set_input_path_pqs(file.getPath());
         }
     }
 
@@ -368,7 +361,7 @@ public class Controller extends Application implements Initializable {
     @FXML
     private TextField cdhit2_inputPath, cdhit2_inputPath2, cdhit2_outputName, cdhit2_outputDir, cdhit2_params;
     @FXML
-    private TextField cdhit2_InputPathPQS;
+    private TextField cdhit2_InputPathPQS, cdhit2_InputPath2PQS;
     @FXML
     private TextArea cdhit2_area;
     private cd_hit_est_2D cdhit2;
@@ -429,6 +422,14 @@ public class Controller extends Application implements Initializable {
         }
     }
 
+    public void cdhit2SetInputPQS2() {
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            cdhit2_InputPath2PQS.setText(file.getName());
+            cdhit2.setInputPath2Pqs(file.getAbsolutePath());
+        }
+    }
+
     public void cdhit2SetOutputDir() {
         File file = directoryChooser.showDialog(null);
         if (file != null) {
@@ -475,24 +476,17 @@ public class Controller extends Application implements Initializable {
 
     public void pqsareasStart() {
         pqsareasSetOutputName();
-        pqsareas.set_program_path("dummy");
-        if (!pqsareas.is_base_valid() || !pqsareas.is_valid()) {
+        pqsareasSetAreaSize();
+        if (!pqsareas.is_valid()) {
             pqsareas.print_stream.println("values are NOT valid, something is missing!");
             return;
         }
-        pqsareasSetAreaSize();
         if (pqsareas_execSer.isShutdown()) {
             pqsareas_execSer = Executors.newSingleThreadExecutor();
         }
         pqsareas_execSer.execute(() -> {
-            try {
-                pqsareas.start();
-                pqsareas_execSer.shutdownNow();
-            } catch (IOException e) {
-                pqsareas.print_stream.println(e.toString());
-                pqsareas_execSer.shutdownNow();
-                e.printStackTrace();
-            }
+            pqsareas.start();
+            pqsareas_execSer.shutdownNow();
         });
         pqsareas_btnStart.setDisable(true);
         pqsareas_btnStop.setDisable(false);
@@ -546,7 +540,7 @@ public class Controller extends Application implements Initializable {
     }
 
     public void pqsareasSetOutputName() {
-        pqsareas.setOutputNamePQS(pqsareas_outputName.getText());
+        pqsareas.set_output_name(pqsareas_outputName.getText());
     }
 
     public void pqsareasSetAreaSize() {
@@ -720,7 +714,7 @@ public class Controller extends Application implements Initializable {
 
 
 
-    public void handleClicks(ActionEvent actionEvent) {
+    public void handleClicks(ActionEvent actionEvent) throws IOException {
         Object source = actionEvent.getSource();
         Pane current_pnl = new Pane();
         if (source == clusters_btn) current_pnl = clusters_pnl;
@@ -736,7 +730,11 @@ public class Controller extends Application implements Initializable {
         else if(source== blastAPI_btn) current_pnl = blastAPI_pnl;
         else if(source== blastAPI_info) current_pnl = blastAPI_infoPnl;
 
-        current_pnl.toFront();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("pqsfinder.fxml"));
+        current_pnl = loader.load();
+        main_pnl.getChildren().clear();
+        main_pnl.getChildren().add(current_pnl);
+        //current_pnl.toFront();
     }
 
     @Override
@@ -752,4 +750,6 @@ public class Controller extends Application implements Initializable {
         alert.initOwner(owner);
         alert.show();
     }
+
+
 }

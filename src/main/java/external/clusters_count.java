@@ -33,7 +33,8 @@ public class clusters_count {
                 cluster_size = 0;
                 referenceSeqs.put(counter, new Cluster());
                 // delete spaces
-                referenceSeqs.get(counter).reference_sequence = br.readLine().replace(" ", "");
+                referenceSeqs.get(counter).reference_sequence = br.readLine();
+                //referenceSeqs.get(counter).reference_sequence = br.readLine().replace(" ", "");
                 counter++;
             }
             cluster_size++;

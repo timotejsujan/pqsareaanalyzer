@@ -1,14 +1,11 @@
 package external;
 
 import javafx.scene.control.TextArea;
-
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 
 /**
  * @author Timotej Sujan
@@ -53,10 +50,8 @@ public class cd_hit_est extends base {
             print_status(line);
         }
 
-        cluster_sort cs = new cluster_sort();
-        cs.inputPath = output_path +"/"+ output_name +nameConst+".clstr";
-        cs.outputName = output_name +nameConst+ "_sort.clstr";
-        cs.outputPath = output_path;
+        cluster_sort cs = new cluster_sort(output_path +"/"+ output_name +nameConst+".clstr",
+                output_path,output_name +nameConst+ "_sort.clstr");
         cs.sort();
 
         File cdhitOutputClstr = new File(output_path +"/"+ output_name +nameConst+".clstr");
@@ -64,18 +59,13 @@ public class cd_hit_est extends base {
         deleteFile(cdhitOutputClstr);
         deleteFile(cdhitOutput);
 
-        cluster_transform ct = new cluster_transform();
-        ct.clstr_file = new File(cs.outputPath +"/"+cs.outputName);
-        ct.fasta_file = new File(input_path);
-        ct.pqs_file = new File(inputPathPqs);
-        ct.outputPath = output_path;
-        ct.outputName = output_name +".clstr";
-        ct.getClstrFileWithSequences();
+        cluster_transform ct = new cluster_transform(new File(cs.output_path +"/"+cs.output_name),
+                new File(input_path), new File(inputPathPqs), output_path, output_name +".txt");
+        ct.start();
 
-        File cdhitOutputClstrSort = new File(cs.outputPath +"/"+cs.outputName);
+        File cdhitOutputClstrSort = new File(cs.output_path +"/"+cs.output_name);
         deleteFile(cdhitOutputClstrSort);
 
-        if (Thread.interrupted()) return;
         print_status("the process has ended");
     }
 
@@ -87,12 +77,10 @@ public class cd_hit_est extends base {
         }
     }
 
-    public void setInputPathPqs(String s) {
-        this.inputPathPqs = s;
+    public void set_input_path_pqs(String s) {
+        inputPathPqs = s;
     }
 
-    public void setParameters(String parameters) {
-        this.parameters = parameters;
-    }
+    public void set_params(String params) { parameters = params; }
 }
 

@@ -2,26 +2,23 @@ package external;
 
 import javafx.scene.control.TextArea;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 public class pqs_areas extends base {
+    private int area_size = 0;
+    private String input2Path = "";
 
     public pqs_areas(TextArea outputArea) {
         super(outputArea);
     }
-    private int area_size = 30;
 
-    private String input2Path = "";
-    private String outputNamePQS = "";
 
     public boolean is_valid(){
-        return !input2Path.isEmpty();
+        set_program_path("dummy");
+        return is_base_valid() && !input2Path.isEmpty() && area_size > 0;
     }
 
     public void set_area(int n) {
@@ -32,197 +29,101 @@ public class pqs_areas extends base {
         this.input2Path = inputPath;
     }
 
-    public void setOutputNamePQS(String outputName) {
-        output_name = outputName + ".txt";
-        //outputNamePQS = outputName + "_pqs.txt";
-    }
-
-    public void start() throws IOException {
-        File f = new File(input_path);
-
-        genom g = get_genom(f);
-
-        File g4 = new File(input2Path);
-
-        get_pqs(g4, g);
+    public void start() {
 
         try {
-            Files.write(Paths.get(output_path +"/"+ output_name), (";"+g.name + "\n").getBytes());
-            //Files.write(Paths.get(output_path +"/"+outputNamePQS), (";"+g.name + "\n").getBytes());
-
-            for (segment s : g.segments) {
-                if (s.positive_g4.size() + s.negative_g4.size() != 0) {
-                    //s.sequence = get_scaffold(f, s.number);
-                    if (Thread.interrupted()) return;
-                    print_positive_pqs(s);
-                    print_negative_pqs(s);
-                    s.sequence = "";
-                }
-            }
-        }catch (IOException ignored) {
-            print_status("POZOR NEZAPSALO SE" + ignored.toString());
+            Files.createFile(Paths.get(output_path +"/"+ output_name+".txt"));
+            get_areas(new File(input_path), new File(input2Path));
+        }catch (Exception e) {
+            print_status(e.toString());
         }
-
-        if (Thread.interrupted()) return;
         print_status("the process has ended");
     }
 
-    private void get_pqs(File file, genom g) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(file));
+    private pqs get_pqs(BufferedReader br_pqs, int segment) throws IOException {
+        String line = br_pqs.readLine();
+        if (line == null) return null;
+        if(line.charAt(0) == ';'){
+            segment = Integer.parseInt(line.split(": ")[1]);
+            line = br_pqs.readLine();
+        }
+        String[] info_arr = line.split(";");
+        int start = Integer.parseInt(info_arr[2].split("=")[1]);
+        int end = Integer.parseInt(info_arr[3].split("=")[1]);
+        boolean strand = (info_arr[4].split("=")[1].equals("+"));
+
+        return new pqs(start - 1, end, strand, segment, br_pqs.readLine());
+    }
+
+    private String create_N_string(int length){
+        return "N".repeat(Math.max(0, length));
+    }
+
+    private void write_area(pqs curr_pqs, String buffer, int position, int segment, int pqs_number) throws IOException {
+        int left_area_start = buffer.length() - position + (curr_pqs.start - area_size);
+        int right_area_start = buffer.length() - position + curr_pqs.end;
+        assert(curr_pqs.sequence.equals(buffer.substring(left_area_start + area_size, right_area_start)));
+        String area = buffer.substring(Math.max(0,left_area_start), left_area_start + area_size).toUpperCase();
+        area = create_N_string(area_size - area.length()) + area;
+        if (!curr_pqs.strand) area = get_reverse_sequence(new StringBuilder(area)).toString();
+        String right_area = buffer.substring(right_area_start, Math.min(buffer.length(), right_area_start + area_size)).toUpperCase();
+        right_area = right_area + create_N_string(area_size - right_area.length());
+        if (!curr_pqs.strand) right_area = get_reverse_sequence(new StringBuilder(right_area)).toString();
+        if (curr_pqs.strand) {
+            area += right_area;
+        } else {
+            area = right_area + area;
+        }
+        String to_write = ">"+(curr_pqs.strand ? "+" : "-")+segment+";"+(pqs_number)+"\n" + area + "\n";
+        Files.write(Paths.get(output_path + "/" + output_name+".txt"), to_write.getBytes(), StandardOpenOption.APPEND);
+    }
+
+    private void get_areas(File genom, File pqs_positions) throws IOException {
+        BufferedReader br_g = new BufferedReader(new FileReader(genom));
+        BufferedReader br_pqs = new BufferedReader(new FileReader(pqs_positions));
+        pqs curr_pqs = get_pqs(br_pqs, -1);
+        if (curr_pqs == null) return;
+        int curr_max_length = 2 * area_size + curr_pqs.sequence.length();
+        StringBuilder buffer = new StringBuilder();
         String line;
-        int counter = -1;
-        while (!Thread.interrupted() && (line = br.readLine()) != null) {
-            if (line.startsWith(";")) {
-                counter = Integer.parseInt(line.split(": ")[1]);
-            } else if (counter != -1 && line.startsWith(">")){
-                String pqs = br.readLine().toUpperCase();
-
-                String[] info = line.split(";");
-                int start = Integer.parseInt(info[2].split("=")[1]);
-                int end = Integer.parseInt(info[3].split("=")[1]);
-                String strand = (info[4].split("=")[1]);
-
-                pqs new_pqs = new pqs(start - 1, end, pqs);
-                if ("+".equals(strand)) {
-                    g.segments.get(counter - 1).positive_g4.add(new_pqs);
-                } else {
-                    g.segments.get(counter - 1).negative_g4.add(new_pqs);
+        int segment = 0;
+        int position = 0;
+        int pqs_number = 0;
+        while (!Thread.interrupted() && (line = br_g.readLine()) != null) {
+            if (line.startsWith(">")){
+                if (segment == curr_pqs.segment) {
+                    while (curr_pqs.segment == segment){
+                        write_area(curr_pqs, buffer.toString(), position, segment, pqs_number);
+                        pqs_number++;
+                        curr_pqs = get_pqs(br_pqs, segment);
+                        if (curr_pqs == null) return;
+                        curr_max_length = 2 * area_size + curr_pqs.sequence.length();
+                    }
+                }
+                buffer = new StringBuilder();
+                segment++;
+                position = 0;
+                pqs_number = 0;
+            } else {
+                if (segment == curr_pqs.segment){
+                    position += line.length();
+                    while (curr_pqs.segment == segment && (position >= curr_pqs.end + area_size)){
+                        String sequence = buffer + line;
+                        write_area(curr_pqs, sequence, position, segment, pqs_number);
+                        pqs_number++;
+                        curr_pqs = get_pqs(br_pqs, segment);
+                        if (curr_pqs == null) return;
+                        curr_max_length = 2 * area_size + curr_pqs.sequence.length();
+                    }
+                }
+                buffer.append(line);
+                if (buffer.length() > curr_max_length){
+                    buffer = new StringBuilder(buffer.substring(buffer.length() - curr_max_length));
+                    assert (buffer.length() == curr_max_length);
                 }
             }
         }
     }
 
-    private String get_scaffold(File f, int n) throws IOException{
-        BufferedReader br = new BufferedReader(new FileReader(f));
-        String line;
-        StringBuilder sb = new StringBuilder();
-        int scaff_number = -1;
-        while (scaff_number != n){
-            line = br.readLine();
-            if (!line.isEmpty() && line.charAt(0) == '>') {
-                scaff_number++;
-            }
-        }
-        while ((line = br.readLine()) != null) {
-            if (!line.isEmpty() && line.charAt(0) == '>') {
-                break;
-            }
-            sb.append(line);
-        }
-        return sb.toString();
-    }
 
-    private genom get_genom(File f) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(f));
-        genom gen = new genom(f.getName());
-        String line;
-        segment s = null;
-        StringBuilder sequence = new StringBuilder();
-        int scaff_number = 1;
-        while ((line = br.readLine()) != null) {
-            if (!line.isEmpty() && line.charAt(0) == '>') {
-                if (scaff_number != 1) s.sequence = sequence.toString().toUpperCase();
-                s = new segment(scaff_number);
-                gen.segments.add(s);
-                scaff_number++;
-                sequence = new StringBuilder();
-            } else{
-                sequence.append(line);
-            }
-        }
-        assert s != null;
-        s.sequence = sequence.toString().toUpperCase();
-        return gen;
-    }
-
-    private StringBuilder get_reverse_sequence(StringBuilder s) {
-        s.reverse();
-        StringBuilder n = new StringBuilder();
-        for (int i = 0; i < s.length(); i++) {
-            switch (s.charAt(i)) {
-                case 'A': n.append('T'); break;
-                case 'T': n.append('A'); break;
-                case 'C': n.append('G'); break;
-                case 'G': n.append('C'); break;
-                default: n.append('N'); break;
-            }
-        }
-        return n;
-    }
-
-    // todo tiskne se poslední cast?
-    private void print_positive_pqs(segment s) throws IOException {
-        int pqs_number = 0;
-        for (pqs q : s.positive_g4) {
-            if (Thread.interrupted()) return;
-
-            int j = q.start - area_size;
-            int maxJ = q.end + area_size;//q.start + q.end + area_size;
-            if (j < 0 || maxJ > s.sequence.length()) {
-                if ( j < 0 ) j = 0;
-                if ( maxJ > s.sequence.length()) maxJ = s.sequence.length();
-                //pqs_number++;
-                //continue;
-            }
-
-            StringBuilder leftLine = new StringBuilder();
-            leftLine.append("\n>+L-").append(s.number).append("-").append(pqs_number).append("\n");
-            leftLine.append(s.sequence, j, q.start);//.replace("N", ""));
-
-            leftLine.append(s.sequence, q.end /*q.start + q.end*/, maxJ);//.replace("N", ""));
-            if (leftLine.toString().contains("N")) {
-                //pqs_number++;
-                //continue;
-            }
-            Files.write(Paths.get(output_path +"/"+ output_name), leftLine.toString().getBytes(), StandardOpenOption.APPEND);
-
-            //String pqs = "\n>+L-" + s.number + "-" + pqs_number + "\n" + q.sequence;
-            //Files.write(Paths.get(output_path +"/"+outputNamePQS), pqs.getBytes(), StandardOpenOption.APPEND);
-
-            pqs_number++;
-        }
-    }
-
-    private void print_negative_pqs(segment s) throws IOException {
-        int pqs_number = 0;
-        StringBuilder right_area = null;
-        for (pqs q : s.negative_g4) {
-            if (Thread.interrupted()) return;
-
-
-            int j = q.start - area_size;
-            int maxJ = q.end + area_size; //q.start + q.end + area_size;
-            if (j < 0 || maxJ > s.sequence.length()) {
-                if ( j < 0 ) j = 0;
-                if ( maxJ > s.sequence.length()) maxJ = s.sequence.length();
-                //pqs_number++;
-                //continue;
-            }
-
-            StringBuilder area = new StringBuilder();
-            area.append(s.sequence, j, q.start); //.replace("N", ""));
-            area = get_reverse_sequence(area);
-            area.insert(0, "\n>-L-"+s.number +"-"+pqs_number+"\n");
-
-            right_area = new StringBuilder();
-            right_area.append(s.sequence, q.end /*q.start + q.end*/, maxJ);//.replace("N", ""));
-            right_area = get_reverse_sequence(right_area);
-
-            area.append(right_area);
-            if (area.toString().contains("N")) {
-                //pqs_number++;
-                //continue;
-            }
-            Files.write(Paths.get(output_path + "/" + output_name), area.toString().getBytes(), StandardOpenOption.APPEND);
-/*
-            StringBuilder pqs = new StringBuilder();
-            pqs.append(q.sequence);
-            pqs = get_reverse_sequence(pqs);
-            pqs.insert(0, "\n>-L-"+s.number +"-"+pqs_number+"\n");
-            Files.write(Paths.get(output_path +"/"+outputNamePQS), pqs.toString().getBytes(), StandardOpenOption.APPEND);
-*/
-            pqs_number++;
-
-        }
-    }
 }

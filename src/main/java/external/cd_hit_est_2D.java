@@ -13,51 +13,50 @@ public class cd_hit_est_2D extends base {
         super(outputArea);
     }
 
-    private String inputPath2 = "";
     private String inputPathPqs = "";
-    private String params = "";
+    private String inputPath2 = "";
+    private String inputPath2Pqs = "";
+    private String parameters = "";
     private final String nameConst = "_cdhit2";
+    public Process p;
 
     public boolean is_valid(){
         return !inputPathPqs.isEmpty() && !inputPath2.isEmpty();
     }
 
     public void start() throws IOException {
-        if (!is_base_valid()) return;
-
-        Process process = new ProcessBuilder(program_path, "-i", input_path, "-i2", inputPath2, "-o", output_path +"/"
-                + output_name +nameConst + " "+params).start();
-        print_status(params);
-        InputStream is = process.getInputStream();
+        String[] paramsInit = {program_path, "-i", input_path, "-i2", inputPath2, "-o", output_path + "/" + output_name + nameConst};
+        String[] params = parameters.split(" ");
+        int fal = paramsInit.length;        //determines length of firstArray
+        int sal = params.length;   //determines length of secondArray
+        String[] paramsAll = new String[fal + sal];  //resultant array of size first array and second array
+        System.arraycopy(paramsInit, 0, paramsAll, 0, fal);
+        System.arraycopy(params, 0, paramsAll, fal, sal);
+        if (!parameters.equals("")) {
+            p = new ProcessBuilder(paramsAll).start();
+        } else {
+            p = new ProcessBuilder(program_path, "-i", input_path, "-o", output_path + "/" + output_name + nameConst).start();
+        }
+        print_status(parameters);
+        InputStream is = p.getInputStream();
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
 
         String line;
-        while ((line = br.readLine()) != null && !Thread.interrupted()) {
+        while ((line = br.readLine()) != null) {
+            if (Thread.interrupted()) return;
             print_status(line);
         }
 
-        if (Thread.interrupted()) {
-            print_status("Proces byl zastaven");
-        }
-
-        cluster_sort cs = new cluster_sort();
-        cs.inputPath = output_path +"/"+ output_name +nameConst+".clstr";
-        cs.outputName = output_name +nameConst+ "_sort.clstr";
-        cs.outputPath = output_path;
-        cs.sort();
-
-        cluster_transform ct = new cluster_transform();
-        ct.clstr_file = new File(cs.outputPath +"/"+cs.outputName);
-        ct.fasta_file = new File(input_path);
-        ct.pqs_file = new File(inputPathPqs);
-        ct.outputPath = output_path;
-        ct.outputName = output_name +".clstr";
-        ct.getClstrFileWithSequences();
+        print_status("the process has ended");
     }
 
     public void setInputPathPqs(String inputPathPqs) {
         this.inputPathPqs = inputPathPqs;
+    }
+
+    public void setInputPath2Pqs(String inputPath2Pqs) {
+        this.inputPath2Pqs = inputPath2Pqs;
     }
 
     public void setInputPath2(String inputPath2) {
@@ -65,6 +64,6 @@ public class cd_hit_est_2D extends base {
     }
 
     public void setParams(String params) {
-        this.params = params;
+        parameters = params;
     }
 }

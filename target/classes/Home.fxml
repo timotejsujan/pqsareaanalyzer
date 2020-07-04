@@ -82,7 +82,6 @@
                 </padding>
             </Button>
         </HBox>
-<!--
         <HBox>
             <Button fx:id="cdhit2_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
                     onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0"
@@ -101,7 +100,6 @@
                 </padding>
             </Button>
         </HBox>
--->
         <HBox>
             <Button fx:id="clusters_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
                     onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0"
@@ -139,7 +137,7 @@
         </HBox>
     </VBox>
     </VBox>
-    <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
+    <StackPane fx:id="main_pnl" layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
         <Pane fx:id="pqsfinder_pnl" prefHeight="554.0" prefWidth="793.0">
             <Label layoutX="57.0" layoutY="25.0" text="PQS finder" >
                 <font>
@@ -324,15 +322,23 @@
                     <Font size="24.0"/>
                 </font>
             </Label>
-            <TextField fx:id="cdhit2_inputPath" text="Select output directory..." onMouseClicked="#cdhit2SetInputPath" styleClass="input" editable="false" layoutX="49.0" layoutY="99.0"
+            <TextField fx:id="cdhit2_inputPath" text="Select PQS areas (pqsareas output)..." onMouseClicked="#cdhit2SetInputPath" styleClass="input" editable="false" layoutX="49.0" layoutY="59.0"
                        />
-            <Button layoutX="369" layoutY="99" mnemonicParsing="false"
+            <Button layoutX="369" layoutY="59" mnemonicParsing="false"
                     onAction="#cdhit2SetInputPath"  text="Input PQS areas">
                 <font>
                     <Font size="13.0"/>
                 </font>
             </Button>
-            <TextField fx:id="cdhit2_inputPath2" text="Select output directory..." onMouseClicked="#cdhit2SetInputPath2" styleClass="input" editable="false" layoutX="49.0" layoutY="139.0"
+            <TextField fx:id="cdhit2_InputPathPQS" text="Select PQS positions (pqsfinder output)..." onMouseClicked="#cdhit2SetInputPQS" styleClass="input" editable="false" layoutX="49.0" layoutY="99.0"
+                       />
+            <Button layoutX="369" layoutY="99" mnemonicParsing="false"
+                    onAction="#cdhit2SetInputPQS"  text="Input PQS">
+                <font>
+                    <Font size="13.0"/>
+                </font>
+            </Button>
+            <TextField fx:id="cdhit2_inputPath2" text="Select PQS areas (pqsareas output)..." onMouseClicked="#cdhit2SetInputPath2" styleClass="input" editable="false" layoutX="49.0" layoutY="139.0"
                        />
             <Button layoutX="369" layoutY="139" mnemonicParsing="false"
                     onAction="#cdhit2SetInputPath2"  text="Input PQS areas">
@@ -340,15 +346,14 @@
                     <Font size="13.0"/>
                 </font>
             </Button>
-            <TextField fx:id="cdhit2_InputPathPQS" text="Select output directory..." onMouseClicked="#cdhit2SetInputPQS" styleClass="input" editable="false" layoutX="49.0" layoutY="179.0"
-                       />
+            <TextField fx:id="cdhit2_InputPath2PQS" text="Select PQS positions (pqsfinder output)..." onMouseClicked="#cdhit2SetInputPQS2" styleClass="input" editable="false" layoutX="49.0" layoutY="179.0"
+            />
             <Button layoutX="369" layoutY="179" mnemonicParsing="false"
                     onAction="#cdhit2SetInputPQS"  text="Input PQS">
                 <font>
                     <Font size="13.0"/>
                 </font>
             </Button>
-
             <TextField fx:id="cdhit2_outputDir" text="Select output directory..." onMouseClicked="#cdhit2SetOutputDir" styleClass="input" editable="false" layoutX="49.0" layoutY="219.0"
                        />
             <Button layoutX="369" layoutY="219" mnemonicParsing="false"

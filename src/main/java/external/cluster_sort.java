@@ -12,40 +12,38 @@ import java.util.Comparator;
 /**
  * @author Timotej Sujan
  */
-public class cluster_sort {
-    public String inputPath;
-    public String outputPath;
-    public String outputName;
+public class cluster_sort extends base{
+
+    public cluster_sort(String ip, String op, String on){
+        input_path = ip;
+        output_path = op;
+        output_name = on;
+    }
 
     public void sort() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(inputPath));
+        BufferedReader br = new BufferedReader(new FileReader(input_path));
         String line;
         Cluster clstr = new Cluster();
-        Clusters clusters = new Clusters();
-        while ((line = br.readLine()) != null &&!Thread.interrupted()) {
+        ArrayList<Cluster> clusters = new ArrayList<>();
+        while ((line = br.readLine()) != null && !Thread.interrupted()) {
             if (!line.isEmpty() && line.charAt(0) == '>') {
-                clusters.clusters.add(clstr);
+                clusters.add(clstr);
                 clstr = new Cluster();
             }
             clstr.rows.add(line+"\n");
         }
-        clusters.clusters.remove(0);
-        clusters.clusters.sort(new ClusterComparator());
+        clusters.remove(0);
+        clusters.sort(new ClusterComparator());
 
-        Files.write(Paths.get(outputPath+"/"+outputName), "".getBytes());
+        Files.createFile(Paths.get(output_path +"/"+ output_name));
         StringBuilder sorted_clusters = new StringBuilder();
         int i = 0;
-        for (Cluster c : clusters.clusters) {
-            c.rows.set(0, ">Cluster "+i+"\n");
+        for (Cluster c : clusters) {
+            if (c.rows.size() <= 2) break;
+            c.rows.set(0, ">Cluster "+(i++)+"\n");
             sorted_clusters.append(String.join("", c.rows));
-            i++;
         }
-        Files.write(Paths.get(outputPath+"/"+outputName), sorted_clusters.toString().getBytes(), StandardOpenOption.APPEND);
-    }
-
-    private class Clusters
-    {
-        ArrayList<Cluster> clusters = new ArrayList<>();
+        Files.write(Paths.get(output_path +"/"+ output_name), sorted_clusters.toString().getBytes(), StandardOpenOption.APPEND);
     }
 
     private class Cluster{

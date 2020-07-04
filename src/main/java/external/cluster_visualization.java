@@ -27,16 +27,16 @@ public final class cluster_visualization extends JFrame {
 
     private final int PANEL_WIDTH = 1400;
     private final int PANEL_HEIGHT = 800;
-    private int BLOCK_WIDTH;
+    private final int BLOCK_WIDTH;
     private final BufferedImage img_g = ImageIO.read(new File(Main.jar_folder_path + "/images/G.png"));
     private final BufferedImage img_a = ImageIO.read(new File(Main.jar_folder_path + "/images/A.png"));
     private final BufferedImage img_c = ImageIO.read(new File(Main.jar_folder_path + "/images/C.png"));
     private final BufferedImage img_t = ImageIO.read(new File(Main.jar_folder_path + "/images/T.png"));
     private Graphics graphics;
-    private external.cluster cluster;
+    private final external.cluster cluster;
 
     public cluster_visualization(external.cluster c) throws IOException {
-        this.cluster = c;
+        cluster = c;
         BLOCK_WIDTH = PANEL_WIDTH / (c.max_length +2);
         setBounds(350, 250, PANEL_WIDTH, PANEL_HEIGHT);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -139,58 +139,58 @@ public final class cluster_visualization extends JFrame {
         int counter = 2;
         for (int j = 1; j <= left_area.size(); j++) {
             graphics.setColor(Color.BLACK);
-            graphics.drawString(((Integer)j).toString(), counter*(BLOCK_WIDTH)+BLOCK_WIDTH/3, 210);
-            counter++;
+            graphics.drawString(((Integer)j).toString(), (counter++)*(BLOCK_WIDTH)+BLOCK_WIDTH/3, 210);
         }
         counter = 2;
         for (int j = left_area.size() + 1; j <= left_area.size()*2; j++) {
             graphics.setColor(Color.BLACK);
-            graphics.drawString(((Integer)j).toString(), counter*(BLOCK_WIDTH)+BLOCK_WIDTH/3, 710);
-            counter++;
+            graphics.drawString(((Integer)j).toString(), (counter++)*(BLOCK_WIDTH)+BLOCK_WIDTH/3, 710);
         }
 
         counter = 2;
         int height = 0;
         for (bar b : pqs) {
-            double totalHeight = AMP *b.r;
+            double total_height = AMP * b.r;
             height = 0;
-            double currentHeight = 0;
+            double curr_height;
             for (Map.Entry<Character, Integer> entry : b.bases.entrySet()) {
-                currentHeight = AMP *b.rel_freq(entry.getValue())*b.r;
+                curr_height = AMP *b.rel_freq(entry.getValue())*b.r;
                 graphics.setColor(get_color(entry.getKey()));
 
-                graphics.drawImage(get_img(entry.getKey()), (counter)*(BLOCK_WIDTH), (int) (450 - totalHeight + height), BLOCK_WIDTH, (int) currentHeight, null);
-                height += currentHeight;
+                graphics.drawImage(get_img(entry.getKey()), (counter)*(BLOCK_WIDTH),
+                        (int) (450 - total_height + height), BLOCK_WIDTH, (int) curr_height, null);
+                height += curr_height;
             }
             counter++;
         }
 
         counter = 2;
         for (bar b : left_area) {
-            double totalHeight = AMP *b.r;
+            double total_height = AMP *b.r;
             height = 0;
-            double currentHeight;
+            double curr_height;
             for (Map.Entry<Character, Integer> entry : b.bases.entrySet()) {
-                currentHeight = AMP *b.rel_freq(entry.getValue())*b.r;
+                curr_height = AMP *b.rel_freq(entry.getValue())*b.r;
                 graphics.setColor(get_color(entry.getKey()));
-
-                graphics.drawImage(get_img(entry.getKey()), (counter)*(BLOCK_WIDTH), (int) (200 - totalHeight + height), BLOCK_WIDTH, (int) currentHeight, null);
-                height += currentHeight;
+                graphics.drawImage(get_img(entry.getKey()), (counter)*(BLOCK_WIDTH),
+                        (int) (200 - total_height + height), BLOCK_WIDTH, (int) curr_height, null);
+                height += curr_height;
             }
             counter++;
         }
 
         counter = 2;
         for (bar b : right_area) {
-            double totalHeight = AMP *b.r;
+            double total_height = AMP *b.r;
             height = 0;
-            double currentHeight;
+            double curr_height;
             for (Map.Entry<Character, Integer> entry : b.bases.entrySet()) {
-                currentHeight = AMP *b.rel_freq(entry.getValue())*b.r;
+                curr_height = AMP *b.rel_freq(entry.getValue())*b.r;
                 graphics.setColor(get_color(entry.getKey()));
 
-                graphics.drawImage(get_img(entry.getKey()), (counter)*(BLOCK_WIDTH), (int) (700 - totalHeight + height), BLOCK_WIDTH, (int) currentHeight, null);
-                height += currentHeight;
+                graphics.drawImage(get_img(entry.getKey()), (counter)*(BLOCK_WIDTH),
+                        (int) (700 - total_height + height), BLOCK_WIDTH, (int) curr_height, null);
+                height += curr_height;
             }
             counter++;
         }
@@ -212,7 +212,7 @@ public final class cluster_visualization extends JFrame {
         g.drawString("0", x+5 - m_x, y+height+m_y);
     }
 
-    private Image get_img(Character c) {
+    private Image get_img(char c) {
         switch (c) {
             case 'T': return img_t;
             case 'G': return img_g;

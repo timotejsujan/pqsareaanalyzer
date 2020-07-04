@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<Pane xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="home.pqsfinder_controller" fx:id="pqsfinder_pnl" prefHeight="554.0" prefWidth="793.0">
+    <Label layoutX="57.0" layoutY="25.0" text="PQS finder" >
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
+    <Button fx:id="pqsfinder_btnStart" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
+            onAction="#pqsfinderStart"  text="Start">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Button>
+    <Button disable="true" fx:id="pqsfinder_btnStop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
+            onAction="#pqsfinderStop"  text="Stop">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Button>
+    <TextField text="Select genom file..." fx:id="pqsfinder_inputPath" onMouseClicked="#pqsfinderSetInputPath" styleClass="input" editable="false" layoutX="49.0" layoutY="63.0"
+    />
+    <Button layoutX="369.0" layoutY="63.0" mnemonicParsing="false"
+            onAction="#pqsfinderSetInputPath"  text="Input Genom">
+        <font>
+            <Font size="13.0"/>
+        </font>
+    </Button>
+    <TextField text="Select output directory..." fx:id="pqsfinder_outputDir" onMouseClicked="#pqsfinderSetOutputDir" styleClass="input" editable="false" layoutX="50.0" layoutY="100.0"
+    />
+    <Button layoutX="369.0" layoutY="100.0" mnemonicParsing="false"
+            onAction="#pqsfinderSetOutputDir"  text="Output Directory">
+        <font>
+            <Font size="13.0"/>
+        </font>
+    </Button>
+    <Label layoutX="52.0" layoutY="143.0"  text="Name" />
+    <TextField fx:id="pqsfinder_outputName" layoutX="92.0" layoutY="138.0" prefHeight="27.0"
+               prefWidth="200.0"/>
+    <Label layoutX="82.0" layoutY="186.0"  text="Strand" />
+    <ChoiceBox fx:id="pqsfinder_strand" layoutX="130.0" layoutY="181.0" prefHeight="27.0"
+               prefWidth="41.0"/>
+    <Label layoutX="563.0" layoutY="186.0"  text="Max Length"
+    />
+    <ChoiceBox fx:id="pqsfinder_overlapping" layoutX="300.0" layoutY="181.0" prefHeight="27.0"
+               prefWidth="70.0"/>
+    <Label layoutX="218.0" layoutY="186.0"  text="Overlapping"
+    />
+    <TextField fx:id="pqsfinder_maxLen" layoutX="645.0" layoutY="181.0" prefHeight="27.0"
+               prefWidth="50.0"/>
+    <Label layoutX="419.0" layoutY="186.0"  text="Min Score"
+    />
+    <TextField fx:id="pqsfinder_minScore" text="52" layoutX="491.0" layoutY="181.0" prefHeight="27.0" prefWidth="50.0"/>
+    <Label layoutX="49.0" layoutY="226.0"  text="Run Min Len"
+    />
+    <TextField fx:id="pqsfinder_runMinLen" layoutX="130.0" layoutY="221.0" prefHeight="27.0"
+               prefWidth="50.0"/>
+    <Label layoutX="49.0" layoutY="266.0"  text="Run Max Len"
+    />
+    <TextField fx:id="pqsfinder_runMaxLen" layoutX="130.0" layoutY="261.0" prefHeight="27.0"
+               prefWidth="50.0"/>
+    <Label layoutX="209.0" layoutY="226.0"  text="Loop Min Len"
+    />
+    <TextField fx:id="pqsfinder_loopMinLen" layoutX="300.0" layoutY="221.0" prefHeight="27.0"
+               prefWidth="50.0"/>
+    <Label layoutX="209.0" layoutY="266.0"  text="Loop Max Len"
+    />
+    <TextField fx:id="pqsfinder_loopMaxLen" layoutX="300.0" layoutY="261.0" prefHeight="27.0"
+               prefWidth="50.0"/>
+    <Label layoutX="412.0" layoutY="226.0"  text="Max Bulges"
+    />
+    <TextField fx:id="pqsfinder_maxBulges" layoutX="491.0" layoutY="221.0" prefHeight="27.0"
+               prefWidth="50.0"/>
+    <Label layoutX="381.0" layoutY="266.0"  text="Max Mismatches"
+    />
+    <TextField fx:id="pqsfinder_maxMismatches" layoutX="491.0" layoutY="261.0" prefHeight="27.0"
+               prefWidth="50.0"/>
+    <Label layoutX="558.0" layoutY="266.0"  text="Max Defects"
+    />
+    <TextField fx:id="pqsfinder_maxDefects" layoutX="645.0" layoutY="261.0" prefHeight="27.0"
+               prefWidth="50.0"/>
+    <TextArea fx:id="pqsfinder_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0"
+              prefWidth="493.0" />
+</Pane>
