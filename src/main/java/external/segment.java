@@ -10,6 +10,7 @@ class segment {
     segment(int n) {
         number = n;
     }
+
     int number;
     String sequence = "";
     List<pqs> positive_g4 = new ArrayList<>();

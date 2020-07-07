@@ -22,17 +22,17 @@ public class cluster {
         String line;
 
         while ((line = br.readLine()) != null) {
-            if (line.charAt(0) == ';'){
+            if (line.charAt(0) == ';') {
                 String[] area_size = line.split("=");
-                assert(area_size[0].equals(";area_size")) : "Missing area_size definition in file (;area_size=<area_size>)";
+                assert (area_size[0].equals(";area_size")) : "Missing area_size definition in file (;area_size=<area_size>)";
                 area = Integer.parseInt(area_size[1]);
                 continue;
             }
             if (area == -1) continue;
 
-            if (line.equals(">Cluster " + n.toString())) {
+            if (line.equals(">cluster=" + n.toString())) {
 
-                while ((line = br.readLine()) != null && !line.startsWith(">")){
+                while ((line = br.readLine()) != null && !line.startsWith(">")) {
                     String new_pqs = line.substring(area, line.length() - area);
 
                     left_area.add(line.substring(0, area));

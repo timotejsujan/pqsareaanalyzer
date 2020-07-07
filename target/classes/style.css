@@ -7,28 +7,26 @@ Pane {
     -fx-background-color: #FFFFFF;
 }
 
-.button
-{
-    -fx-background-color : #184357;
-    -fx-text-fill : #FFFFFF;
+.button {
+    -fx-background-color: #184357;
+    -fx-text-fill: #FFFFFF;
 }
 
-.button:hover{
-    -fx-background-color : #87A0AB;
-    -fx-text-fill : #FFFFFF;
+.button:hover {
+    -fx-background-color: #87A0AB;
+    -fx-text-fill: #FFFFFF;
 }
 
-.button:pressed
-{
-    -fx-background-color : #87A0AB;
+.button:pressed {
+    -fx-background-color: #87A0AB;
 }
 
 .scroll-pane {
     -fx-background-color: #87A0AB;
 }
 
-.scroll-bar:horizontal, .scroll-bar:vertical{
-    -fx-background-color:transparent;
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: transparent;
 }
 
 .increment-button, .decrement-button {
@@ -37,7 +35,7 @@ Pane {
 }
 
 .scroll-bar:horizontal .track,
-.scroll-bar:vertical .track{
+.scroll-bar:vertical .track {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-background-radius: 0em;
@@ -61,6 +59,6 @@ HBox > .button {
     -fx-font-size: 18;
 }
 
-.input{
+.input {
     -fx-pref-width: 300;
 }

@@ -10,6 +10,7 @@ class genom {
     genom(String name) {
         this.name = name;
     }
+
     String name;
     List<segment> segments = new ArrayList<>();
 }

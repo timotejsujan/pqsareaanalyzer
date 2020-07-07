@@ -6,13 +6,12 @@ import java.util.Map;
 /**
  * @author Timotej Sujan
  */
-class bar
-{
+class bar {
     Map<Character, Integer> bases = new HashMap<>();
     double r = 0;
 
     double rel_freq(int n) {
-        return (double)n/count();
+        return (double) n / count();
     }
 
     int count() {
@@ -24,8 +23,7 @@ class bar
         return rf * log2(rf);
     }
 
-    private double log2(double x)
-    {
-        return (x == 0 ?  0 : Math.log(x) / Math.log(2));
+    private double log2(double x) {
+        return (x == 0 ? 0 : Math.log(x) / Math.log(2));
     }
 }

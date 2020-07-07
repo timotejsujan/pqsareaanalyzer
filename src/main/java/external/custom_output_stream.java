@@ -1,6 +1,7 @@
 package external;
 
 import javafx.scene.control.TextArea;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -17,7 +18,7 @@ public class custom_output_stream extends OutputStream {
     @Override
     public void write(int b) throws IOException {
         // redirects data to the text area
-        text_area.appendText(String.valueOf((char)b));
+        text_area.appendText(String.valueOf((char) b));
         // scrolls the text area to the end of data
         text_area.positionCaret(text_area.getLength());
         // keeps the textArea up to date

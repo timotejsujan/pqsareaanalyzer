@@ -12,12 +12,22 @@ import java.util.Comparator;
 /**
  * @author Timotej Sujan
  */
-public class cluster_sort extends base{
+public class cluster_sort extends base {
 
-    public cluster_sort(String ip, String op, String on){
-        input_path = ip;
-        output_path = op;
-        output_name = on;
+    boolean keep_one_sized;
+
+    public cluster_sort(cdhit c) {
+        input_path = c.output_path + "/" + c.output_name + c.name_suffix + ".clstr";
+        output_path = c.output_path;
+        output_name = c.output_name + c.name_suffix + "_sort.clstr";
+        keep_one_sized = c.keep_one_sized;
+    }
+
+    public cluster_sort(cdhit2D c) {
+        input_path = c.output_path + "/" + c.output_name + c.name_suffix + ".clstr";
+        output_path = c.output_path;
+        output_name = c.output_name + c.name_suffix + "_sort.clstr";
+        keep_one_sized = c.keep_one_sized;
     }
 
     public void sort() throws IOException {
@@ -29,31 +39,35 @@ public class cluster_sort extends base{
             if (!line.isEmpty() && line.charAt(0) == '>') {
                 clusters.add(clstr);
                 clstr = new Cluster();
+                clstr.rows.add(line + "\n");
+            } else if (line.endsWith("*")){
+                clstr.rows.add(1, line + "\n");
+            } else {
+                clstr.rows.add(line + "\n");
             }
-            clstr.rows.add(line+"\n");
         }
         clusters.remove(0);
         clusters.sort(new ClusterComparator());
 
-        Files.createFile(Paths.get(output_path +"/"+ output_name));
+        Files.createFile(Paths.get(output_path + "/" + output_name));
         StringBuilder sorted_clusters = new StringBuilder();
         int i = 0;
         for (Cluster c : clusters) {
-            if (c.rows.size() <= 2) break;
-            c.rows.set(0, ">Cluster "+(i++)+"\n");
+            if (!keep_one_sized && c.rows.size() <= 2) break;
+            c.rows.set(0, ">cluster=" + (i++) + "\n");
             sorted_clusters.append(String.join("", c.rows));
         }
-        Files.write(Paths.get(output_path +"/"+ output_name), sorted_clusters.toString().getBytes(), StandardOpenOption.APPEND);
+        Files.write(Paths.get(output_path + "/" + output_name), sorted_clusters.toString().getBytes(), StandardOpenOption.APPEND);
     }
 
-    private class Cluster{
+    private class Cluster {
         ArrayList<String> rows = new ArrayList<>();
     }
 
     public class ClusterComparator implements Comparator<Cluster> {
         @Override
         public int compare(Cluster o1, Cluster o2) {
-            return (-1)*Integer.compare(o1.rows.size(), o2.rows.size());
+            return (-1) * Integer.compare(o1.rows.size(), o2.rows.size());
         }
     }
 }

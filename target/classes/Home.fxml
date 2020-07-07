@@ -10,564 +10,139 @@
             prefWidth="1050.0" style="-fx-background-color: #184357;" xmlns="http://javafx.com/javafx/10.0.2-internal"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.Controller">
     <VBox>
-    <Button fx:id="btn_exit" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" text="X">
-        <font>
-            <Font size="24.0"/>
-        </font>
-    </Button>
-    <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #184357;"
-          AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <!--
-        <ImageView fitHeight="73.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../resources/jimmy-fallon.png" />
-            </image>
-            <VBox.margin>
-                <Insets bottom="10.0" top="50.0" />
-            </VBox.margin>
-        </ImageView>
-        -->
-
-        <HBox>
-            <Button fx:id="pqsfinder_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0"
-                    text="PQSfinder" >
-                <padding>
-                    <Insets left="50.0"/>
-                </padding>
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Button fx:id="pqsfinder_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0"
-                    text="Info" >
-                <padding>
-                    <Insets right="13.0"/>
-                </padding>
-            </Button>
-        </HBox>
-        <HBox>
-            <Button fx:id="pqsareas_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0"
-                    text="PQSareas" >
-                <padding>
-                    <Insets left="50.0"/>
-                </padding>
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Button fx:id="pqsareas_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0"  text="Info">
-                <padding>
-                    <Insets right="13.0"/>
-                </padding>
-            </Button>
-        </HBox>
-        <HBox>
-            <Button fx:id="cdhit_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0"  text="CD-HIT-EST">
-                <padding>
-                    <Insets left="50.0"/>
-                </padding>
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Button fx:id="cdhit_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0"  text="Info">
-                <padding>
-                    <Insets right="13.0"/>
-                </padding>
-            </Button>
-        </HBox>
-        <HBox>
-            <Button fx:id="cdhit2_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0"
-                    text="CD-hit-est-2D">
-                <padding>
-                    <Insets left="50.0"/>
-                </padding>
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Button fx:id="cdhit2_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0"  text="Info">
-                <padding>
-                    <Insets right="13.0"/>
-                </padding>
-            </Button>
-        </HBox>
-        <HBox>
-            <Button fx:id="clusters_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0"
-                    text="Clusters">
-                <padding>
-                    <Insets left="50.0"/>
-                </padding>
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Button fx:id="clusters_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0"  text="Info">
-                <padding>
-                    <Insets right="13.0"/>
-                </padding>
-            </Button>
-        </HBox>
-        <HBox>
-            <Button fx:id="blastAPI_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0"  text="Blast">
-                <padding>
-                    <Insets left="50.0"/>
-                </padding>
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Button fx:id="blastAPI_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
-                    onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0"  text="Info">
-                <padding>
-                    <Insets right="13.0"/>
-                </padding>
-            </Button>
-        </HBox>
-    </VBox>
-    </VBox>
-    <StackPane fx:id="main_pnl" layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
-        <Pane fx:id="pqsfinder_pnl" prefHeight="554.0" prefWidth="793.0">
-            <Label layoutX="57.0" layoutY="25.0" text="PQS finder" >
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Label>
-            <Button fx:id="pqsfinder_btnStart" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
-                    onAction="#pqsfinderStart"  text="Start">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Button disable="true" fx:id="pqsfinder_btnStop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
-                    onAction="#pqsfinderStop"  text="Stop">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <TextField text="Select genom file..." fx:id="pqsfinder_inputPath" onMouseClicked="#pqsfinderSetInputPath" styleClass="input" editable="false" layoutX="49.0" layoutY="63.0"
-                       />
-            <Button layoutX="369.0" layoutY="63.0" mnemonicParsing="false"
-                    onAction="#pqsfinderSetInputPath"  text="Input Genom">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <TextField text="Select output directory..." fx:id="pqsfinder_outputDir" onMouseClicked="#pqsfinderSetOutputDir" styleClass="input" editable="false" layoutX="50.0" layoutY="100.0"
-                       />
-            <Button layoutX="369.0" layoutY="100.0" mnemonicParsing="false"
-                    onAction="#pqsfinderSetOutputDir"  text="Output Directory">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <Label layoutX="52.0" layoutY="143.0"  text="Name" />
-            <TextField fx:id="pqsfinder_outputName" layoutX="92.0" layoutY="138.0" prefHeight="27.0"
-                       prefWidth="200.0"/>
-            <Label layoutX="82.0" layoutY="186.0"  text="Strand" />
-            <ChoiceBox fx:id="pqsfinder_strand" layoutX="130.0" layoutY="181.0" prefHeight="27.0"
-                      prefWidth="41.0"/>
-            <Label layoutX="563.0" layoutY="186.0"  text="Max Length"
-                   />
-            <ChoiceBox fx:id="pqsfinder_overlapping" layoutX="300.0" layoutY="181.0" prefHeight="27.0"
-                      prefWidth="70.0"/>
-            <Label layoutX="218.0" layoutY="186.0"  text="Overlapping"
-                   />
-            <TextField fx:id="pqsfinder_maxLen" layoutX="645.0" layoutY="181.0" prefHeight="27.0"
-                       prefWidth="50.0"/>
-            <Label layoutX="419.0" layoutY="186.0"  text="Min Score"
-                   />
-            <TextField fx:id="pqsfinder_minScore" text="52" layoutX="491.0" layoutY="181.0" prefHeight="27.0" prefWidth="50.0"/>
-            <Label layoutX="49.0" layoutY="226.0"  text="Run Min Len"
-                   />
-            <TextField fx:id="pqsfinder_runMinLen" layoutX="130.0" layoutY="221.0" prefHeight="27.0"
-                       prefWidth="50.0"/>
-            <Label layoutX="49.0" layoutY="266.0"  text="Run Max Len"
-                   />
-            <TextField fx:id="pqsfinder_runMaxLen" layoutX="130.0" layoutY="261.0" prefHeight="27.0"
-                       prefWidth="50.0"/>
-            <Label layoutX="209.0" layoutY="226.0"  text="Loop Min Len"
-                   />
-            <TextField fx:id="pqsfinder_loopMinLen" layoutX="300.0" layoutY="221.0" prefHeight="27.0"
-                       prefWidth="50.0"/>
-            <Label layoutX="209.0" layoutY="266.0"  text="Loop Max Len"
-                   />
-            <TextField fx:id="pqsfinder_loopMaxLen" layoutX="300.0" layoutY="261.0" prefHeight="27.0"
-                       prefWidth="50.0"/>
-            <Label layoutX="412.0" layoutY="226.0"  text="Max Bulges"
-                   />
-            <TextField fx:id="pqsfinder_maxBulges" layoutX="491.0" layoutY="221.0" prefHeight="27.0"
-                       prefWidth="50.0"/>
-            <Label layoutX="381.0" layoutY="266.0"  text="Max Mismatches"
-                   />
-            <TextField fx:id="pqsfinder_maxMismatches" layoutX="491.0" layoutY="261.0" prefHeight="27.0"
-                       prefWidth="50.0"/>
-            <Label layoutX="558.0" layoutY="266.0"  text="Max Defects"
-                   />
-            <TextField fx:id="pqsfinder_maxDefects" layoutX="645.0" layoutY="261.0" prefHeight="27.0"
-                       prefWidth="50.0"/>
-            <TextArea fx:id="pqsfinder_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0"
-                      prefWidth="493.0" />
-        </Pane>
-        <Pane fx:id="pqsareas_pnl" prefHeight="200.0" prefWidth="200.0">
-            <Button fx:id="pqsareas_btnStart" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
-                    onAction="#pqsareasStart"  text="Start">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Button disable="true" fx:id="pqsareas_btnStop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
-                    onAction="#pqsareasStop"  text="Stop">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Label layoutX="57.0" layoutY="25.0" text="PQS areas" >
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Label>
-            <TextField fx:id="input1_path_pqsareas" text="Select genom file..." onMouseClicked="#inputPQSareas1" styleClass="input" editable="false" layoutX="49.0" layoutY="99.0" />
-            <Button layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#inputPQSareas1"  text="Input Genom">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <TextField fx:id="input2_path_pqsareas" text="Select PQS positions (pqsfinder output)..." onMouseClicked="#inputPQSareas2" styleClass="input" editable="false" layoutX="49.0" layoutY="139.0" />
-            <Button layoutX="369" layoutY="139" mnemonicParsing="false"
-                    onAction="#inputPQSareas2"  text="Input PQS Positions">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <TextField fx:id="pqsareas_outputDir" text="Select output directory..." onMouseClicked="#pqsareasSetOutputDir" styleClass="input" editable="false" layoutX="49.0" layoutY="179.0" />
-            <Button layoutX="369" layoutY="179" mnemonicParsing="false" onAction="#pqsareasSetOutputDir"  text="Output Directory">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <Label layoutX="157.0" layoutY="219.0"  text="Name" />
-            <TextField fx:id="pqsareas_outputName" layoutX="200.0" layoutY="219.0" onAction="#pqsareasSetOutputName" prefHeight="27.0" prefWidth="100.0"/>
-            <Label layoutX="57.0" layoutY="219.0"  text="Area" />
-            <TextField fx:id="pqsareas_areaSize" layoutX="100.0" text="30" layoutY="219.0" onAction="#pqsareasSetAreaSize" prefHeight="27.0" prefWidth="40.0"/>
-            <TextArea fx:id="pqsareas_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" />
-        </Pane>
-        <Pane fx:id="cdhit_pnl" prefHeight="200.0" prefWidth="200.0">
-            <Button fx:id="cdhit_btnStart" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
-                    onAction="#cdhitStart"  text="Start">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Button disable="true" fx:id="cdhit_btnStop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false" onAction="#cdhitStop"  text="Stop">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Label layoutX="57.0" layoutY="25.0" text="CD-HIT-EST" >
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Label>
-            <TextField fx:id="cdhit_inputPath" text="Select PQS areas (pqsareas output)..." onMouseClicked="#cdhitSetInputPath" styleClass="input" editable="false" layoutX="49.0" layoutY="99.0" />
-            <Button layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#cdhitSetInputPath"  text="Input PQS areas">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <TextField fx:id="input_path_pqs" text="Select PQS positions (pqsfinder output)..." onMouseClicked="#cdhitSetInputPQS" styleClass="input" editable="false" layoutX="49.0" layoutY="139.0" />
-            <Button layoutX="369" layoutY="139" mnemonicParsing="false" onAction="#cdhitSetInputPQS"  text="Input PQS">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <TextField fx:id="cdhit_outputName" text="Select output directory..." onMouseClicked="#cdhitSetOutputName" styleClass="input" editable="false" layoutX="49.0" layoutY="179.0" />
-            <Button layoutX="369" layoutY="179" mnemonicParsing="false" onAction="#cdhitSetOutputName"  text="Output Directory">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <Label layoutX="57.0" layoutY="219.0"  text="Name" />
-            <TextField fx:id="cdhit_outputDir" layoutX="100.0" layoutY="219.0" prefHeight="27.0" prefWidth="100.0"/>
-            <Label layoutX="28.0" layoutY="275.0"  text="Parameters" />
-            <TextField fx:id="cdhit_params" layoutX="100.0" layoutY="275.0" prefHeight="27.0" prefWidth="674.0"/>
-            <TextArea fx:id="cdhit_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" />
-        </Pane>
-        <Pane fx:id="cdhit2_pnl" prefHeight="200.0" prefWidth="200.0">
-            <Button layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
-                    onAction="#cdhit2Start"  text="Start">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Button disable="true" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
-                    onAction="#cdhit2Stop"  text="Stop">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Label layoutX="57.0" layoutY="25.0" text="CD-HIT-EST-2D" >
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Label>
-            <TextField fx:id="cdhit2_inputPath" text="Select PQS areas (pqsareas output)..." onMouseClicked="#cdhit2SetInputPath" styleClass="input" editable="false" layoutX="49.0" layoutY="59.0"
-                       />
-            <Button layoutX="369" layoutY="59" mnemonicParsing="false"
-                    onAction="#cdhit2SetInputPath"  text="Input PQS areas">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <TextField fx:id="cdhit2_InputPathPQS" text="Select PQS positions (pqsfinder output)..." onMouseClicked="#cdhit2SetInputPQS" styleClass="input" editable="false" layoutX="49.0" layoutY="99.0"
-                       />
-            <Button layoutX="369" layoutY="99" mnemonicParsing="false"
-                    onAction="#cdhit2SetInputPQS"  text="Input PQS">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <TextField fx:id="cdhit2_inputPath2" text="Select PQS areas (pqsareas output)..." onMouseClicked="#cdhit2SetInputPath2" styleClass="input" editable="false" layoutX="49.0" layoutY="139.0"
-                       />
-            <Button layoutX="369" layoutY="139" mnemonicParsing="false"
-                    onAction="#cdhit2SetInputPath2"  text="Input PQS areas">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <TextField fx:id="cdhit2_InputPath2PQS" text="Select PQS positions (pqsfinder output)..." onMouseClicked="#cdhit2SetInputPQS2" styleClass="input" editable="false" layoutX="49.0" layoutY="179.0"
-            />
-            <Button layoutX="369" layoutY="179" mnemonicParsing="false"
-                    onAction="#cdhit2SetInputPQS"  text="Input PQS">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <TextField fx:id="cdhit2_outputDir" text="Select output directory..." onMouseClicked="#cdhit2SetOutputDir" styleClass="input" editable="false" layoutX="49.0" layoutY="219.0"
-                       />
-            <Button layoutX="369" layoutY="219" mnemonicParsing="false"
-                    onAction="#cdhit2SetOutputDir"  text="Output Directory">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <TextField fx:id="cdhit2_outputName" layoutX="100.0" layoutY="259.0" onAction="#cdhit2SetOutputName"
-                       prefHeight="27.0" prefWidth="100.0"/>
-            <Label layoutX="57.0" layoutY="259.0"  text="Name" />
-            <Label layoutX="28.0" layoutY="275.0"  text="Parameters"
-                   />
-            <TextField fx:id="cdhit2_params" layoutX="100.0" layoutY="275.0" prefHeight="27.0"
-                       prefWidth="674.0"/>
-            <TextArea fx:id="cdhit2_area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0"
-                      prefWidth="493.0" />
-        </Pane>
-        <Pane fx:id="clusters_pnl" prefHeight="200.0" prefWidth="200.0">
-            <Button layoutX="683.0" layoutY="54.0" mnemonicParsing="false"
-                    onAction="#clustersStart"  text="Start">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
+        <Button fx:id="btn_exit" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" text="X">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Button>
+        <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #184357;"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <!--
-            <Button fx:id="btnClusters_stop" layoutX="683.0" layoutY="114.0" mnemonicParsing="false"
-                    onAction="#clustersStop"  text="Stop">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
+            <ImageView fitHeight="73.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../resources/jimmy-fallon.png" />
+                </image>
+                <VBox.margin>
+                    <Insets bottom="10.0" top="50.0" />
+                </VBox.margin>
+            </ImageView>
             -->
-            <Label layoutX="57.0" layoutY="25.0" text="Clusters" >
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Label>
-            <TextField fx:id="clusters_inputPath" text="Select PQS with areas (cd-hit output)..." onMouseClicked="#clustersSetInputPath" styleClass="input" editable="false" layoutX="49.0" layoutY="99.0"
-                       />
-            <Button layoutX="369" layoutY="99" mnemonicParsing="false"
-                    onAction="#clustersSetInputPath"  text="Input">
-                <font>
-                    <Font size="13.0"/>
-                </font>
-            </Button>
-            <Label layoutX="57.0" layoutY="139.0"  text="Limit" />
-            <TextField fx:id="clusters_limit" layoutX="100.0" layoutY="139.0" prefHeight="27.0"
-                       prefWidth="40.0"/>
-            <Label fx:id="clusters_number" layoutX="147.0" layoutY="139.0"
-                   />
-            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="202.0" prefHeight="30.0" prefWidth="760"
-                  spacing="130.0" style="-fx-background-color: #FFFFFF;">
-                <Label text="ID">
-                    <HBox.margin>
-                        <Insets left="5"/>
-                    </HBox.margin>
-                </Label>
-                <Label text="Reference Sequence">
-                    <HBox.margin>
-                        <Insets/>
-                    </HBox.margin>
-                </Label>
-                <Label text="Size">
-                    <HBox.margin>
-                        <Insets/>
-                    </HBox.margin>
-                </Label>
-            </HBox>
-            <ScrollPane layoutX="14.0" layoutY="232.0" prefHeight="320.0" prefWidth="760.0"
-            >
-                <VBox fx:id="pnItems" prefHeight="318.0" prefWidth="744.0" spacing="1.0"
-                      style="-fx-background-color: #FFFFFF;">
+
+            <HBox>
+                <Button fx:id="pqsfinder_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
+                        onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0"
+                        text="PQSfinder">
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets left="50.0"/>
                     </padding>
-                    <children>
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="pqsfinder_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
+                        onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0"
+                        text="Info">
+                    <padding>
+                        <Insets right="13.0"/>
+                    </padding>
+                </Button>
+            </HBox>
+            <HBox>
+                <Button fx:id="pqsareas_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
+                        onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0"
+                        text="PQSareas">
+                    <padding>
+                        <Insets left="50.0"/>
+                    </padding>
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="pqsareas_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
+                        onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0" text="Info">
+                    <padding>
+                        <Insets right="13.0"/>
+                    </padding>
+                </Button>
+            </HBox>
+            <HBox>
+                <Button fx:id="cdhit_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
+                        onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0" text="CD-HIT-EST">
+                    <padding>
+                        <Insets left="50.0"/>
+                    </padding>
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="cdhit_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
+                        onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0" text="Info">
+                    <padding>
+                        <Insets right="13.0"/>
+                    </padding>
+                </Button>
+            </HBox>
+            <HBox>
+                <Button fx:id="cdhit2_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
+                        onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0"
+                        text="CD-HIT-EST-2D">
+                    <padding>
+                        <Insets left="50.0"/>
+                    </padding>
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="cdhit2_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
+                        onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0" text="Info">
+                    <padding>
+                        <Insets right="13.0"/>
+                    </padding>
+                </Button>
+            </HBox>
+            <HBox>
+                <Button fx:id="clusters_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
+                        onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0"
+                        text="Clusters">
+                    <padding>
+                        <Insets left="50.0"/>
+                    </padding>
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="clusters_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
+                        onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0" text="Info">
+                    <padding>
+                        <Insets right="13.0"/>
+                    </padding>
+                </Button>
+            </HBox>
+            <HBox>
+                <Button fx:id="blastAPI_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
+                        onAction="#handleClicks" prefHeight="60.0" prefWidth="259.0" text="Blast">
+                    <padding>
+                        <Insets left="50.0"/>
+                    </padding>
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="blastAPI_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false"
+                        onAction="#handleClicks" prefHeight="60.0" prefWidth="100.0" text="Info">
+                    <padding>
+                        <Insets right="13.0"/>
+                    </padding>
+                </Button>
+            </HBox>
+        </VBox>
+    </VBox>
+    <StackPane fx:id="main_pnl" layoutX="258.0" prefHeight="576.0" prefWidth="793.0"
+               style="-fx-background-color: #02030A;">
 
-                    </children>
-                </VBox>
-            </ScrollPane>
-        </Pane>
-        <Pane fx:id="blastAPI_pnl" prefHeight="200.0" prefWidth="200.0">
-            <Button layoutX="660.0" layoutY="54.0" mnemonicParsing="false"
-                    onAction="#blastAPISend"  text="Search">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            <Label layoutX="57.0" layoutY="25.0" text="Blast" >
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Label>
 
-            <Label layoutX="57.0" layoutY="99.0"  text="Sequence" />
-            <TextField fx:id="blastAPI_seq" layoutX="57" layoutY="129.0" prefHeight="27.0" prefWidth="680.0"/>
-            <Label layoutX="57.0" layoutY="186.0"  text="Database" />
-            <ChoiceBox fx:id="blastAPI_database" layoutX="120.0" layoutY="181.0" prefHeight="27.0" prefWidth="90.0"/>
-            <Label layoutX="230.0" layoutY="186.0"  text="Megablast" />
-            <ChoiceBox fx:id="blastAPI_megablast" layoutX="300.0" layoutY="181.0" prefHeight="27.0" prefWidth="41.0"/>
-            <Label fx:id="blastAPI_time" layoutX="57.0" layoutY="233.0"  />
-            <Button visible="false" fx:id="blastAPI_link" layoutX="57.0" layoutY="263.0" onAction="#blastAPIOpenInBrowser"  />
-        </Pane>
-        <Pane fx:id="pqsfinder_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="PQSfinder info" >
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Label>
-            <Text fx:id="psqfinder_manual" layoutX="57" layoutY="100" >
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Text>
-            <Button onAction="#pqsfinderOpenDoc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"  text="Doc">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-        </Pane>
-        <Pane fx:id="pqsareas_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="PQSareas info" >
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Label>
-            <Text fx:id="psqareas_manual" layoutX="57" layoutY="100" >
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Text>
-            <!--
-            <Button fx:id="pqsareas_doc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"  text="Doc">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            -->
-        </Pane>
-        <Pane fx:id="cdhit_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="CD-HIT-EST info" >
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Label>
-            <Text fx:id="cdhit_manual" layoutX="57" layoutY="100" >
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Text>
-            <Button onAction="#cdhitOpenDoc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"  text="Doc">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-        </Pane>
-        <Pane fx:id="cdhit2_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="CD-HIT-EST-2D info" >
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Label>
-            <Text fx:id="cdhit2_manual" layoutX="57" layoutY="100" >
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Text>
-            <Button onAction="#cdhit2OpenDoc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"  text="Doc">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-        </Pane>
-        <Pane fx:id="clusters_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="Clusters info" >
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Label>
-            <Text fx:id="clusters_manual" layoutX="57" layoutY="100" >
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Text>
-            <!--
-            <Button fx:id="clusters_doc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"  text="Doc">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            -->
-        </Pane>
-        <Pane fx:id="blastAPI_infoPnl" prefHeight="200.0" prefWidth="200.0">
-            <Label layoutX="57.0" layoutY="25.0" text="Blast info" >
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Label>
-            <Text fx:id="blastAPI_manual" layoutX="57" layoutY="100" >
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Text>
-            <!--
-            <Button fx:id="blastAPI_doc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"  text="Doc">
-                <font>
-                    <Font size="24.0"/>
-                </font>
-            </Button>
-            -->
-        </Pane>
     </StackPane>
     <stylesheets>
-        <URL value="@style.css" />
+        <URL value="@style.css"/>
     </stylesheets>
 </AnchorPane>

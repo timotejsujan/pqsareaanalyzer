@@ -14,8 +14,11 @@ public class base {
     protected String output_path = "";
     protected String output_name = "";
     protected String program_path = "";
-    public base() {}
-    public base(TextArea oa){
+
+    public base() {
+    }
+
+    public base(TextArea oa) {
         print_stream = new PrintStream(new custom_output_stream(oa));
     }
 
@@ -27,7 +30,7 @@ public class base {
         input_path = s;
     }
 
-    public void set_output_path(String s) {
+    public void set_output_dir(String s) {
         output_path = s;
     }
 
@@ -39,7 +42,7 @@ public class base {
         program_path = s;
     }
 
-    public Boolean is_base_valid(){
+    public Boolean is_base_valid() {
         return print_stream != null
                 && !input_path.isEmpty()
                 && !output_path.isEmpty()
@@ -53,11 +56,21 @@ public class base {
         StringBuilder n = new StringBuilder();
         for (int i = 0; i < st.length(); i++) {
             switch (st.charAt(i)) {
-                case 'A': n.append('T'); break;
-                case 'T': n.append('A'); break;
-                case 'C': n.append('G'); break;
-                case 'G': n.append('C'); break;
-                default: n.append('N'); break;
+                case 'A':
+                    n.append('T');
+                    break;
+                case 'T':
+                    n.append('A');
+                    break;
+                case 'C':
+                    n.append('G');
+                    break;
+                case 'G':
+                    n.append('C');
+                    break;
+                default:
+                    n.append('N');
+                    break;
             }
         }
         return n;

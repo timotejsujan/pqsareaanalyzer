@@ -37,22 +37,19 @@ public final class cluster_visualization extends JFrame {
 
     public cluster_visualization(external.cluster c) throws IOException {
         cluster = c;
-        BLOCK_WIDTH = PANEL_WIDTH / (c.max_length +2);
+        BLOCK_WIDTH = PANEL_WIDTH / (c.max_length + 2);
         setBounds(350, 250, PANEL_WIDTH, PANEL_HEIGHT);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ClusterVisualization");
     }
 
-    public void showSequence(){
+    public void show_sequence() {
         JPanel panel = new JPanel() {
             @Override
             public void paint(Graphics g) {
                 super.paint(g);
-                try {
-                    paintScene(g);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                graphics = g;
+                paint_cluster();
             }
         };
         panel.setBackground(Color.WHITE);
@@ -60,24 +57,14 @@ public final class cluster_visualization extends JFrame {
         setVisible(true);
     }
 
-    private void paintScene(Graphics g) throws IOException {
-        graphics = g;
-        paint_cluster(cluster);
-    }
-
-    public void export() throws IOException {
-        //showSequence(false);
+    public BufferedImage get_buffered_image() {
         BufferedImage bi = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
         graphics = bi.createGraphics();
-        graphics.setColor (Color.WHITE);
-        graphics.fillRect ( 0, 0, bi.getWidth(), bi.getHeight() );
-        this.paintScene(graphics);
-        try {
-            ImageIO.write(bi, "png", new File("./output_image.png"));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        graphics.setColor(Color.WHITE);
+        graphics.fillRect(0, 0, bi.getWidth(), bi.getHeight());
+        graphics.setColor(Color.BLACK);
+        this.paint_cluster();
+        return bi;
     }
 
     private ArrayList<bar> get_logo(ArrayList<String> sequences) {
@@ -85,7 +72,7 @@ public final class cluster_visualization extends JFrame {
         ArrayList<StringBuilder> transformedStringBuilder = new ArrayList<>();
         for (int j = 0; j < sequences.size(); j++) {
             String s = sequences.get(j);
-            for (int i = 0; i < s.length(); i++){
+            for (int i = 0; i < s.length(); i++) {
                 char c = s.charAt(i);
                 if (j == 0) {
                     StringBuilder sb = new StringBuilder();
@@ -97,67 +84,80 @@ public final class cluster_visualization extends JFrame {
             }
         }
         ArrayList<bar> logo = new ArrayList<>();
-        double e = 1.0/Math.log(2)*(4 - 1)/(2*sequences.size());
+        double e = 1.0 / Math.log(2) * (4 - 1) / (2 * sequences.size());
         for (StringBuilder s : transformedStringBuilder) {
             bar b = new bar();
-            Integer A = 0, C = 0, T = 0, G = 0;
-            for (int i = 0; i < s.toString().length(); i++){
-                switch (s.toString().charAt(i)){
-                    case 'A': A++; break;
-                    case 'C': C++; break;
-                    case 'T': T++; break;
-                    case 'G': G++; break;
-                    default: break;
+            int A = 0, C = 0, T = 0, G = 0, N = 0;
+            for (int i = 0; i < s.toString().length(); i++) {
+                switch (s.toString().charAt(i)) {
+                    case 'A':
+                        A++;
+                        break;
+                    case 'C':
+                        C++;
+                        break;
+                    case 'T':
+                        T++;
+                        break;
+                    case 'G':
+                        G++;
+                        break;
+                    default:
+                        N++;
+                        break;
                 }
+            }
+            for (int n = 0; n < N; n++){
+                A++;C++;T++;G++;
             }
             b.bases.put('A', A);
             b.bases.put('C', C);
             b.bases.put('T', T);
             b.bases.put('G', G);
             b.bases = sortByValue(b.bases);
-            double H = - (b.h('A') + b.h('T') + b.h('C') + b.h('G'));
+            double H = -(b.h('A') + b.h('T') + b.h('C') + b.h('G'));
             b.r = Math.max(0, 2 - (H + e));
             logo.add(b);
         }
         return logo;
     }
 
-    private void paint_cluster(external.cluster cluster) throws IOException {
+    private void paint_cluster() {
         ArrayList<bar> left_area = get_logo(cluster.left_area);
         ArrayList<bar> pqs = get_logo(cluster.pqs);
         ArrayList<bar> right_area = get_logo(cluster.right_area);
 
-        int marginLeft = 2*(BLOCK_WIDTH)+BLOCK_WIDTH/3;
+        int marginLeft = 2 * (BLOCK_WIDTH) + BLOCK_WIDTH / 3;
         graphics.drawString("left area", marginLeft, 10);
         int AMP = 100;
-        paint_line(graphics, marginLeft - 25, 20, AMP *2 - 20);
+        paint_line(marginLeft - 25, 20, AMP * 2 - 20);
         graphics.drawString("quadruplex", marginLeft, 260);
-        paint_line(graphics, marginLeft - 25, 270, AMP *2 - 20);
+        paint_line(marginLeft - 25, 270, AMP * 2 - 20);
         graphics.drawString("right area", marginLeft, 510);
-        paint_line(graphics, marginLeft - 25, 520, AMP *2 - 20);
+        paint_line(marginLeft - 25, 520, AMP * 2 - 20);
 
         int counter = 2;
         for (int j = 1; j <= left_area.size(); j++) {
             graphics.setColor(Color.BLACK);
-            graphics.drawString(((Integer)j).toString(), (counter++)*(BLOCK_WIDTH)+BLOCK_WIDTH/3, 210);
+            graphics.drawString(((Integer) j).toString(), (counter++) * (BLOCK_WIDTH) + BLOCK_WIDTH / 3, 210);
         }
         counter = 2;
-        for (int j = left_area.size() + 1; j <= left_area.size()*2; j++) {
+        for (int j = left_area.size() + 1; j <= left_area.size() * 2; j++) {
             graphics.setColor(Color.BLACK);
-            graphics.drawString(((Integer)j).toString(), (counter++)*(BLOCK_WIDTH)+BLOCK_WIDTH/3, 710);
+            graphics.drawString(((Integer) j).toString(), (counter++) * (BLOCK_WIDTH) + BLOCK_WIDTH / 3, 710);
         }
 
         counter = 2;
-        int height = 0;
+        int height;
         for (bar b : pqs) {
             double total_height = AMP * b.r;
             height = 0;
             double curr_height;
             for (Map.Entry<Character, Integer> entry : b.bases.entrySet()) {
-                curr_height = AMP *b.rel_freq(entry.getValue())*b.r;
-                graphics.setColor(get_color(entry.getKey()));
+                curr_height = AMP * b.rel_freq(entry.getValue()) * b.r;
+                //graphics.setColor(get_color(entry.getKey()));
 
-                graphics.drawImage(get_img(entry.getKey()), (counter)*(BLOCK_WIDTH),
+                graphics.drawImage(get_img(entry.getKey()), (counter) * (BLOCK_WIDTH),
                         (int) (450 - total_height + height), BLOCK_WIDTH, (int) curr_height, null);
                 height += curr_height;
             }
@@ -166,13 +166,13 @@ public final class cluster_visualization extends JFrame {
 
         counter = 2;
         for (bar b : left_area) {
-            double total_height = AMP *b.r;
+            double total_height = AMP * b.r;
             height = 0;
             double curr_height;
             for (Map.Entry<Character, Integer> entry : b.bases.entrySet()) {
-                curr_height = AMP *b.rel_freq(entry.getValue())*b.r;
-                graphics.setColor(get_color(entry.getKey()));
-                graphics.drawImage(get_img(entry.getKey()), (counter)*(BLOCK_WIDTH),
+                curr_height = AMP * b.rel_freq(entry.getValue()) * b.r;
+                //graphics.setColor(get_color(entry.getKey()));
+                graphics.drawImage(get_img(entry.getKey()), (counter) * (BLOCK_WIDTH),
                         (int) (200 - total_height + height), BLOCK_WIDTH, (int) curr_height, null);
                 height += curr_height;
             }
@@ -181,54 +181,64 @@ public final class cluster_visualization extends JFrame {
 
         counter = 2;
         for (bar b : right_area) {
-            double total_height = AMP *b.r;
+            double total_height = AMP * b.r;
             height = 0;
             double curr_height;
             for (Map.Entry<Character, Integer> entry : b.bases.entrySet()) {
-                curr_height = AMP *b.rel_freq(entry.getValue())*b.r;
-                graphics.setColor(get_color(entry.getKey()));
+                curr_height = AMP * b.rel_freq(entry.getValue()) * b.r;
+                //graphics.setColor(get_color(entry.getKey()));
 
-                graphics.drawImage(get_img(entry.getKey()), (counter)*(BLOCK_WIDTH),
+                graphics.drawImage(get_img(entry.getKey()), (counter) * (BLOCK_WIDTH),
                         (int) (700 - total_height + height), BLOCK_WIDTH, (int) curr_height, null);
                 height += curr_height;
             }
             counter++;
         }
+
     }
 
-    private void paint_line(Graphics g, int x , int y, int height){
+    private void paint_line(int x, int y, int height) {
         int m_x = 30;
         int m_y = 5;
-        g.drawLine(x, y, x, y + height);
-        g.drawLine(x-5, y, x, y);
-        g.drawString("2", x+5 - m_x, y+m_y);
-        g.drawLine(x-5, y+height/4, x, y+height/4);
-        g.drawString("1.5", x-5 - m_x, y+height/4+m_y);
-        g.drawLine(x-5, y + height/2, x, y+height/2);
-        g.drawString("1", x+5 - m_x, y+height/2+m_y);
-        g.drawLine(x-5, y+(height*3/4), x, y+(height*3/4));
-        g.drawString("0.5", x-5 - m_x, y+(height*3/4)+m_y);
-        g.drawLine(x-5, y+height, x, y+height);
-        g.drawString("0", x+5 - m_x, y+height+m_y);
+        graphics.drawLine(x, y, x, y + height);
+        graphics.drawLine(x - 5, y, x, y);
+        graphics.drawString("2", x + 5 - m_x, y + m_y);
+        graphics.drawLine(x - 5, y + height / 4, x, y + height / 4);
+        graphics.drawString("1.5", x - 5 - m_x, y + height / 4 + m_y);
+        graphics.drawLine(x - 5, y + height / 2, x, y + height / 2);
+        graphics.drawString("1", x + 5 - m_x, y + height / 2 + m_y);
+        graphics.drawLine(x - 5, y + (height * 3 / 4), x, y + (height * 3 / 4));
+        graphics.drawString("0.5", x - 5 - m_x, y + (height * 3 / 4) + m_y);
+        graphics.drawLine(x - 5, y + height, x, y + height);
+        graphics.drawString("0", x + 5 - m_x, y + height + m_y);
     }
 
     private Image get_img(char c) {
         switch (c) {
-            case 'T': return img_t;
-            case 'G': return img_g;
-            case 'C': return img_c;
+            case 'T':
+                return img_t;
+            case 'G':
+                return img_g;
+            case 'C':
+                return img_c;
             case 'A':
-            default: return img_a;
+            default:
+                return img_a;
         }
     }
 
     private Color get_color(char c) {
         switch (c) {
-            case 'A': return Color.RED;
-            case 'T': return Color.YELLOW;
-            case 'G': return Color.BLUE;
-            case 'C': return Color.GREEN;
-            default: return Color.BLACK;
+            case 'A':
+                return Color.getColor("#8C001A");
+            case 'T':
+                return Color.getColor("#FF9000");
+            case 'G':
+                return Color.getColor("#26547C");
+            case 'C':
+                return Color.getColor("#047632");
+            default:
+                return Color.BLACK;
         }
     }
 

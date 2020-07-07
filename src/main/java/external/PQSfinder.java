@@ -36,18 +36,18 @@ public class pqsfinder extends base {
 
     public void start() throws Exception {
         changeParameters();
-        p = Runtime.getRuntime().exec(new String[] { "Rscript", program_path, input_path, output_path +"/"+ output_name +".txt"});
+        p = Runtime.getRuntime().exec(new String[]{"Rscript", program_path, input_path, output_path + "/" + output_name + ".txt"});
 
         String line;
         BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
         BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-        while(!Thread.interrupted() && (line = error.readLine()) != null){
+        while (!Thread.interrupted() && (line = error.readLine()) != null) {
             System.out.println(line);
             //printStatus(line);
         }
 
-        while(!Thread.interrupted() && (line=input.readLine()) != null){
+        while (!Thread.interrupted() && (line = input.readLine()) != null) {
             System.out.println(line);
             //printStatus(line);
         }
@@ -59,33 +59,33 @@ public class pqsfinder extends base {
     }
 
 
-
     private void changeParameters() throws Exception {
         String extraParams = "";
-        if (strand != null && !strand.isEmpty()) extraParams += ", strand=\""+strand+"\"";
-        if (overlapping != null && !overlapping.isEmpty()) extraParams += ", overlapping="+overlapping;
-        if (!max_len.isEmpty()) extraParams += ", max_len="+max_len;
-        if (!min_score.isEmpty()) extraParams += ", min_score="+min_score;
-        if (!run_min_len.isEmpty()) extraParams += ", run_min_len="+run_min_len;
-        if (!run_max_len.isEmpty()) extraParams += ", run_max_len="+run_max_len;
-        if (!loop_min_len.isEmpty()) extraParams += ", loop_min_len="+loop_min_len;
-        if (!loop_max_len.isEmpty()) extraParams += ", loop_max_len="+loop_max_len;
-        if (!max_bulges.isEmpty()) extraParams += ", max_bulges="+max_bulges;
-        if (!max_mismatches.isEmpty()) extraParams += ", max_mismatches="+max_mismatches;
-        if (!max_defects.isEmpty()) extraParams += ", max_defects="+max_defects;
+        if (strand != null && !strand.isEmpty()) extraParams += ", strand=\"" + strand + "\"";
+        if (overlapping != null && !overlapping.isEmpty()) extraParams += ", overlapping=" + overlapping;
+        if (!max_len.isEmpty()) extraParams += ", max_len=" + max_len;
+        if (!min_score.isEmpty()) extraParams += ", min_score=" + min_score;
+        if (!run_min_len.isEmpty()) extraParams += ", run_min_len=" + run_min_len;
+        if (!run_max_len.isEmpty()) extraParams += ", run_max_len=" + run_max_len;
+        if (!loop_min_len.isEmpty()) extraParams += ", loop_min_len=" + loop_min_len;
+        if (!loop_max_len.isEmpty()) extraParams += ", loop_max_len=" + loop_max_len;
+        if (!max_bulges.isEmpty()) extraParams += ", max_bulges=" + max_bulges;
+        if (!max_mismatches.isEmpty()) extraParams += ", max_mismatches=" + max_mismatches;
+        if (!max_defects.isEmpty()) extraParams += ", max_defects=" + max_defects;
 
         File f = new File(program_path);
         int line_to_replace = findLineInFIle(f, line_id_inRscript);
-        replaceStringInFile(f, line_to_replace, line_start+extraParams+ ")");
+        replaceStringInFile(f, line_to_replace, line_start + extraParams + ")");
 
     }
+
     private void replaceStringInFile(File inFile, int lineno, String lineToBeInserted)
             throws Exception {
         // temp file
         File outFile = new File("$$$$$$$$.tmp");
 
         // input
-        FileInputStream fis  = new FileInputStream(inFile);
+        FileInputStream fis = new FileInputStream(inFile);
         BufferedReader in = new BufferedReader
                 (new InputStreamReader(fis));
 
@@ -94,9 +94,9 @@ public class pqsfinder extends base {
         PrintWriter out = new PrintWriter(fos);
 
         String line;
-        int counter =1;
+        int counter = 1;
         while ((line = in.readLine()) != null) {
-            if(counter == lineno) {
+            if (counter == lineno) {
                 out.println(lineToBeInserted);
             } else {
                 out.println(line);

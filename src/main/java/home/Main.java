@@ -23,10 +23,10 @@ public class Main extends Application {
                 .toURI()).getPath();
 
         int last_slash = jar_folder_path.lastIndexOf('/');
-        if (last_slash == -1){
+        if (last_slash == -1) {
             last_slash = jar_folder_path.lastIndexOf('\\');
         }
-        jar_folder_path =  jar_folder_path.substring(0,last_slash)+ "/resources";
+        jar_folder_path = jar_folder_path.substring(0, last_slash) + "/resources";
 
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("Home.fxml")));
@@ -63,7 +63,7 @@ public class Main extends Application {
 
     public static boolean isUnix() {
 
-        return (OS.contains("nix") || OS.contains("nux") || OS.indexOf("aix") > 0 );
+        return (OS.contains("nix") || OS.contains("nux") || OS.indexOf("aix") > 0);
 
     }
 
