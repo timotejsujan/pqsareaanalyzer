@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.cdhit_controller">
+    <Button fx:id="start_btn" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" onAction="#start" text="Start">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Button>
+    <Button fx:id="stop_btn" disable="true" layoutX="683.0" layoutY="114.0" mnemonicParsing="false" onAction="#stop" text="Stop">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Button>
+    <Label layoutX="57.0" layoutY="25.0" text="CD-HIT-EST">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Label>
+    <TextField fx:id="input_path_areas" editable="false" layoutX="49.0" layoutY="99.0" onMouseClicked="#set_input_path_areas" styleClass="input" text="Select PQS areas (pqsareas output)..." />
+    <Button layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#set_input_path_areas" text="...">
+        <font>
+            <Font size="13.0" />
+        </font>
+    </Button>
+    <TextField fx:id="input_path_pqs" editable="false" layoutX="49.0" layoutY="139.0" onMouseClicked="#set_input_path_pqs" styleClass="input" text="Select PQS positions (pqsfinder output)..." />
+    <Button layoutX="369" layoutY="139" mnemonicParsing="false" onAction="#set_input_path_pqs" text="...">
+        <font>
+            <Font size="13.0" />
+        </font>
+    </Button>
+    <TextField fx:id="output_dir" editable="false" layoutX="49.0" layoutY="179.0" onMouseClicked="#set_output_dir" styleClass="input" text="Select output directory..." />
+    <Button layoutX="369" layoutY="179" mnemonicParsing="false" onAction="#set_output_dir" text="...">
+        <font>
+            <Font size="13.0" />
+        </font>
+    </Button>
+    <Label layoutX="18.0" layoutY="238.0" text="Name" />
+    <TextField fx:id="output_name" layoutX="100.0" layoutY="233.0" prefHeight="27.0" prefWidth="100.0" />
+    <Label layoutX="18.0" layoutY="280.0" text="Parameters" />
+    <TextField fx:id="params" layoutX="100.0" layoutY="275.0" prefHeight="27.0" prefWidth="674.0" />
+    <TextArea fx:id="area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" />
+   <CheckBox fx:id="keep_one_sized" layoutX="226.0" layoutY="238.0" mnemonicParsing="false" text="Keep one-sized clusters" />
+
+</Pane>
