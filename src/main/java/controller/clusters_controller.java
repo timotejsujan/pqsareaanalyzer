@@ -63,7 +63,7 @@ public class clusters_controller implements Initializable {
     public void set_input_path() throws IOException {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            input_path.setText(file.getName());
+            input_path.setText(".../"+file.getName());
             clusters_count.setInputPath(file.getAbsolutePath());
             clusters_count.load_cluster();
             number_of_clusters.setText(""+clusters_count.getLength());
@@ -73,7 +73,7 @@ public class clusters_controller implements Initializable {
     }
 
     public void set_input_path(String dir_path, String name) throws IOException {
-        input_path.setText(name);
+        input_path.setText(".../"+name);
         clusters_count.setInputPath(dir_path + "/" + name + ".txt");
         clusters_count.load_cluster();
         number_of_clusters.setText("" + clusters_count.getLength());

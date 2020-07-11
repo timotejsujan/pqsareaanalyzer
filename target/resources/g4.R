@@ -9,7 +9,7 @@ file.create(args[2]);
 for (i in 1:length(seq)) {
   # following lines cannot be changed
   # id = 3A892
-  pqs <- pqsfinder(seq[[i]], strand = "*", overlapping = FALSE, min_score = 52)
+pqs <- pqsfinder(seq[[i]], strand="*", overlapping=FALSE, min_score=40)
   # --------------------------------
   if (length(pqs@elementMetadata@listData[["score"]]) > 0) {
     cat(paste0(";segment number: ", i), file = args[2], sep = "\n", append = TRUE)

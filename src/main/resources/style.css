@@ -62,3 +62,8 @@ HBox > .button {
 .input {
     -fx-pref-width: 300;
 }
+
+.info{
+    -fx-pref-width: 600;
+    -fx-pref-height: 490;
+}

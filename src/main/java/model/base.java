@@ -89,7 +89,7 @@ public class base {
         }
 
         @Override
-        public void write(int b) throws IOException {
+        public void write(int b) {
             // redirects data to the text area
             text_area.appendText(String.valueOf((char) b));
             // scrolls the text area to the end of data
@@ -98,8 +98,5 @@ public class base {
             //textArea.update(textArea.getGraphics());
         }
 
-        public void set_text_area(TextArea ta) {
-            text_area = ta;
-        }
     }
 }

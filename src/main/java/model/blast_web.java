@@ -19,6 +19,63 @@ public class blast_web {
     private String database = "nt";
     private String megablast = "on";
 
+    public String filter = "";
+    public String format_type = "";
+    public String expect = "";
+    public String nucl_reward = "";
+    public String nucl_penalty = "";
+    public String gapcosts = "";
+    public String matrix = "";
+    public String hitlist_size = "";
+    public String descriptions = "";
+    public String alignments = "";
+    public String ncbi_gi = "";
+    public String threshold = "";
+    public String word_size = "";
+    public String composition_based_statistics = "";
+    public String num_threads = "";
+
+    private Map<String, Object> get_params(String sequence){
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("CMD", "Put");
+        params.put("PROGRAM", "blastn");
+        if (megablast.equals("on")) params.put("MEGABLAST", megablast);
+        params.put("DATABASE", database);
+        params.put("QUERY", sequence);
+        if (!filter.isEmpty())
+            params.put("FILTER", filter);
+        if (!format_type.isEmpty())
+            params.put("FORMAT_TYPE", format_type);
+        if (!expect.isEmpty())
+            params.put("EXPECT", expect);
+        if (!nucl_reward.isEmpty())
+            params.put("NUCL_REWARD", nucl_reward);
+        if (!nucl_penalty.isEmpty())
+            params.put("NUCL_PENALTY", nucl_penalty);
+        if (!gapcosts.isEmpty())
+            params.put("GAPCOSTS", gapcosts);
+        if (!matrix.isEmpty())
+            params.put("MATRIX", matrix);
+        if (!hitlist_size.isEmpty())
+            params.put("HITLIST_SIZE", hitlist_size);
+        if (!descriptions.isEmpty())
+            params.put("DESCRIPTIONS", descriptions);
+        if (!alignments.isEmpty())
+            params.put("ALIGNMENTS", alignments);
+        if (!ncbi_gi.isEmpty())
+            params.put("NCBI_GI", ncbi_gi);
+        if (!threshold.isEmpty())
+            params.put("THRESHOLD", threshold);
+        if (!word_size.isEmpty())
+            params.put("WORD_SIZE", word_size);
+        if (!composition_based_statistics.isEmpty())
+            params.put("COMPOSITION_BASED_STATISTICS", composition_based_statistics);
+        if (!num_threads.isEmpty())
+            params.put("NUM_THREADS", num_threads);
+
+        return params;
+    }
+
     // public
     public String id = "";
     public String time = "";
@@ -35,13 +92,7 @@ public class blast_web {
 
         URL url = new URL("https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi");
 
-        Map<String, Object> params = new LinkedHashMap<>();
-        params.put("CMD", "Put");
-        params.put("PROGRAM", "blastn");
-        if (megablast.equals("on")) params.put("MEGABLAST", megablast);
-        params.put("DATABASE", database);
-        params.put("QUERY", sequence);
-        params.put("FORMAT_TYPE", "XML");
+        Map<String, Object> params = get_params(sequence);
 
         StringBuilder post_data = new StringBuilder();
         for (Map.Entry<String, Object> param : params.entrySet()) {

@@ -2,41 +2,61 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.text.Font?>
-<Pane xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.settings_controller" prefHeight="554.0" prefWidth="793.0">
+<Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.settings_controller">
 
     <Label layoutX="57.0" layoutY="25.0" text="Settings">
         <font>
-            <Font size="24.0"/>
+            <Font size="24.0" />
         </font>
     </Label>
-
-    <TextField fx:id="output_dir" editable="false" layoutX="49.0" layoutY="99.0" onMouseClicked="#set_output_dir" prefWidth="600" text="Select output directory..." />
-    <Button layoutX="669" layoutY="99" mnemonicParsing="false" onAction="#set_output_dir" text="...">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Button>
-
-    <TextField fx:id="cdhit_path" editable="false" layoutX="49.0" layoutY="139.0" onMouseClicked="#set_cdhit_path" prefWidth="600" text="Select path to CD-HIT-EST..." />
-    <Button layoutX="669" layoutY="139" mnemonicParsing="false" onAction="#set_cdhit_path" text="...">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Button>
-    <TextField fx:id="cdhit2D_path" editable="false" layoutX="49.0" layoutY="179.0" onMouseClicked="#set_cdhit2D_path" prefWidth="600" text="Select path to CD-HIT-EST-2D..." />
-    <Button layoutX="669" layoutY="179" mnemonicParsing="false" onAction="#set_cdhit2D_path" text="...">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Button>
-    <TextField fx:id="blast_path" editable="false" layoutX="49.0" layoutY="219.0" onMouseClicked="#set_blast_path" prefWidth="600" text="Select path to BLAST..." />
-    <Button layoutX="669" layoutY="219" mnemonicParsing="false" onAction="#set_blast_path" text="...">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Button>
+   <GridPane layoutX="49.0" layoutY="99.0" prefHeight="247.0" prefWidth="628.0">
+      <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+      <children>
+      
+          <TextField fx:id="output_dir" editable="false" onMouseClicked="#set_output_dir" prefWidth="600" text="Select output directory..." GridPane.rowIndex="1" />
+          <Button mnemonicParsing="false" onAction="#set_output_dir" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <font>
+                  <Font size="13.0" />
+              </font>
+          </Button>
+      
+          <TextField fx:id="cdhit_path" editable="false" onMouseClicked="#set_cdhit_path" prefWidth="600" text="Select path to CD-HIT-EST..." GridPane.rowIndex="3" />
+          <Button mnemonicParsing="false" onAction="#set_cdhit_path" text="..." GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <font>
+                  <Font size="13.0" />
+              </font>
+          </Button>
+          <TextField fx:id="cdhit2D_path" editable="false" onMouseClicked="#set_cdhit2D_path" prefWidth="600" text="Select path to CD-HIT-EST-2D..." GridPane.rowIndex="5" />
+          <Button mnemonicParsing="false" onAction="#set_cdhit2D_path" text="..." GridPane.columnIndex="1" GridPane.rowIndex="5">
+              <font>
+                  <Font size="13.0" />
+              </font>
+          </Button>
+          <TextField fx:id="blast_path" editable="false" onMouseClicked="#set_blast_path" prefWidth="600" text="Select path to blastn..." GridPane.rowIndex="7" />
+          <Button mnemonicParsing="false" onAction="#set_blast_path" text="..." GridPane.columnIndex="1" GridPane.rowIndex="7">
+              <font>
+                  <Font size="13.0" />
+              </font>
+          </Button>
+          <Label text="CD-HIT-EST path - required for program CD-HIT-EST" GridPane.rowIndex="2">TEST</Label>
+          <Label text="Output Directory">TEST</Label>
+          <Label text="CD-HIT-EST-2D path - required for program CD-HIT-EST-2D" GridPane.rowIndex="4">TEST</Label>
+          <Label text="blastn path - required for program BLAST LOCAL" GridPane.rowIndex="6">TEST</Label>
+      </children>
+   </GridPane>
 </Pane>

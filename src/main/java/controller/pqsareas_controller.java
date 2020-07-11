@@ -48,8 +48,10 @@ public class pqsareas_controller implements Initializable {
 
 
     public void start() {
-        set_output_name();
-        set_area_size();
+        pqsareas.set_area(Integer.parseInt(area_size.getText()));
+        pqsareas.set_output_name(output_name.getText().replace(" ", "_"));
+        output_name.setText(output_name.getText().replace(" ", "_"));
+
         if (!pqsareas.is_valid()) {
             pqsareas.print_stream.println("values are NOT valid, something is missing!");
             return;
@@ -93,7 +95,7 @@ public class pqsareas_controller implements Initializable {
     public void set_input_path_genome() {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            input_path_genom.setText(file.getName());
+            input_path_genom.setText(".../"+file.getName());
             pqsareas.set_input_path(file.getAbsolutePath());
         }
     }
@@ -101,21 +103,21 @@ public class pqsareas_controller implements Initializable {
     public void set_input_path_genome(String path, String name){
         if (exec_service == null || exec_service.isShutdown()) {
             pqsareas.input_path = path;
-            input_path_genom.setText(name);
+            input_path_genom.setText(".../"+name);
         }
     }
 
     public void set_input_path_pqs_positions() {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            input_path_pqs_positions.setText(file.getName());
+            input_path_pqs_positions.setText(".../"+file.getName());
             pqsareas.set_input_path_pqs_positions(file.getAbsolutePath());
         }
     }
 
     public void set_input_path_pqs_positions(String dir_path, String name){
         if (exec_service == null || exec_service.isShutdown()) {
-            input_path_pqs_positions.setText(name);
+            input_path_pqs_positions.setText(".../"+name);
             pqsareas.input_path_pqs_positions = dir_path + "/" + name + ".txt";
         }
     }
@@ -123,22 +125,14 @@ public class pqsareas_controller implements Initializable {
     public void set_output_dir() throws IOException {
         File file = dir_chooser.showDialog(Main.primary_stage);
         if (file != null) {
-            output_dir.setText(file.getName());
+            output_dir.setText(".../"+file.getName());
             pqsareas.set_output_dir(file.getAbsolutePath());
         }
     }
 
-    public void set_output_name() {
-        pqsareas.set_output_name(output_name.getText());
-    }
-
-    public void set_area_size() {
-        pqsareas.set_area(Integer.parseInt(area_size.getText()));
-    }
-
     public void init_config(){
         if (Main.config.output_dir_name != null && Main.config.output_dir != null) {
-            output_dir.setText(Main.config.output_dir_name);
+            output_dir.setText(".../"+Main.config.output_dir_name);
             pqsareas.output_path = Main.config.output_dir;
         }
     }

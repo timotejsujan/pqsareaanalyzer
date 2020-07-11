@@ -123,14 +123,14 @@ public final class cluster_visualization extends JFrame {
         ArrayList<bar> pqs = get_logo(cluster.pqs);
         ArrayList<bar> right_area = get_logo(cluster.right_area);
 
-        int marginLeft =  70;
+        int marginLeft =  60;
         graphics.drawString("left area", marginLeft, 10);
         int AMP = 100;
-        paint_line(marginLeft - 25, 20, AMP * 2);
+        paint_line(marginLeft - 5, 20, AMP * 2);
         graphics.drawString("PQS", marginLeft, 260);
-        paint_line(marginLeft - 25, 270, AMP * 2);
+        paint_line(marginLeft - 5, 270, AMP * 2);
         graphics.drawString("right area", marginLeft, 510);
-        paint_line(marginLeft - 25, 520, AMP * 2);
+        paint_line(marginLeft - 5, 520, AMP * 2);
 
         draw_baseline(1, left_area.size(), 230,  marginLeft);
         draw_baseline(left_area.size() + 1, left_area.size() * 2, 730,  marginLeft);

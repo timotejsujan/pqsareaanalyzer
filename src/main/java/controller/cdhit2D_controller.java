@@ -50,14 +50,14 @@ public class cdhit2D_controller implements Initializable {
     Controller contr;
 
     public void start() {
-        set_keep_one_size();
-        set_output_name();
-        //set_output_dir();
+        cdhit2D.set_keep_one_sized(keep_one_sized.isSelected());
+        cdhit2D.set_output_name(output_name.getText());
+        cdhit2D.set_params(params.getText());
+
         if (!cdhit2D.is_base_valid() || !cdhit2D.is_valid()) {
             cdhit2D.print_stream.println("values are NOT valid, something is missing!");
             return;
         }
-        set_params();
         exec_service = Executors.newSingleThreadExecutor();
 
         exec_service.execute(() -> {
@@ -103,14 +103,14 @@ public class cdhit2D_controller implements Initializable {
     public void set_input_path_areas_1() {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            input_path_areas_1.setText(file.getName());
+            input_path_areas_1.setText(".../"+file.getName());
             cdhit2D.set_input_path(file.getAbsolutePath());
         }
     }
 
     public void set_input_path_areas_1(String dir_path, String name) {
         if (exec_service == null || exec_service.isShutdown()) {
-            input_path_areas_1.setText(name);
+            input_path_areas_1.setText(".../"+name);
             cdhit2D.input_path = dir_path + "/" + name + ".txt";
         }
     }
@@ -118,30 +118,22 @@ public class cdhit2D_controller implements Initializable {
     public void set_input_path_areas_2() {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            input_path_areas_2.setText(file.getName());
+            input_path_areas_2.setText(".../"+file.getName());
             cdhit2D.set_input_path_areas_2(file.getAbsolutePath());
         }
-    }
-
-    public void set_output_name() {
-        cdhit2D.set_output_name(output_name.getText());
-    }
-
-    public void set_params() {
-        cdhit2D.set_params(params.getText());
     }
 
     public void set_input_path_pqs_1() {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            input_path_pqs_1.setText(file.getName());
+            input_path_pqs_1.setText(".../"+file.getName());
             cdhit2D.set_input_path_pqs_1(file.getAbsolutePath());
         }
     }
 
     public void set_input_path_pqs_1(String dir_path, String name) {
         if (exec_service == null || exec_service.isShutdown()) {
-            input_path_pqs_1.setText(name);
+            input_path_pqs_1.setText(".../"+name);
             cdhit2D.input_path_pqs_1 = dir_path + "/" + name + ".txt";
         }
     }
@@ -149,7 +141,7 @@ public class cdhit2D_controller implements Initializable {
     public void set_input_path_pqs_2() {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            input_path_pqs_2.setText(file.getName());
+            input_path_pqs_2.setText(".../"+file.getName());
             cdhit2D.set_input_path_pqs_2(file.getAbsolutePath());
         }
     }
@@ -157,7 +149,7 @@ public class cdhit2D_controller implements Initializable {
     public void set_output_dir() throws IOException {
         File file = dir_chooser.showDialog(Main.primary_stage);
         if (file != null) {
-            output_dir.setText(file.getName());
+            output_dir.setText(".../"+file.getName());
             cdhit2D.set_output_dir(file.getAbsolutePath());
             Main.config.output_dir_name = file.getName();
             Main.config.output_dir = file.getAbsolutePath();
@@ -165,13 +157,9 @@ public class cdhit2D_controller implements Initializable {
         }
     }
 
-    public void set_keep_one_size(){
-        cdhit2D.set_keep_one_sized(keep_one_sized.isSelected());
-    }
-
     public void init_config(){
         if (Main.config.output_dir_name != null && Main.config.output_dir != null) {
-            output_dir.setText(Main.config.output_dir_name);
+            output_dir.setText(".../"+Main.config.output_dir_name);
             cdhit2D.output_path = Main.config.output_dir;
         }
         cdhit2D.set_program_path(Main.config.cdhit2D_path);

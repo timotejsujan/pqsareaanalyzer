@@ -93,7 +93,7 @@ public class blast_local_controller implements Initializable {
     public void set_output_dir() throws IOException {
         File file = dir_chooser.showDialog(Main.primary_stage);
         if (file != null) {
-            output_dir.setText(file.getName());
+            output_dir.setText(".../"+file.getName());
             blast_local.set_output_dir(file.getAbsolutePath());
             Main.config.output_dir_name = file.getName();
             Main.config.output_dir = file.getAbsolutePath();
@@ -104,7 +104,7 @@ public class blast_local_controller implements Initializable {
     public void set_db_path() {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            database.setText(file.getName().substring(0, file.getName().lastIndexOf(".")));
+            database.setText(".../" + file.getName().substring(0, file.getName().lastIndexOf(".")));
             blast_local.set_database_path(file.getAbsolutePath());
         }
     }
@@ -117,7 +117,7 @@ public class blast_local_controller implements Initializable {
 
     public void init_config() {
         if (Main.config.output_dir_name != null && Main.config.output_dir != null) {
-            output_dir.setText(Main.config.output_dir_name);
+            output_dir.setText(".../"+Main.config.output_dir_name);
             blast_local.output_path = Main.config.output_dir;
         }
         blast_local.set_program_path(Main.config.blast_path);

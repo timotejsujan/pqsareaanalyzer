@@ -20,7 +20,7 @@
             <Font size="24.0" />
         </font>
     </Label>
-    <TextField fx:id="input_path_genom" editable="false" layoutX="49.0" layoutY="99.0" onMouseClicked="#set_input_path_genome" styleClass="input" text="Select genom file..." />
+    <TextField fx:id="input_path_genom" editable="false" layoutX="49.0" layoutY="99.0" onMouseClicked="#set_input_path_genome" styleClass="input" text="Select FASTA file (pqsfinder input)..." />
     <Button layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#set_input_path_genome" text="...">
         <font>
             <Font size="13.0" />
@@ -39,8 +39,14 @@
         </font>
     </Button>
     <Label layoutX="49.0" layoutY="224.0" text="Name" />
-    <TextField fx:id="output_name" layoutX="117.0" layoutY="219.0" onAction="#set_output_name" prefHeight="27.0" prefWidth="100.0" />
+    <TextField fx:id="output_name" layoutX="117.0" layoutY="219.0" prefHeight="27.0" prefWidth="100.0" />
     <Label layoutX="49.0" layoutY="262.0" text="Area Size" />
-    <TextField fx:id="area_size" layoutX="117.0" layoutY="257.0" onAction="#set_area_size" prefHeight="27.0" prefWidth="40.0" text="30" />
+    <TextField fx:id="area_size" layoutX="117.0" layoutY="257.0" prefHeight="27.0" prefWidth="40.0" text="30" />
     <TextArea fx:id="area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" />
+    <Label layoutX="48.0" layoutY="130.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="48.0" layoutY="88.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="48.0" layoutY="169.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="48.0" layoutY="217.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="48.0" layoutY="257.0" style="-fx-text-fill: red" text="*">*</Label>
+
 </Pane>

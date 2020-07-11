@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<Pane xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.blast_local_info_controller" prefHeight="554.0" prefWidth="793.0">
-    <Label layoutX="57.0" layoutY="25.0" text="Blast info">
+<Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.blast_local_info_controller">
+    <Label layoutX="57.0" layoutY="25.0" text="Blast Local info">
         <font>
-            <Font size="24.0"/>
+            <Font size="24.0" />
         </font>
     </Label>
-    <Text fx:id="manual" layoutX="57" layoutY="100">
+    <TextArea editable="false" layoutX="31.0" layoutY="73.0" styleClass="info" text="With Blast Local you can match sequences against custom databases.&#10;&#10;Input:&#10;- sequence&#10;- database file (select any database file, suffix will be removed)&#10;- output directory + output name&#10;- additional parameters&#10;&#10;Output:&#10;- .txt file with results of blastn program&#10;&#10;Click on &quot;Open Doc&quot; to read complete documentation of blastn program.&#10;&#10;&#10;">
         <font>
-            <Font size="15.0"/>
+            <Font size="15.0" />
         </font>
-    </Text>
-    <!--
-    <Button fx:id="blastAPI_doc" layoutX="683.0" layoutY="54.0" mnemonicParsing="false"  text="Doc">
+    </TextArea>
+
+    <Button onAction="#open_doc" layoutX="605.0" layoutY="17.0" mnemonicParsing="false" text="Open Doc">
         <font>
-            <Font size="24.0"/>
+            <Font size="24.0" />
         </font>
     </Button>
-    -->
+
 </Pane>

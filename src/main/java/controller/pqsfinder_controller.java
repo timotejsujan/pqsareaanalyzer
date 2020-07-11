@@ -150,7 +150,7 @@ public class pqsfinder_controller implements Initializable {
     public void set_input_path() {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            input_path.setText(file.getName());
+            input_path.setText(".../"+file.getName());
             pqsfinder.set_input_path(file.getAbsolutePath());
             contr.pqsareas_contr.set_input_path_genome(file.getAbsolutePath(), file.getName());
         }
@@ -159,7 +159,7 @@ public class pqsfinder_controller implements Initializable {
     public void set_output_dir() throws IOException {
         File file = dir_chooser.showDialog(Main.primary_stage);
         if (file != null) {
-            output_dir.setText(file.getName());
+            output_dir.setText(".../"+file.getName());
             pqsfinder.set_output_dir(file.getAbsolutePath());
             Main.config.output_dir_name = file.getName();
             Main.config.output_dir = file.getAbsolutePath();
@@ -187,7 +187,7 @@ public class pqsfinder_controller implements Initializable {
 
     public void init_config(){
         if (Main.config.output_dir_name != null && Main.config.output_dir != null) {
-            output_dir.setText(Main.config.output_dir_name);
+            output_dir.setText(".../"+Main.config.output_dir_name);
             pqsfinder.output_path = Main.config.output_dir;
         }
         //pqsfinder.set_program_path(Main.config.Rscript_path);

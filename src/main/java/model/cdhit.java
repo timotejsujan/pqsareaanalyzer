@@ -38,15 +38,20 @@ public class cdhit extends base {
         p = new ProcessBuilder(paramsAll).start();
 
         print_status(parameters);
-        InputStream is = p.getInputStream();
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(isr);
 
         String line;
-        while ((line = br.readLine()) != null) {
-            if (Thread.interrupted()) return;
+        BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+        BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+        while (!Thread.interrupted() && (line = error.readLine()) != null) {
             print_status(line);
         }
+
+        while (!Thread.interrupted() && (line = input.readLine()) != null) {
+            print_status(line);
+        }
+        error.close();
+        input.close();
 
         cluster_sort cs = new cluster_sort(this);
         cs.sort();

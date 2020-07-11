@@ -101,7 +101,7 @@ public class cdhit_controller implements Initializable {
     public void set_input_path_areas() {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            input_path_areas.setText(file.getName());
+            input_path_areas.setText(".../"+file.getName());
             cdhit.set_input_path(file.getAbsolutePath());
             //parameters_cdhit.appendText(" -i "+file.getPath()+" ");
         }
@@ -109,7 +109,7 @@ public class cdhit_controller implements Initializable {
 
     public void set_input_path_areas(String dir_path, String name) {
         if (exec_service == null || exec_service.isShutdown()) {
-            input_path_areas.setText(name);
+            input_path_areas.setText(".../"+name);
             cdhit.input_path = dir_path + "/" + name + ".txt";
         }
     }
@@ -117,14 +117,14 @@ public class cdhit_controller implements Initializable {
     public void set_input_path_pqs() {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            input_path_pqs.setText(file.getName());
+            input_path_pqs.setText(".../"+file.getName());
             cdhit.set_input_path_pqs(file.getPath());
         }
     }
 
     public void set_input_path_pqs(String dir_path, String name) {
         if (exec_service == null || exec_service.isShutdown()) {
-            input_path_pqs.setText(name);
+            input_path_pqs.setText(".../"+name);
             cdhit.input_path_pqs = dir_path + "/" + name + ".txt";
         }
     }
@@ -132,7 +132,7 @@ public class cdhit_controller implements Initializable {
     public void set_output_dir() throws IOException {
         File file = dir_chooser.showDialog(Main.primary_stage);
         if (file != null) {
-            output_dir.setText(file.getName());
+            output_dir.setText(".../"+file.getName());
             cdhit.set_output_dir(file.getAbsolutePath());
             Main.config.output_dir_name = file.getName();
             Main.config.output_dir = file.getAbsolutePath();
@@ -142,7 +142,7 @@ public class cdhit_controller implements Initializable {
 
     public void init_config(){
         if (Main.config.output_dir_name != null && Main.config.output_dir != null) {
-            output_dir.setText(Main.config.output_dir_name);
+            output_dir.setText(".../"+Main.config.output_dir_name);
             cdhit.output_path = Main.config.output_dir;
         }
         cdhit.set_program_path(Main.config.cdhit_path);

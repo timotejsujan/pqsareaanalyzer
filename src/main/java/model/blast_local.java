@@ -36,15 +36,20 @@ public class blast_local extends base{
         }
 
         print_status(parameters);
-        InputStream is = p.getErrorStream();
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(isr);
 
         String line;
-        while ((line = br.readLine()) != null) {
-            if (Thread.interrupted()) return;
+        BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+        BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+        while (!Thread.interrupted() && (line = error.readLine()) != null) {
             print_status(line);
         }
+
+        while (!Thread.interrupted() && (line = input.readLine()) != null) {
+            print_status(line);
+        }
+        error.close();
+        input.close();
 
         delete_file(new File(input_path));
 

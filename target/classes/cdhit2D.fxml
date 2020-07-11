@@ -85,10 +85,16 @@
           </Button>
       </children>
    </GridPane>
-    <TextField fx:id="output_name" layoutX="108.0" layoutY="237.0" onAction="#set_output_name" prefHeight="27.0" prefWidth="100.0" />
+    <TextField fx:id="output_name" layoutX="108.0" layoutY="237.0" prefHeight="27.0" prefWidth="100.0" />
     <Label layoutX="20.0" layoutY="242.0" text="Name" />
     <Label layoutX="20.0" layoutY="280.0" text="Parameters" />
     <TextField fx:id="params" layoutX="108.0" layoutY="275.0" prefHeight="27.0" prefWidth="666.0" />
     <TextArea fx:id="area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" />
    <CheckBox fx:id="keep_one_sized" layoutX="231.0" layoutY="242.0" mnemonicParsing="false" text="Keep one-sized clusters" />
+    <Label layoutX="340.0" layoutY="125.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="340.0" layoutY="78.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="17.0" layoutY="78.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="17.0" layoutY="125.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="17.0" layoutY="171.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="17.0" layoutY="235.0" style="-fx-text-fill: red" text="*">*</Label>
 </Pane>
