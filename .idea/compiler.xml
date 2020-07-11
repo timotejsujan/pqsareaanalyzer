@@ -6,13 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="samples" />
+        <module name="pqsareas" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="hellofx" target="11" />
-      <module name="pqsarea" target="11" />
-      <module name="samples" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>

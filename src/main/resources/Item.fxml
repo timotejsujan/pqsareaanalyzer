@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:controller="home.visualization_controller" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity"
+<HBox fx:controller="controller.visualization_controller" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity"
       minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="695.0" spacing="10.0"
       style="-fx-background-color: #FFFFFF; -fx-background-radius: 5; -fx-background-insets: 0;"
       xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">

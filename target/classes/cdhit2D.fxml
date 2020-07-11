@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.cdhit2D_controller">
+<Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.cdhit2D_controller">
     <Button fx:id="start_btn" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" onAction="#start" text="Start">
         <font>
             <Font size="24.0" />

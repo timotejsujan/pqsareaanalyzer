@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.pqsfinder_controller">
+<Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.pqsfinder_controller">
     <Label layoutX="57.0" layoutY="25.0" text="PQS finder">
         <font>
             <Font size="24.0" />
@@ -20,7 +20,7 @@
             <Font size="24.0" />
         </font>
     </Button>
-    <TextField fx:id="input_path" editable="false" layoutX="49.0" layoutY="63.0" onMouseClicked="#set_input_path" styleClass="input" text="Select genom file..." />
+    <TextField fx:id="input_path" editable="false" layoutX="49.0" layoutY="63.0" onMouseClicked="#set_input_path" styleClass="input" text="Select FASTA file..." />
     <Button layoutX="369.0" layoutY="63.0" mnemonicParsing="false" onAction="#set_input_path" text="...">
         <font>
             <Font size="13.0" />
@@ -50,7 +50,7 @@
           <ChoiceBox fx:id="overlapping" prefHeight="27.0" prefWidth="70.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
           <Label text="Overlapping" GridPane.rowIndex="1" />
           <Label text="Min Score" GridPane.rowIndex="2" />
-          <TextField fx:id="min_score" prefHeight="27.0" prefWidth="50.0" text="52" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+          <TextField fx:id="min_score" prefHeight="27.0" prefWidth="50.0" text="40" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       </children>
    </GridPane>
    <GridPane layoutX="217.0" layoutY="180.0" prefHeight="120.0" prefWidth="140.0">
