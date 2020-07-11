@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<Pane xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.blast_web_controller" prefHeight="554.0" prefWidth="793.0">
+    <Button layoutX="660.0" layoutY="54.0" mnemonicParsing="false"
+            onAction="#send" text="Send">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Button>
+    <Label layoutX="57.0" layoutY="25.0" text="Blast Web">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
+
+    <Label layoutX="57.0" layoutY="54.0" text="Sequence"/>
+    <TextArea wrapText="true" fx:id="sequence" layoutX="57" layoutY="79.0" prefHeight="77.0" maxWidth="580.0" />
+    <Label layoutX="57.0" layoutY="186.0" text="Database"/>
+    <ChoiceBox fx:id="database" layoutX="120.0" layoutY="181.0" prefHeight="27.0" prefWidth="90.0"/>
+    <Label layoutX="230.0" layoutY="186.0" text="Megablast"/>
+    <ChoiceBox fx:id="megablast" layoutX="300.0" layoutY="181.0" prefHeight="27.0" prefWidth="41.0"/>
+    <Label fx:id="time" layoutX="57.0" layoutY="233.0"/>
+    <Button visible="false" fx:id="link" layoutX="57.0" layoutY="263.0" onAction="#open_in_browser"/>
+
+</Pane>

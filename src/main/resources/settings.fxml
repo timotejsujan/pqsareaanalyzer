@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<Pane xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.settings_controller" prefHeight="554.0" prefWidth="793.0">
+
+    <Label layoutX="57.0" layoutY="25.0" text="Settings">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
+
+    <TextField fx:id="output_dir" editable="false" layoutX="49.0" layoutY="99.0" onMouseClicked="#set_output_dir" prefWidth="600" text="Select output directory..." />
+    <Button layoutX="669" layoutY="99" mnemonicParsing="false" onAction="#set_output_dir" text="...">
+        <font>
+            <Font size="13.0" />
+        </font>
+    </Button>
+
+    <TextField fx:id="cdhit_path" editable="false" layoutX="49.0" layoutY="139.0" onMouseClicked="#set_cdhit_path" prefWidth="600" text="Select path to CD-HIT-EST..." />
+    <Button layoutX="669" layoutY="139" mnemonicParsing="false" onAction="#set_cdhit_path" text="...">
+        <font>
+            <Font size="13.0" />
+        </font>
+    </Button>
+    <TextField fx:id="cdhit2D_path" editable="false" layoutX="49.0" layoutY="179.0" onMouseClicked="#set_cdhit2D_path" prefWidth="600" text="Select path to CD-HIT-EST-2D..." />
+    <Button layoutX="669" layoutY="179" mnemonicParsing="false" onAction="#set_cdhit2D_path" text="...">
+        <font>
+            <Font size="13.0" />
+        </font>
+    </Button>
+    <TextField fx:id="blast_path" editable="false" layoutX="49.0" layoutY="219.0" onMouseClicked="#set_blast_path" prefWidth="600" text="Select path to BLAST..." />
+    <Button layoutX="669" layoutY="219" mnemonicParsing="false" onAction="#set_blast_path" text="...">
+        <font>
+            <Font size="13.0" />
+        </font>
+    </Button>
+</Pane>
