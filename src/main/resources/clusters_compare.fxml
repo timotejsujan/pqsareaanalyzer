@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.clusters_compare_controller">
+    <Button layoutX="683.0" layoutY="54.0" mnemonicParsing="false" onAction="#show" text="Show">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Button>
+    <Button layoutX="675.0" layoutY="114.0" mnemonicParsing="false" onAction="#export" text="Export">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Button>
+    <Label layoutX="57.0" layoutY="25.0" text="clusters compare">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Label>
+    <TextField fx:id="input_path_clusters_1" editable="false" layoutX="49.0" layoutY="99.0" onMouseClicked="#set_input_path_cluster_1" styleClass="input" text="Select first cluster file (cdhit ouput)..." />
+    <Button layoutX="369" layoutY="99" mnemonicParsing="false" onAction="#set_input_path_cluster_1" text="...">
+        <font>
+            <Font size="13.0" />
+        </font>
+    </Button>
+    <TextField fx:id="input_path_clusters_2" editable="false" layoutX="49.0" layoutY="139.0" onMouseClicked="#set_input_path_cluster_2" styleClass="input" text="Select second cluster file (cdhit ouput)..." />
+    <Button layoutX="369" layoutY="139" mnemonicParsing="false" onAction="#set_input_path_cluster_2" text="...">
+        <font>
+            <Font size="13.0" />
+        </font>
+    </Button>
+    <TextField fx:id="output_dir" editable="false" layoutX="49.0" layoutY="179.0" onMouseClicked="#set_output_dir" styleClass="input" text="Select output directory..." />
+    <Button layoutX="369" layoutY="179" mnemonicParsing="false" onAction="#set_output_dir" text="...">
+        <font>
+            <Font size="13.0" />
+        </font>
+    </Button>
+    <Label layoutX="49.0" layoutY="224.0" text="Name" />
+    <TextField fx:id="output_name" layoutX="121.0" layoutY="219.0" prefHeight="27.0" prefWidth="100.0" />
+    <Label layoutX="49.0" layoutY="262.0" text="Levenshtein Distance" />
+    <TextField fx:id="distance" layoutX="181.0" layoutY="257.0" prefHeight="27.0" prefWidth="40.0" />
+    <Label layoutX="48.0" layoutY="130.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="48.0" layoutY="88.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="48.0" layoutY="169.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="48.0" layoutY="217.0" style="-fx-text-fill: red" text="*">*</Label>
+    <Label layoutX="48.0" layoutY="257.0" style="-fx-text-fill: red" text="*">*</Label>
+
+</Pane>

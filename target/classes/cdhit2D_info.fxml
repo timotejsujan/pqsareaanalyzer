@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 <Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.cdhit2D_info_controller">
-    <Label layoutX="57.0" layoutY="25.0" text="CD-HIT-EST-2D info">
+    <Label layoutX="57.0" layoutY="25.0" text="cd-hit-est-2D info">
         <font>
             <Font size="24.0" />
         </font>

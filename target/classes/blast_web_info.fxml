@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 <Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.blast_web_info_controller">
-    <Label layoutX="57.0" layoutY="25.0" text="Blast info">
+    <Label layoutX="57.0" layoutY="25.0" text="blast web info">
         <font>
             <Font size="24.0" />
         </font>
@@ -15,9 +15,9 @@
             <Font size="15.0" />
         </font>
     </TextArea>
-    <Button onAction="#open_doc" layoutX="605.0" layoutY="11.0" mnemonicParsing="false"  text="Open Doc">
+    <Button layoutX="605.0" layoutY="11.0" mnemonicParsing="false" onAction="#open_doc" text="Open Doc">
         <font>
-            <Font size="24.0"/>
+            <Font size="24.0" />
         </font>
     </Button>
 </Pane>

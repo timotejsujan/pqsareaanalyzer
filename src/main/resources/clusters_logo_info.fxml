@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.clusters_logo_info_controller">
+    <Label layoutX="57.0" layoutY="25.0" text="clusters logo info">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Label>
+    <TextArea editable="false" layoutX="31.0" layoutY="73.0" styleClass="info" text="In Clusters logo you can visualize given clusters. After loading a FASTA file with clusters, you&#10;will get table of clusters which you can view as sequence logo, export or send to BLAST&#10;programs (reference sequences). You can also export cluster file summary table.&#10;&#10;Input:&#10;- FASTA file of clusters (output of CD-HIT programs)&#10;&#10;Output:&#10;- table of clusters&#10;">
+        <font>
+            <Font size="15.0" />
+        </font>
+    </TextArea>
+</Pane>

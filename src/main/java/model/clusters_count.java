@@ -20,8 +20,9 @@ public class clusters_count {
     // private
     private int length = 0;
     private int limit = 0;
+    public int area = -1;
     private String inputPath;
-    private final Map<Integer, Cluster> referenceSeqs = new HashMap();
+    private final Map<Integer, Cluster> referenceSeqs = new HashMap<>();
 
     // public
     public void load_cluster() throws IOException {
@@ -33,6 +34,12 @@ public class clusters_count {
         int cluster_size = 0;
 
         while ((line = br.readLine()) != null) {
+            if (line.charAt(0) == ';') {
+                String[] area_size = line.split("=");
+                assert (area_size[0].equals(";area_size")) : "Missing area_size definition in file (;area_size=<area_size>)";
+                area = Integer.parseInt(area_size[1]);
+                continue;
+            }
             if (line.startsWith(">")) {
                 if (counter != 0) {
                     referenceSeqs.get(counter - 1).size = cluster_size;

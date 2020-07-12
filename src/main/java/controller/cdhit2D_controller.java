@@ -47,7 +47,7 @@ public class cdhit2D_controller implements Initializable {
     @FXML
     private CheckBox keep_one_sized;
 
-    Controller contr;
+    base_controller contr;
 
     public void start() {
         cdhit2D.set_keep_one_sized(keep_one_sized.isSelected());
@@ -79,7 +79,7 @@ public class cdhit2D_controller implements Initializable {
                 timeline.stop();
 
                 try {
-                    contr.clusters_contr.set_input_path(cdhit2D.output_path, cdhit2D.output_name);
+                    contr.clusters_logo_contr.set_input_path(cdhit2D.output_path, cdhit2D.output_name);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

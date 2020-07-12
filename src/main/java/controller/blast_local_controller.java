@@ -1,15 +1,9 @@
 package controller;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.util.Duration;
 import model.blast_local;
 
 import java.io.File;
@@ -18,29 +12,17 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * @author Timotej Sujan
  */
-public class blast_local_controller implements Initializable {
-    private final FileChooser file_chooser = new FileChooser();
-    private final DirectoryChooser dir_chooser = new DirectoryChooser();
-    private Timeline create_timeline(int time_freq, Runnable r) {
-        Timeline tl = new Timeline(new KeyFrame(Duration.seconds(time_freq), event -> r.run()));
-        tl.setCycleCount(Timeline.INDEFINITE);
-        return tl;
-    }
-    @FXML
-    TextField output_dir, output_name, database, params;
-    @FXML
-    TextArea area, sequence;
-    @FXML
-    Button start_btn, stop_btn;
+public class blast_local_controller extends helper implements Initializable {
 
-    private ExecutorService exec_service;
-    private Timeline timeline;
+    @FXML
+    TextField database, params;
+    @FXML
+    TextArea sequence;
 
     model.blast_local blast_local;
 

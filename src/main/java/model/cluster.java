@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class cluster {
     int max_length = 0;
-    int area = -1;
+    private int area = -1;
     ArrayList<String> left_area = new ArrayList<>();
     ArrayList<String> pqs = new ArrayList<>();
     ArrayList<String> right_area = new ArrayList<>();

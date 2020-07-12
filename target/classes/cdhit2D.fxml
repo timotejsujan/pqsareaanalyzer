@@ -15,7 +15,7 @@
             <Font size="24.0" />
         </font>
     </Button>
-    <Label layoutX="57.0" layoutY="25.0" text="CD-HIT-EST-2D">
+    <Label layoutX="57.0" layoutY="25.0" text="cd-hit-est-2D">
         <font>
             <Font size="24.0" />
         </font>

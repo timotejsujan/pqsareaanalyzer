@@ -15,7 +15,7 @@
             <Font size="24.0" />
         </font>
     </Button>
-    <Label layoutX="57.0" layoutY="25.0" text="Blast Local">
+    <Label layoutX="57.0" layoutY="25.0" text="blast local">
         <font>
             <Font size="24.0" />
         </font>

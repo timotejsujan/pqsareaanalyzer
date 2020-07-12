@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.clusters_controller">
+<Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.clusters_logo_controller">
     <Button layoutX="683.0" layoutY="54.0" mnemonicParsing="false" onAction="#start" text="Load">
         <font>
             <Font size="24.0" />
         </font>
     </Button>
-    <Label layoutX="57.0" layoutY="25.0" text="Clusters">
+    <Label layoutX="57.0" layoutY="25.0" text="clusters logo">
         <font>
             <Font size="24.0" />
         </font>
@@ -32,15 +32,10 @@
             <Font size="13.0" />
         </font>
     </Button>
-    <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="202.0" prefHeight="30.0" prefWidth="760" spacing="130.0" style="-fx-background-color: #FFFFFF;">
+    <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="202.0" prefHeight="30.0" prefWidth="760" spacing="10.0" style="-fx-background-color: #FFFFFF;">
         <Label text="ID">
             <HBox.margin>
                 <Insets left="5" />
-            </HBox.margin>
-        </Label>
-        <Label text="Reference Sequence">
-            <HBox.margin>
-                <Insets />
             </HBox.margin>
         </Label>
         <Label text="Size">

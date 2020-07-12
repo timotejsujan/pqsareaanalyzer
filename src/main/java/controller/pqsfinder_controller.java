@@ -51,7 +51,7 @@ public class pqsfinder_controller implements Initializable {
     @FXML
     private Button start_btn, stop_btn;
 
-    Controller contr;
+    base_controller contr;
 
     public model.pqsfinder pqsfinder;
     private ExecutorService exec_service = Executors.newSingleThreadExecutor();

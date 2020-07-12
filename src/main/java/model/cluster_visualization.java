@@ -85,23 +85,12 @@ public final class cluster_visualization extends JFrame {
             bar b = new bar();
             int A = 0, C = 0, T = 0, G = 0, N = 0;
             for (int i = 0; i < s.toString().length(); i++) {
-                switch (s.toString().charAt(i)) {
-                    case 'A':
-                        A++;
-                        break;
-                    case 'C':
-                        C++;
-                        break;
-                    case 'T':
-                        T++;
-                        break;
-                    case 'G':
-                        G++;
-                        break;
-                    default:
-                        N++;
-                        break;
-                }
+                char c =  s.toString().charAt(i);
+                if (c == 'A') A++;
+                else if (c == 'C') C++;
+                else if (c == 'T') T++;
+                else if (c == 'G') G++;
+                else if (c == 'N') N++;
             }
             for (int n = 0; n < N; n++){
                 A++;C++;T++;G++;

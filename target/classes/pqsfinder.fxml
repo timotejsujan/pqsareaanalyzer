@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 <Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.pqsfinder_controller">
-    <Label layoutX="57.0" layoutY="25.0" text="PQS finder">
+    <Label layoutX="57.0" layoutY="25.0" text="pqsfinder">
         <font>
             <Font size="24.0" />
         </font>

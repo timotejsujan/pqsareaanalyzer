@@ -10,45 +10,25 @@
       style="-fx-background-color: #FFFFFF; -fx-background-radius: 5; -fx-background-insets: 0;"
       xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
 
-    <!--
-    <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@../images/icons8_GPS_Antenna_64px_1.png" />
-        </image>
-        <HBox.margin>
-            <Insets left="10.0" />
-        </HBox.margin>
-    </ImageView>
-    <Label text="KeepToo" textFill="#b7c3d7" />
-    <Label text="JFK" textFill="#b7c3d7">
-        <HBox.margin>
-            <Insets />
-        </HBox.margin>
-    </Label>
-    <Label text="10/11/2018" textFill="#b7c3d7">
-        <HBox.margin>
-            <Insets />
-        </HBox.margin>
-    </Label>
-    <Label text="\$200" textFill="#b7c3d7">
-        <HBox.margin>
-            <Insets />
-        </HBox.margin>
-    </Label>
-    -->
     <Label fx:id="cluster_id" prefWidth="20" stylesheets="@style.css"/>
-    <Label fx:id="cluster_refSeq" stylesheets="@style.css" maxWidth="350"/>
     <Label fx:id="cluster_size" prefWidth="20" stylesheets="@style.css"/>
-    <Button onAction="#show" mnemonicParsing="false" prefHeight="10.0" prefWidth="60.0"
+    <Button onAction="#show_sequence" mnemonicParsing="false" prefHeight="10.0" prefWidth="120.0"
             style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css"
-            text="Show">
+            text="Show Ref. Seq.">
         <HBox.margin>
             <Insets/>
         </HBox.margin>
     </Button>
-    <Button onAction="#export" mnemonicParsing="false" prefHeight="10.0" prefWidth="60.0"
+    <Button onAction="#show" mnemonicParsing="false" prefHeight="10.0" prefWidth="100.0"
             style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css"
-            text="Export">
+            text="Show Logo">
+        <HBox.margin>
+            <Insets/>
+        </HBox.margin>
+    </Button>
+    <Button onAction="#export" mnemonicParsing="false" prefHeight="10.0" prefWidth="100.0"
+            style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css"
+            text="Export Logo">
         <HBox.margin>
             <Insets/>
         </HBox.margin>

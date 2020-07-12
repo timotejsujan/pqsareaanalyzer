@@ -41,7 +41,7 @@ public class Main extends Application {
 
         }
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("Home.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("base.fxml")));
 
         primaryStage.setScene(new Scene(root));
         //set stage borderless

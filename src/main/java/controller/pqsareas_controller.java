@@ -44,7 +44,7 @@ public class pqsareas_controller implements Initializable {
     private ExecutorService exec_service;
     private Timeline timeline = null;
 
-    Controller contr;
+    base_controller contr;
 
 
     public void start() {

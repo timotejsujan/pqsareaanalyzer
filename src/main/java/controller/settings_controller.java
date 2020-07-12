@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class settings_controller implements Initializable {
     private final FileChooser file_chooser = new FileChooser();
     private final DirectoryChooser dir_chooser = new DirectoryChooser();
-    public Controller contr;
+    public base_controller contr;
 
     @FXML
     TextField output_dir, cdhit_path, cdhit2D_path, blast_path;

@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * @author Timotej Sujan
  */
-public class clusters_controller implements Initializable {
+public class clusters_logo_controller implements Initializable {
     private final FileChooser file_chooser = new FileChooser();
 
     @FXML
@@ -30,7 +30,9 @@ public class clusters_controller implements Initializable {
     @FXML
     private TextField number_of_clusters;
     private model.clusters_count clusters_count;
-    public Controller contr;
+    public base_controller contr;
+
+    private String shorter_name;
 
     @FXML
     public void start() {
@@ -40,13 +42,14 @@ public class clusters_controller implements Initializable {
         items.getChildren().clear();
         for (int i = 0; i < nodes.length; i++) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Item.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("cluster_row.fxml"));
                 nodes[i] = loader.load();
                 visualization_controller vc = loader.getController();
                 vc.set_input_path(clusters_count.getInputPath());
                 vc.set_id(i);
                 vc.set_size(clusters_count.getReferenceSeqs().get(i).size);
                 vc.set_reference_sequence(clusters_count.getReferenceSeqs().get(i).reference_sequence);
+                vc.set_area_size(clusters_count.area);
                 vc.contr = contr;
 
                 final int j = i;
@@ -99,12 +102,20 @@ public class clusters_controller implements Initializable {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             FileChooser file_chooser = new FileChooser();
-            file_chooser.setInitialFileName("clstr_table_"+input_path.getText());
+            file_chooser.setInitialFileName("clstr_table_"+short_input_path()+".txt");
             File file = file_chooser.showSaveDialog(Main.primary_stage);
             if (file != null) {
                 clusters_count.export_table(file, result.get());
             }
         }
+    }
+
+    public String short_input_path(){
+        String name = input_path.getText().substring(4); // remove .../
+        if (name.lastIndexOf(".") != -1){
+            name = name.substring(0, name.lastIndexOf("."));
+        }
+        return name;
     }
 
     @Override
