@@ -1,43 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<HBox fx:controller="controller.visualization_controller" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="695.0" spacing="10.0"
-      style="-fx-background-color: #FFFFFF; -fx-background-radius: 5; -fx-background-insets: 0;"
-      xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="695.0" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5; -fx-background-insets: 0;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.visualization_controller">
 
-    <Label fx:id="cluster_id" prefWidth="20" stylesheets="@style.css"/>
-    <Label fx:id="cluster_size" prefWidth="20" stylesheets="@style.css"/>
-    <Button onAction="#show_sequence" mnemonicParsing="false" prefHeight="10.0" prefWidth="120.0"
-            style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css"
-            text="Show Ref. Seq.">
+    <Label fx:id="cluster_id" prefHeight="17.0" prefWidth="40.0" stylesheets="@style.css" />
+    <Label fx:id="cluster_size" prefHeight="17.0" prefWidth="40.0" stylesheets="@style.css" />
+    <Button mnemonicParsing="false" onAction="#show_sequence" prefHeight="25.0" prefWidth="157.0" style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css" text="Show Ref. Seq.">
         <HBox.margin>
-            <Insets/>
+            <Insets />
         </HBox.margin>
     </Button>
-    <Button onAction="#show" mnemonicParsing="false" prefHeight="10.0" prefWidth="100.0"
-            style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css"
-            text="Show Logo">
+    <Button mnemonicParsing="false" onAction="#show" prefHeight="25.0" prefWidth="129.0" style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css" text="Show Logo">
         <HBox.margin>
-            <Insets/>
+            <Insets />
         </HBox.margin>
     </Button>
-    <Button onAction="#export" mnemonicParsing="false" prefHeight="10.0" prefWidth="100.0"
-            style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css"
-            text="Export Logo">
+    <Button mnemonicParsing="false" onAction="#export" prefHeight="25.0" prefWidth="138.0" style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css" text="Export Logo">
         <HBox.margin>
-            <Insets/>
+            <Insets />
         </HBox.margin>
     </Button>
-    <Button onAction="#copy_to_blast" mnemonicParsing="false" prefHeight="10.0" prefWidth="105.0"
-            style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css"
-            text="Copy to Blast">
+    <Button mnemonicParsing="false" onAction="#copy_to_blast" prefHeight="25.0" prefWidth="131.0" style="-fx-border-color: #184357; -fx-border-radius: 20;-fx-font-size: 12" stylesheets="@style.css" text="Copy to Blast">
         <HBox.margin>
-            <Insets/>
+            <Insets />
         </HBox.margin>
     </Button>
 </HBox>

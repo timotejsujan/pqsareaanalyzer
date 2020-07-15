@@ -2,8 +2,14 @@ package model;
 
 import javafx.scene.control.TextArea;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 /**
  * @author Timotej Sujan
@@ -12,7 +18,7 @@ public class pqsfinder extends base {
 
     //private String outputName = "";
     private final String line_id_inRscript = "3A892";
-    private final String line_start = "pqs <- pqsfinder(seq[[i]]";
+    private final String line_start = "pqs <- pqsfinder(seq[[1]]";
 
     // PARAMETERS
     private String strand = ""; // Strand specification (+, - or *).

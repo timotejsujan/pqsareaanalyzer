@@ -38,6 +38,7 @@ public class settings_controller implements Initializable {
             contr.cdhit_contr.init_config();
             contr.cdhit2D_contr.init_config();
             contr.blast_local_contr.init_config();
+            contr.clusters_compare_contr.init_config();
 
             Main.save_config();
         }
@@ -46,8 +47,7 @@ public class settings_controller implements Initializable {
     public void set_cdhit_path() throws IOException {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            file.setExecutable(true);
-            if (!file.canExecute()){
+            if (!file.setExecutable(true) && !file.canExecute()){
                 showAlert(Alert.AlertType.WARNING, Main.primary_stage, "Permission", "You have to set execute permissions for this file!");
             }
             cdhit_path.setText(".../"+file.getName());
@@ -60,8 +60,7 @@ public class settings_controller implements Initializable {
     public void set_cdhit2D_path() throws IOException {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            file.setExecutable(true);
-            if (!file.canExecute()){
+            if (!file.setExecutable(true) && !file.canExecute()){
                 showAlert(Alert.AlertType.WARNING, Main.primary_stage, "Permission", "You have to set execute permissions for this file!");
             }
             cdhit2D_path.setText(".../"+file.getName());
@@ -74,19 +73,17 @@ public class settings_controller implements Initializable {
     public void set_blast_path() throws IOException {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            file.setExecutable(true);
-            if (!file.canExecute()){
+            if (!file.setExecutable(true) && !file.canExecute()){
                 showAlert(Alert.AlertType.WARNING, Main.primary_stage, "Permission", "You have to set execute permissions for this file!");
             }
             blast_path.setText(".../"+file.getName());
-            //contr.blastapi_contr.blastapi.set_program_path(file.getAbsolutePath());
+            contr.blast_local_contr.blast_local.set_program_path(file.getAbsolutePath());
             Main.config.blast_path = file.getAbsolutePath();
             Main.save_config();
         }
     }
 
     public void init_config(){
-        //Rscript_path.setText(Main.config.Rscript_path);
         if (Main.config.output_dir != null && Main.config.output_dir_name != null)
             output_dir.setText(Main.config.output_dir);
         if (Main.config.cdhit_path != null)

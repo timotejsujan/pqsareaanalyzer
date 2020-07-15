@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Timotej Sujan
  */
-public final class cluster_visualization extends JFrame {
+public final class cluster_logo extends JFrame {
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final int PANEL_WIDTH = (int) screenSize.getWidth();
@@ -31,7 +31,7 @@ public final class cluster_visualization extends JFrame {
     private Graphics graphics;
     private final model.cluster cluster;
 
-    public cluster_visualization(model.cluster c) throws IOException {
+    public cluster_logo(model.cluster c) throws IOException {
         cluster = c;
         BLOCK_WIDTH = PANEL_WIDTH / (c.max_length + 2);
         setBounds(350, 250, PANEL_WIDTH, PANEL_HEIGHT);

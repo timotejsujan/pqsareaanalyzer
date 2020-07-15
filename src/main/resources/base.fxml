@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #184357;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.base_controller">
     <VBox>
-        <Button fx:id="btn_exit" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" text="X">
+        <Button fx:id="exit_btn" layoutX="683.0" layoutY="54.0" mnemonicParsing="false" text="X">
             <font>
                 <Font size="24.0" />
             </font>
@@ -26,7 +26,7 @@
             -->
 
             <HBox>
-                <Button fx:id="pqsfinder_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="259.0" text="pqsfinder">
+                <Button fx:id="pqsfinder_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="259.0" text="pqsfinder">
                     <padding>
                         <Insets left="50.0" />
                     </padding>
@@ -34,14 +34,14 @@
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="pqsfinder_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="100.0" text="info">
+                <Button fx:id="pqsfinder_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="100.0" text="info">
                     <padding>
                         <Insets right="13.0" />
                     </padding>
                 </Button>
             </HBox>
             <HBox>
-                <Button fx:id="pqsareas_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="259.0" text="pqsareas">
+                <Button fx:id="pqsareas_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="259.0" text="pqsareas">
                     <padding>
                         <Insets left="50.0" />
                     </padding>
@@ -49,14 +49,14 @@
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="pqsareas_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="100.0" text="info">
+                <Button fx:id="pqsareas_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="100.0" text="info">
                     <padding>
                         <Insets right="13.0" />
                     </padding>
                 </Button>
             </HBox>
             <HBox>
-                <Button fx:id="cdhit_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="259.0" text="cd-hit-est">
+                <Button fx:id="cdhit_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="259.0" text="cd-hit-est">
                     <padding>
                         <Insets left="50.0" />
                     </padding>
@@ -64,14 +64,14 @@
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="cdhit_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="100.0" text="info">
+                <Button fx:id="cdhit_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="100.0" text="info">
                     <padding>
                         <Insets right="13.0" />
                     </padding>
                 </Button>
             </HBox>
             <HBox>
-                <Button fx:id="cdhit2_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="259.0" text="cd-hit-est-2D">
+                <Button fx:id="cdhit2_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="259.0" text="cd-hit-est-2D">
                     <padding>
                         <Insets left="50.0" />
                     </padding>
@@ -79,14 +79,14 @@
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="cdhit2_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="100.0" text="info">
+                <Button fx:id="cdhit2_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="100.0" text="info">
                     <padding>
                         <Insets right="13.0" />
                     </padding>
                 </Button>
             </HBox>
             <HBox>
-                <Button fx:id="clusters_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="259.0" text="clusters logo">
+                <Button fx:id="clusters_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="259.0" text="clusters logo">
                     <padding>
                         <Insets left="50.0" />
                     </padding>
@@ -94,14 +94,14 @@
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="clusters_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="100.0" text="info">
+                <Button fx:id="cluster_logo_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="100.0" text="info">
                     <padding>
                         <Insets right="13.0" />
                     </padding>
                 </Button>
             </HBox>
             <HBox>
-                <Button fx:id="clusters_compare_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="259.0" text="clusters compare">
+                <Button fx:id="clusters_compare_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="259.0" text="clusters compare">
                     <padding>
                         <Insets left="50.0" />
                     </padding>
@@ -109,14 +109,16 @@
                         <Font size="24.0" />
                     </font>
                 </Button>
+                <!--
                 <Button fx:id="clusters_compare_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="100.0" text="info">
                     <padding>
                         <Insets right="13.0" />
                     </padding>
                 </Button>
+                -->
             </HBox>
             <HBox>
-                <Button fx:id="blast_web_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="259.0" text="blast web">
+                <Button fx:id="blast_web_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="259.0" text="blast web">
                     <padding>
                         <Insets left="50.0" />
                     </padding>
@@ -124,14 +126,14 @@
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="blast_web_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="100.0" text="info">
+                <Button fx:id="blast_web_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="100.0" text="info">
                     <padding>
                         <Insets right="13.0" />
                     </padding>
                 </Button>
             </HBox>
             <HBox>
-                <Button fx:id="blast_local_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="259.0" text="blast local">
+                <Button fx:id="blast_local_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="259.0" text="blast local">
                     <padding>
                         <Insets left="50.0" />
                     </padding>
@@ -139,14 +141,14 @@
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="blast_local_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="100.0" text="info">
+                <Button fx:id="blast_local_info" alignment="BASELINE_RIGHT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="100.0" text="info">
                     <padding>
                         <Insets right="13.0" />
                     </padding>
                 </Button>
             </HBox>
             <HBox>
-                <Button fx:id="settings_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="55.0" prefWidth="259.0" text="settings">
+                <Button fx:id="settings_btn" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handle_clicks" prefHeight="55.0" prefWidth="259.0" text="settings">
                     <padding>
                         <Insets left="50.0" />
                     </padding>

@@ -1,43 +1,23 @@
 package controller;
 
 import model.pqsfinder;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.util.Duration;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * @author Timotej Sujan
  */
-public class pqsfinder_controller implements Initializable {
-    private final FileChooser file_chooser = new FileChooser();
-    private final DirectoryChooser dir_chooser = new DirectoryChooser();
-
-    private Timeline createTimeline(int timeFreq, Runnable r) {
-        Timeline tl = new Timeline(new KeyFrame(Duration.seconds(timeFreq), event -> r.run()));
-        tl.setCycleCount(Timeline.INDEFINITE);
-        return tl;
-    }
-
+public class pqsfinder_controller extends helper implements Initializable {
     // pqs finder
     @FXML
     private TextField input_path;
-    @FXML
-    private TextField output_dir, output_name;
     @FXML
     private ChoiceBox<String> strand, overlapping;
     @FXML
@@ -46,16 +26,8 @@ public class pqsfinder_controller implements Initializable {
     private TextField loop_min_length, loop_max_length, max_bulges, max_mismatches;
     @FXML
     private TextField max_defects;
-    @FXML
-    private TextArea area;
-    @FXML
-    private Button start_btn, stop_btn;
-
-    base_controller contr;
 
     public model.pqsfinder pqsfinder;
-    private ExecutorService exec_service = Executors.newSingleThreadExecutor();
-    private Timeline timeline = null;
 
     private void init() {
 
@@ -98,9 +70,8 @@ public class pqsfinder_controller implements Initializable {
 
         set_parameters();
 
-        if (exec_service.isShutdown()) {
-            exec_service = Executors.newSingleThreadExecutor();
-        }
+        exec_service = Executors.newSingleThreadExecutor();
+
         start_btn.setDisable(true);
         stop_btn.setDisable(false);
         exec_service.execute(() -> {
@@ -131,7 +102,7 @@ public class pqsfinder_controller implements Initializable {
                 }
             }
         };
-        timeline = createTimeline(5, pqsfinder_runnable);
+        timeline = create_timeline(5, pqsfinder_runnable);
         timeline.play();
 
     }
@@ -186,11 +157,12 @@ public class pqsfinder_controller implements Initializable {
     }
 
     public void init_config(){
+        if (exec_service != null && !exec_service.isShutdown()) return;
+
         if (Main.config.output_dir_name != null && Main.config.output_dir != null) {
             output_dir.setText(".../"+Main.config.output_dir_name);
             pqsfinder.output_path = Main.config.output_dir;
         }
-        //pqsfinder.set_program_path(Main.config.Rscript_path);
     }
 
     @Override

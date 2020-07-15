@@ -7,7 +7,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -20,17 +19,14 @@ public class clusters_compare_controller implements Initializable {
     private final FileChooser file_chooser = new FileChooser();
     private final DirectoryChooser dir_chooser = new DirectoryChooser();
 
-    @FXML
-    private TextField input_path_clusters_1, input_path_clusters_2, output_name, output_dir;
-    @FXML
-    private TextField distance;
-    private model.clusters_compare clusters_compare;
+    @FXML private TextField input_path_clusters_1, input_path_clusters_2, output_name, output_dir;
+    @FXML private TextField distance;
+    private clusters_compare clusters_compare;
     base_controller contr;
 
-    public void show() {
+    public void show() throws IOException {
         clusters_compare.set_distance(Integer.parseInt(distance.getText()));
-        clusters_compare.set_output_name(output_name.getText().replace(" ", "_"));
-        output_name.setText(output_name.getText());
+        clusters_compare.set_output_name(output_name.getText());
 
         if (!clusters_compare.is_valid()) {
             //clusters_compare.print_stream.println("values are NOT valid, something is missing!");
@@ -39,7 +35,13 @@ public class clusters_compare_controller implements Initializable {
         clusters_compare.show();
     }
 
-    public void export() {
+    public void export() throws IOException {
+        clusters_compare.set_distance(Integer.parseInt(distance.getText()));
+        clusters_compare.set_output_name(output_name.getText());
+        if (!clusters_compare.is_valid()) {
+            //clusters_compare.print_stream.println("values are NOT valid, something is missing!");
+            return;
+        }
         clusters_compare.export();
     }
 
@@ -51,9 +53,9 @@ public class clusters_compare_controller implements Initializable {
         }
     }
 
-    public void set_input_path_cluster_1(String path, String name){
-        clusters_compare.input_path = path;
-        input_path_clusters_1.setText(".../"+name);
+    public void set_input_path_cluster_1(String dir_path, String name){
+        clusters_compare.input_path = dir_path + "/" + name + ".txt";
+        input_path_clusters_1.setText(".../"+name+".txt");
     }
 
     public void set_input_path_cluster_2() {

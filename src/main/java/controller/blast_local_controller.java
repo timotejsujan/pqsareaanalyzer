@@ -5,7 +5,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import model.blast_local;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -19,20 +18,23 @@ import java.util.concurrent.Executors;
  */
 public class blast_local_controller extends helper implements Initializable {
 
-    @FXML
-    TextField database, params;
-    @FXML
-    TextArea sequence;
+    @FXML TextField database, params;
+    @FXML TextArea sequence;
 
     model.blast_local blast_local;
 
+    /***
+     * Starts the process.
+     * @throws IOException
+     */
     public void start() throws IOException {
         blast_local.set_output_name(output_name.getText());
         blast_local.set_parameters(params.getText());
 
-        Files.write(Paths.get(blast_local.output_path + "/" + "temp_query.txt"), sequence.getText().getBytes());
-
-        blast_local.set_input_path(blast_local.output_path + "/" + "temp_query.txt");
+        // Makes a file from sequence to use in blastn program
+        Files.write(Paths.get(blast_local.output_path + "/" + "$$$temp_query.txt"), sequence.getText().getBytes());
+        // Pass the path for later deletion of file
+        blast_local.set_input_path(blast_local.output_path + "/" + "$$$temp_query.txt");
 
         exec_service = Executors.newSingleThreadExecutor();
 
@@ -83,10 +85,13 @@ public class blast_local_controller extends helper implements Initializable {
         }
     }
 
+    // TODO
     public void set_db_path() {
         File file = file_chooser.showOpenDialog(Main.primary_stage);
         if (file != null) {
-            database.setText(".../" + file.getName().substring(0, file.getName().lastIndexOf(".")));
+            //if (file.getName().lastIndexOf(".") != -1) {
+                database.setText(".../" + file.getName().substring(0, file.getName().lastIndexOf(".")));
+            //}
             blast_local.set_database_path(file.getAbsolutePath());
         }
     }
@@ -97,11 +102,21 @@ public class blast_local_controller extends helper implements Initializable {
         init_config();
     }
 
+    /***
+     * Initializes config
+     */
     public void init_config() {
+        // if the program is running, return
+        if (exec_service != null && !exec_service.isShutdown()) return;
+
+        // sets the output directory
         if (Main.config.output_dir_name != null && Main.config.output_dir != null) {
             output_dir.setText(".../"+Main.config.output_dir_name);
             blast_local.output_path = Main.config.output_dir;
         }
-        blast_local.set_program_path(Main.config.blast_path);
+
+        // sets the program path
+        if (Main.config.blast_path != null)
+            blast_local.set_program_path(Main.config.blast_path);
     }
 }

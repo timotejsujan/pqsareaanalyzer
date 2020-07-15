@@ -24,6 +24,8 @@ public class helper {
     @FXML
     TextArea area;
 
+    base_controller contr;
+
     protected ExecutorService exec_service;
     protected Timeline timeline;
 

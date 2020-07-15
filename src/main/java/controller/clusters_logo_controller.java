@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -21,18 +20,13 @@ import java.util.ResourceBundle;
 public class clusters_logo_controller implements Initializable {
     private final FileChooser file_chooser = new FileChooser();
 
-    @FXML
-    private VBox items;
-    @FXML
-    public Button last_click_btn, export_btn;
-    @FXML
-    public TextField input_path, limit;
-    @FXML
-    private TextField number_of_clusters;
-    private model.clusters_count clusters_count;
-    public base_controller contr;
+    @FXML private VBox items;
+    @FXML public Button last_click_btn, export_btn;
+    @FXML public TextField input_path, limit;
+    @FXML private TextField number_of_clusters;
 
-    private String shorter_name;
+    private clusters_count clusters_count;
+    public base_controller contr;
 
     @FXML
     public void start() {
@@ -44,6 +38,7 @@ public class clusters_logo_controller implements Initializable {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("cluster_row.fxml"));
                 nodes[i] = loader.load();
+
                 visualization_controller vc = loader.getController();
                 vc.set_input_path(clusters_count.getInputPath());
                 vc.set_id(i);
@@ -53,9 +48,8 @@ public class clusters_logo_controller implements Initializable {
                 vc.contr = contr;
 
                 final int j = i;
-                nodes[i].setOnMouseEntered(event -> nodes[j].setStyle("-fx-background-color : #FFFFFF"));
-                nodes[i].setOnMouseExited(event -> nodes[j].setStyle("-fx-background-color : #FFFFFF"));
-                //nodes[j].setId(i.toString());
+                nodes[i].setOnMouseEntered(event -> nodes[j].setStyle("-fx-background-color : white"));
+                nodes[i].setOnMouseExited(event -> nodes[j].setStyle("-fx-background-color : white"));
                 items.getChildren().add(nodes[i]);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -76,7 +70,7 @@ public class clusters_logo_controller implements Initializable {
     }
 
     public void set_input_path(String dir_path, String name) throws IOException {
-        input_path.setText(".../"+name);
+        input_path.setText(".../"+name+".txt");
         clusters_count.setInputPath(dir_path + "/" + name + ".txt");
         clusters_count.load_cluster();
         number_of_clusters.setText("" + clusters_count.getLength());
@@ -85,8 +79,9 @@ public class clusters_logo_controller implements Initializable {
     }
 
     private void set_limit() {
-        if (limit.getText().isEmpty()) return;
-        clusters_count.setLimit(Integer.parseInt(limit.getText()));
+        if (!limit.getText().isEmpty()) {
+            clusters_count.setLimit(Integer.parseInt(limit.getText()));
+        }
     }
 
     @FXML
@@ -95,7 +90,6 @@ public class clusters_logo_controller implements Initializable {
         TextInputDialog dialog = new TextInputDialog("1,2-4,5-9,10-19,20-49,50-99,100-up");
         dialog.setTitle("Enter cluster sizes columns");
         dialog.setHeaderText("Enter cluster sizes columns");
-        //dialog.setContentText("Enter cluster sizes:");
         dialog.getDialogPane().setPrefWidth(300);
         dialog.getDialogPane().getButtonTypes().setAll(export_button_type, ButtonType.CANCEL);
 
