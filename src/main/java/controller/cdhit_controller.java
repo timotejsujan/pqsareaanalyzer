@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.control.Button;
 import model.cdhit;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +16,9 @@ import java.util.concurrent.Executors;
  * @author Timotej Sujan
  */
 public class cdhit_controller extends helper implements Initializable {
+    public Button output_dir_btn;
+    public Button input_path_areas_btn;
+    public Button input_path_pqs_btn;
     @FXML private TextField input_path_areas, params, input_path_pqs;
     @FXML public CheckBox keep_one_sized;
 
@@ -41,8 +45,7 @@ public class cdhit_controller extends helper implements Initializable {
                 e.printStackTrace();
             }
         });
-        start_btn.setDisable(true);
-        stop_btn.setDisable(false);
+        switch_disabled();
         java.util.Date date = new java.util.Date();
         cdhit.print_stream.println(date.toString() + " the process has started");
         Runnable r = () -> {
@@ -51,8 +54,7 @@ public class cdhit_controller extends helper implements Initializable {
                 cdhit.print_stream.println(date1.toString() + " the process is running");
             }
             else {
-                start_btn.setDisable(false);
-                stop_btn.setDisable(true);
+                switch_disabled();
                 timeline.stop();
 
                 try {
@@ -69,12 +71,7 @@ public class cdhit_controller extends helper implements Initializable {
     }
 
     public void stop() {
-        if (cdhit.p.isAlive()) {
-            cdhit.p.destroy();
-        }
         exec_service.shutdownNow();
-        start_btn.setDisable(false);
-        stop_btn.setDisable(true);
         java.util.Date date = new java.util.Date();
         cdhit.print_stream.println(date.toString() + " the process has been stopped externally");
     }
@@ -118,6 +115,17 @@ public class cdhit_controller extends helper implements Initializable {
             Main.config.output_dir = file.getAbsolutePath();
             Main.save_config();
         }
+    }
+
+    private void switch_disabled(){
+        start_btn.setDisable(!start_btn.isDisable());
+        stop_btn.setDisable(!stop_btn.isDisable());
+        input_path_pqs.setDisable(!input_path_pqs.isDisable());
+        input_path_pqs_btn.setDisable(!input_path_pqs_btn.isDisable());
+        input_path_areas.setDisable(!input_path_areas.isDisable());
+        input_path_areas_btn.setDisable(!input_path_areas_btn.isDisable());
+        output_dir.setDisable(!output_dir.isDisable());
+        output_dir_btn.setDisable(!output_dir_btn.isDisable());
     }
 
     public void init_config(){

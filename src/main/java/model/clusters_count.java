@@ -50,6 +50,8 @@ public class clusters_count {
                 counter++;
             }
             cluster_size++;
+
+
         }
         referenceSeqs.get(counter - 1).size = cluster_size;
         length = counter;

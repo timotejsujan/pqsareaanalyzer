@@ -12,14 +12,14 @@ file <- args[1]
 files <- open_input_files(c(file, file))
 file.create(args[2])
 count <- 0
-nrec <- 4000
+nrec <- 1000000
 skip <- 0
 while (TRUE) {
   fai <- fasta.index(file, nrec=nrec, skip=skip, seqtype="DNA")
-  skip <- skip + 4000
+  skip <- skip + nrec
   if (length(fai) == 0L)
     break
-  for (i in 1:nrow(fai)) {
+  for (i in seq_len(nrow(fai))) {
     count <- count + 1
     seq <- readDNAStringSet(fai[i, ])
     # following lines cannot be changed

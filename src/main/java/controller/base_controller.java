@@ -42,6 +42,7 @@ public class base_controller extends Application implements Initializable {
     public blast_local_controller blast_local_contr;
     public blast_local_info_controller blast_local_info_contr;
     public clusters_compare_controller clusters_compare_contr;
+    public clusters_compare_info_controller clusters_compare_info_contr;
 
     /***
      * Initializes the controllers and adds the panels to view.
@@ -127,6 +128,11 @@ public class base_controller extends Application implements Initializable {
             clusters_compare_pnl = loader.load();
             clusters_compare_contr = loader.getController();
             main_pnl.getChildren().add(clusters_compare_pnl);
+
+            loader = new FXMLLoader(cl.getResource("clusters_compare_info.fxml"));
+            clusters_compare_info_pnl = loader.load();
+            clusters_compare_info_contr = loader.getController();
+            main_pnl.getChildren().add(clusters_compare_info_pnl);
 
             loader = new FXMLLoader(cl.getResource("settings.fxml"));
             settings_pnl = loader.load();

@@ -2,14 +2,7 @@ package model;
 
 import javafx.scene.control.TextArea;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 
 /**
  * @author Timotej Sujan
@@ -47,24 +40,22 @@ public class pqsfinder extends base {
                         output_path + "/" +
                         output_name + ".txt"});
 
+        SequenceInputStream s = new SequenceInputStream(p.getErrorStream(), p.getInputStream());
+        BufferedReader input = new BufferedReader(new InputStreamReader(s));
         String line;
-        BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-        BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-        while (!Thread.interrupted() && (line = error.readLine()) != null) {
+        while (!Thread.currentThread().isInterrupted() && ((line = input.readLine()) != null)){
             System.out.println(line);
-            //printStatus(line);
-        }
 
-        while (!Thread.interrupted() && (line = input.readLine()) != null) {
-            System.out.println(line);
-            //printStatus(line);
         }
-        error.close();
         input.close();
 
-        if (Thread.interrupted()) return;
-        print_status("the process has ended");
+        if (Thread.currentThread().isInterrupted()) {
+            if (p.isAlive())
+                p.destroy();
+        } else {
+            print_status("the process has ended");
+        }
     }
 
 

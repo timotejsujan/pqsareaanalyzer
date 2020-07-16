@@ -10,12 +10,12 @@
             <Font size="24.0" />
         </font>
     </Label>
-    <TextArea editable="false" layoutX="31" layoutY="73" styleClass="info" text="With CD-HIT-EST you can find clusters of similar sequences from two datasets. &#10;In this implementation only areas of PQS are clustered. PQS of those areas are &#10;written in the output file after clustering process.&#10;&#10;Input:&#10;- connected left areas and right areas of found PQS (pqsareas output)&#10;- found PQS (pqsfinder output)&#10;- output directory + output name&#10;- additional parameters&#10;&#10;Output:&#10;- FASTA file of clusters of similar sequences &#10;(sequences PQS with both left and right areas)&#10;&#10;">
+    <TextArea editable="false" layoutX="31" layoutY="73" styleClass="info" text="With CD-HIT-EST you can search for clusters of similar sequences from two datasets. &#10;In this implementation only areas of PQS are clustered. PQS of those areas are &#10;written in the output file after clustering process.&#10;&#10;Input:&#10;- connected left areas and right areas of found PQS (pqsareas output)&#10;- found PQS (pqsfinder output)&#10;- output directory + output name&#10;- additional parameters&#10;&#10;Output:&#10;- FASTA file of clusters of similar sequences &#10;(sequences PQS with both left and right areas)&#10;&#10;">
         <font>
             <Font size="15.0" />
         </font>
     </TextArea>
-    <Button layoutX="605.0" layoutY="11.0" mnemonicParsing="false" onAction="#open_doc" text="Open Doc">
+    <Button layoutX="643.0" layoutY="17.0" mnemonicParsing="false" onAction="#open_doc" text="Open Doc">
         <font>
             <Font size="24.0" />
         </font>

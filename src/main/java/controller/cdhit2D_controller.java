@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.control.Button;
 import model.cdhit2D;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +17,11 @@ import java.util.concurrent.Executors;
  * @author Timotej Sujan
  */
 public class cdhit2D_controller extends helper implements Initializable {
+    public Button output_dir_btn;
+    public Button input_path_pqs_2_btn;
+    public Button input_path_areas_2_btn;
+    public Button input_path_areas_1_btn;
+    public Button input_path_pqs_1_btn;
     @FXML private TextField input_path_areas_1, input_path_areas_2, params;
     @FXML private TextField input_path_pqs_1, input_path_pqs_2;
     @FXML private CheckBox keep_one_sized;
@@ -43,8 +49,7 @@ public class cdhit2D_controller extends helper implements Initializable {
                 e.printStackTrace();
             }
         });
-        start_btn.setDisable(true);
-        stop_btn.setDisable(false);
+        switch_disabled();
         java.util.Date date = new java.util.Date();
         cdhit2D.print_stream.println(date.toString() + " the process has started");
         Runnable r = () -> {
@@ -52,8 +57,7 @@ public class cdhit2D_controller extends helper implements Initializable {
                 java.util.Date date1 = new java.util.Date();
                 cdhit2D.print_stream.println(date1.toString() + " the process is running");
             } else{
-                start_btn.setDisable(false);
-                stop_btn.setDisable(true);
+                switch_disabled();
                 timeline.stop();
 
                 try {
@@ -69,12 +73,7 @@ public class cdhit2D_controller extends helper implements Initializable {
     }
 
     public void stop() {
-        if (cdhit2D.p.isAlive()) {
-            cdhit2D.p.destroy();
-        }
         exec_service.shutdownNow();
-        start_btn.setDisable(false);
-        stop_btn.setDisable(true);
         java.util.Date date = new java.util.Date();
         cdhit2D.print_stream.println(date.toString() + " the process has been stopped externally");
     }
@@ -134,6 +133,21 @@ public class cdhit2D_controller extends helper implements Initializable {
             Main.config.output_dir = file.getAbsolutePath();
             Main.save_config();
         }
+    }
+
+    private void switch_disabled(){
+        start_btn.setDisable(!start_btn.isDisable());
+        stop_btn.setDisable(!stop_btn.isDisable());
+        input_path_pqs_1.setDisable(!input_path_pqs_1.isDisable());
+        input_path_pqs_1_btn.setDisable(!input_path_pqs_1_btn.isDisable());
+        input_path_areas_1.setDisable(!input_path_areas_1.isDisable());
+        input_path_areas_1_btn.setDisable(!input_path_areas_1_btn.isDisable());
+        input_path_pqs_2.setDisable(!input_path_pqs_2.isDisable());
+        input_path_pqs_2_btn.setDisable(!input_path_pqs_2_btn.isDisable());
+        input_path_areas_2.setDisable(!input_path_areas_2.isDisable());
+        input_path_areas_2_btn.setDisable(!input_path_areas_2_btn.isDisable());
+        output_dir.setDisable(!output_dir.isDisable());
+        output_dir_btn.setDisable(!output_dir_btn.isDisable());
     }
 
     public void init_config(){

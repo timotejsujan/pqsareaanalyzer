@@ -41,7 +41,7 @@ public class blast_local extends base{
         BufferedReader input = new BufferedReader(new InputStreamReader(s));
         String line;
 
-        while (!Thread.interrupted() && ((line = input.readLine()) != null)){
+        while (!Thread.currentThread().isInterrupted() && ((line = input.readLine()) != null)){
             print_status(line);
         }
 
@@ -49,7 +49,12 @@ public class blast_local extends base{
 
         delete_file(new File(input_path));
 
-        print_status("the process has ended");
+        if (Thread.currentThread().isInterrupted()){
+            if (p.isAlive())
+                p.destroy();
+        } else {
+            print_status("the process has ended");
+        }
     }
 
     private void delete_file(File f) {

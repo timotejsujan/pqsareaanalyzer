@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.clusters_compare_info_controller">
+    <Label layoutX="57.0" layoutY="25.0" text="clusters compare info">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Label>
+    <TextArea editable="false" layoutX="31.0" layoutY="73.0" styleClass="info" text="With Clusters compare you can search for similar clusters across two cluster files. &#10;Reference sequences of first cluster file will be compared to reference sequences of&#10;second cluster file. The similarity threshold is defined by Levensthein distance.&#10;&#10;Input:&#10;- first FASTA file of clusters (output of CD-HIT programs)&#10;- second FASTA file of clusters (output of CD-HIT programs)&#10;- Levensthein distance threshold&#10;&#10;Output:&#10;- text file of information about similar clusters&#10;">
+        <font>
+            <Font size="15.0" />
+        </font>
+    </TextArea>
+</Pane>

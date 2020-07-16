@@ -42,8 +42,14 @@ public class cdhit2D extends base {
         BufferedReader input = new BufferedReader(new InputStreamReader(s));
         String line;
 
-        while (!Thread.interrupted() && ((line = input.readLine()) != null)){
+        while (!Thread.currentThread().isInterrupted() && ((line = input.readLine()) != null)){
             print_status(line);
+        }
+
+        if (Thread.currentThread().isInterrupted()){
+            if (p.isAlive())
+                p.destroy();
+            return;
         }
 
         input.close();
@@ -61,7 +67,12 @@ public class cdhit2D extends base {
         File cdhitOutputClstrSort = new File(cs.output_path + "/" + cs.output_name);
         delete_file(cdhitOutputClstrSort);
 
-        print_status("the process has ended");
+        if (Thread.currentThread().isInterrupted()){
+            if (p.isAlive())
+                p.destroy();
+        } else {
+            print_status("the process has ended");
+        }
     }
 
     private void delete_file(File f) {

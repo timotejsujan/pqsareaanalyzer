@@ -30,7 +30,7 @@
         </font>
     </Button>
     <TextField fx:id="output_dir" editable="false" layoutX="57.0" layoutY="199.0" onMouseClicked="#set_output_dir" styleClass="input" text="Select output directory..." />
-    <Button layoutX="369.0" layoutY="199.0" mnemonicParsing="false" onAction="#set_output_dir" text="...">
+    <Button fx:id="output_dir_btn" layoutX="369.0" layoutY="199.0" mnemonicParsing="false" onAction="#set_output_dir" text="...">
         <font>
             <Font size="13.0" />
         </font>

@@ -15,7 +15,7 @@
             <Font size="15.0" />
         </font>
     </TextArea>
-    <Button layoutX="605.0" layoutY="11.0" mnemonicParsing="false" onAction="#open_doc" text="Open Doc">
+    <Button layoutX="643.0" layoutY="17.0" mnemonicParsing="false" onAction="#open_doc" text="Open Doc">
         <font>
             <Font size="24.0" />
         </font>

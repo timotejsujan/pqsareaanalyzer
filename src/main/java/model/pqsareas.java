@@ -97,7 +97,7 @@ public class pqsareas extends base {
         int segment = 0;
         int position = 0;
         int pqs_number = 0;
-        while (!Thread.interrupted() && (line = br_g.readLine()) != null) {
+        while (!Thread.currentThread().isInterrupted() && (line = br_g.readLine()) != null) {
             if (line.startsWith(">")) {
                 if (segment == curr_pqs.segment) {
                     while (curr_pqs.segment == segment) {

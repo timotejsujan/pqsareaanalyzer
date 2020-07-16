@@ -15,6 +15,8 @@ import java.util.concurrent.Executors;
  * @author Timotej Sujan
  */
 public class pqsfinder_controller extends helper implements Initializable {
+    public Button input_path_btn;
+    public Button output_dir_btn;
     // pqs finder
     @FXML
     private TextField input_path;
@@ -72,8 +74,7 @@ public class pqsfinder_controller extends helper implements Initializable {
 
         exec_service = Executors.newSingleThreadExecutor();
 
-        start_btn.setDisable(true);
-        stop_btn.setDisable(false);
+        switch_disabled();
         exec_service.execute(() -> {
             try {
                 pqsfinder.start();
@@ -93,8 +94,7 @@ public class pqsfinder_controller extends helper implements Initializable {
             } else {
                 if (timeline != null) {
                     timeline.stop();
-                    start_btn.setDisable(false);
-                    stop_btn.setDisable(true);
+                    switch_disabled();
 
                     contr.pqsareas_contr.set_input_path_pqs_positions(pqsfinder.output_path, pqsfinder.output_name);
                     contr.cdhit_contr.set_input_path_pqs(pqsfinder.output_path, pqsfinder.output_name);
@@ -108,14 +108,9 @@ public class pqsfinder_controller extends helper implements Initializable {
     }
 
     public void stop() {
-        if (pqsfinder.p.isAlive()) {
-            pqsfinder.p.destroy();
-        }
+        exec_service.shutdownNow();
         java.util.Date date = new java.util.Date();
         pqsfinder.print_stream.println(date.toString() + " the process has been stopped externally");
-        exec_service.shutdownNow();
-        start_btn.setDisable(false);
-        stop_btn.setDisable(true);
     }
 
     public void set_input_path() {
@@ -163,6 +158,15 @@ public class pqsfinder_controller extends helper implements Initializable {
             output_dir.setText(".../"+Main.config.output_dir_name);
             pqsfinder.output_path = Main.config.output_dir;
         }
+    }
+
+    private void switch_disabled(){
+        start_btn.setDisable(!start_btn.isDisable());
+        stop_btn.setDisable(!stop_btn.isDisable());
+        input_path.setDisable(!input_path.isDisable());
+        input_path_btn.setDisable(!input_path_btn.isDisable());
+        output_dir.setDisable(!output_dir.isDisable());
+        output_dir_btn.setDisable(!output_dir_btn.isDisable());
     }
 
     @Override

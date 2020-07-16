@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.control.Button;
 import model.pqsareas;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +16,9 @@ import java.util.concurrent.Executors;
  */
 public class pqsareas_controller extends helper implements Initializable {
 
+    public Button input_path_genom_btn;
+    public Button input_path_pqs_positions_btn;
+    public Button output_dir_btn;
     @FXML private TextField input_path_genom, input_path_pqs_positions;
     @FXML private TextField area_size;
     private pqsareas pqsareas;
@@ -34,8 +38,7 @@ public class pqsareas_controller extends helper implements Initializable {
             pqsareas.start();
             exec_service.shutdownNow();
         });
-        start_btn.setDisable(true);
-        stop_btn.setDisable(false);
+        switch_disabled();
         java.util.Date date = new java.util.Date();
         pqsareas.print_stream.println(date.toString() + " the process has started");
         Runnable pqsareas_runnable = () -> {
@@ -44,8 +47,7 @@ public class pqsareas_controller extends helper implements Initializable {
                 pqsareas.print_stream.println(date1.toString() + " the process is running");
             } else {
                 timeline.stop();
-                start_btn.setDisable(false);
-                stop_btn.setDisable(true);
+                switch_disabled();
 
                 contr.cdhit_contr.set_input_path_areas(pqsareas.output_path, pqsareas.output_name);
                 contr.cdhit2D_contr.set_input_path_areas_1(pqsareas.output_path, pqsareas.output_name);
@@ -60,8 +62,6 @@ public class pqsareas_controller extends helper implements Initializable {
         java.util.Date date = new java.util.Date();
         pqsareas.print_stream.println(date.toString() + " the process has been stopped externally");
         exec_service.shutdownNow();
-        start_btn.setDisable(false);
-        stop_btn.setDisable(true);
     }
 
     public void set_input_path_genome() {
@@ -103,6 +103,17 @@ public class pqsareas_controller extends helper implements Initializable {
             Main.config.output_dir = file.getAbsolutePath();
             Main.save_config();
         }
+    }
+
+    private void switch_disabled(){
+        start_btn.setDisable(!start_btn.isDisable());
+        stop_btn.setDisable(!stop_btn.isDisable());
+        input_path_genom.setDisable(!input_path_genom.isDisable());
+        input_path_genom_btn.setDisable(!input_path_genom_btn.isDisable());
+        input_path_pqs_positions.setDisable(!input_path_pqs_positions.isDisable());
+        input_path_pqs_positions_btn.setDisable(!input_path_pqs_positions_btn.isDisable());
+        output_dir.setDisable(!output_dir.isDisable());
+        output_dir_btn.setDisable(!output_dir_btn.isDisable());
     }
 
     public void init_config(){

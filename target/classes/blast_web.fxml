@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 <Pane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.blast_web_controller">
-    <Button layoutX="660.0" layoutY="54.0" mnemonicParsing="false" onAction="#send" text="Send">
+    <Button layoutX="680.0" layoutY="54.0" mnemonicParsing="false" onAction="#send" text="Send">
         <font>
             <Font size="24.0" />
         </font>

@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import model.blast_local;
@@ -18,6 +19,7 @@ import java.util.concurrent.Executors;
  */
 public class blast_local_controller extends helper implements Initializable {
 
+    public Button output_dir_btn;
     @FXML TextField database, params;
     @FXML TextArea sequence;
 
@@ -48,14 +50,12 @@ public class blast_local_controller extends helper implements Initializable {
                 e.printStackTrace();
             }
         });
-        start_btn.setDisable(true);
-        stop_btn.setDisable(false);
+        switch_disabled();
         java.util.Date date = new java.util.Date();
         blast_local.print_stream.println(date.toString() + " the process has started");
         Runnable r = () -> {
             if (exec_service.isShutdown()) {
-                start_btn.setDisable(false);
-                stop_btn.setDisable(true);
+                switch_disabled();
                 timeline.stop();
             }
         };
@@ -64,14 +64,9 @@ public class blast_local_controller extends helper implements Initializable {
     }
 
     public void stop() {
-        if (blast_local.p.isAlive()) {
-            blast_local.p.destroy();
-        }
         java.util.Date date = new java.util.Date();
         blast_local.print_stream.println(date.toString() + " the process has been stopped externally");
         exec_service.shutdownNow();
-        start_btn.setDisable(false);
-        stop_btn.setDisable(true);
     }
 
     public void set_output_dir() throws IOException {
@@ -100,6 +95,13 @@ public class blast_local_controller extends helper implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         blast_local = new blast_local(area);
         init_config();
+    }
+
+    private void switch_disabled(){
+        start_btn.setDisable(!start_btn.isDisable());
+        stop_btn.setDisable(!stop_btn.isDisable());
+        output_dir.setDisable(!output_dir.isDisable());
+        output_dir_btn.setDisable(!output_dir_btn.isDisable());
     }
 
     /***
