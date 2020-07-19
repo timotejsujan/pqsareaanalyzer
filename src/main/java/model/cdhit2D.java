@@ -2,7 +2,11 @@ package model;
 
 import javafx.scene.control.TextArea;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.io.SequenceInputStream;
+import java.nio.file.Paths;
 
 /**
  * @author Timotej Sujan
@@ -27,7 +31,7 @@ public class cdhit2D extends base {
 
     public void start() throws Exception {
         String[] paramsInit = {program_path, "-i", input_path, "-i2", input_path_areas_2,
-                "-o", output_path + "/" + output_name + name_suffix};
+                "-o", Paths.get(output_path, output_name + name_suffix).toString()};
         String[] params = parameters.split(" ");
         int fal = paramsInit.length;        //determines length of firstArray
         int sal = params.length;   //determines length of secondArray
@@ -57,14 +61,14 @@ public class cdhit2D extends base {
         cluster_sort cs = new cluster_sort(this);
         cs.sort();
 
-        File cdhitOutputClstr = new File(output_path + "/" + output_name + name_suffix + ".clstr");
+        File cdhitOutputClstr = new File(Paths.get(output_path, output_name + name_suffix + ".clstr").toString());
         File cdhitOutput = new File(output_path + "/" + output_name + name_suffix);
         delete_file(cdhitOutputClstr);
         delete_file(cdhitOutput);
         cluster_transform ct = new cluster_transform(this, cs);
         ct.start();
 
-        File cdhitOutputClstrSort = new File(cs.output_path + "/" + cs.output_name);
+        File cdhitOutputClstrSort = new File(Paths.get(cs.output_path, cs.output_name).toString());
         delete_file(cdhitOutputClstrSort);
 
         if (Thread.currentThread().isInterrupted()){

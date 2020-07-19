@@ -25,7 +25,7 @@ public class cluster_transform extends base {
     private String file_name_2;
 
     cluster_transform(cdhit c, cluster_sort cs) throws Exception {
-        cluster_file = new File(cs.output_path + "/" + cs.output_name);
+        cluster_file = new File(Paths.get(cs.output_path, cs.output_name).toString());
         pqsareas_output_file = new File(c.input_path);
         pqsfinder_output_file = new File(c.input_path_pqs);
         output_path = c.output_path;
@@ -36,7 +36,7 @@ public class cluster_transform extends base {
     }
 
     cluster_transform(cdhit2D c, cluster_sort cs) throws Exception {
-        cluster_file = new File(cs.output_path + "/" + cs.output_name);
+        cluster_file = new File(Paths.get(cs.output_path, cs.output_name).toString());
         pqsareas_output_file = new File(c.input_path);
         pqsfinder_output_file = new File(c.input_path_pqs_1);
         pqsareas_output_file_2 = new File(c.input_path_areas_2);
@@ -53,8 +53,9 @@ public class cluster_transform extends base {
     // clstr file musí být sorted
     public void start() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(cluster_file));
-        Files.createFile(Paths.get(output_path + "/" + output_name));
-        Files.write(Paths.get(output_path + "/" + output_name), (";area_size=" + area_size).getBytes(), StandardOpenOption.APPEND);
+        Files.createFile(Paths.get(Paths.get(output_path, output_name).toString()));
+        Files.write(Paths.get(Paths.get(output_path, output_name).toString()),
+                (";area_size=" + area_size).getBytes(), StandardOpenOption.APPEND);
         StringBuilder to_write = new StringBuilder();
         String line;
         while ((line = br.readLine()) != null && !Thread.interrupted()) {
@@ -62,7 +63,8 @@ public class cluster_transform extends base {
 
             if (line.charAt(0) == '>') {
 
-                Files.write(Paths.get(output_path + "/" + output_name), to_write.toString().getBytes(), StandardOpenOption.APPEND);
+                Files.write(Paths.get(Paths.get(output_path, output_name).toString()),
+                        to_write.toString().getBytes(), StandardOpenOption.APPEND);
                 to_write = new StringBuilder();
                 line = "\n" + line;
                 to_write.append(line);
@@ -74,7 +76,8 @@ public class cluster_transform extends base {
             String pqs_with_area = "\n" + curr_r.leftArea + curr_r.pqs + curr_r.rightArea;
             to_write.append(pqs_with_area);
         }
-        Files.write(Paths.get(output_path + "/" + output_name), to_write.toString().getBytes(), StandardOpenOption.APPEND);
+        Files.write(Paths.get(Paths.get(output_path, output_name).toString()),
+                to_write.toString().getBytes(), StandardOpenOption.APPEND);
     }
 
     private pqs_with_area get_sequence_using_id(String id) {

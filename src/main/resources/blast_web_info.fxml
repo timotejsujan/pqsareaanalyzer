@@ -10,7 +10,7 @@
             <Font size="24.0" />
         </font>
     </Label>
-    <TextArea editable="false" layoutX="31" layoutY="73" styleClass="info" text="With Blast Web you can match sequences against databases at NCBI servers through&#10;BLAST API. You will get internet link to results.&#10;&#10;Input:&#10;- sequence&#10;- database&#10;- megablast settings&#10;- additional parameters&#10;&#10;Output:&#10;- internet link to web results&#10;&#10;Click on &quot;Open Doc&quot; to read complete documentation of BLAST API program.&#10;&#10;&#10;">
+    <TextArea editable="false" layoutX="31" layoutY="73" styleClass="info" text="With Blast Web you can match sequences against databases at NCBI servers through&#10;BLAST API. You will get internet link to results.&#10;&#10;Input:&#10;- sequence&#10;- database&#10;- megablast settings&#10;- additional parameters&#10;&#10;Output:&#10;- internet link to web results&#10;&#10;Click on &quot;Open Doc&quot; to read complete documentation of BLAST API program.&#10;If it won't open, you can find the documentation in resources in the application foder.&#10;&#10;">
         <font>
             <Font size="15.0" />
         </font>

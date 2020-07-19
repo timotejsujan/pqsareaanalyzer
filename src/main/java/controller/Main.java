@@ -12,6 +12,7 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -33,7 +34,7 @@ public class Main extends Application {
         if (last_slash == -1) {
             last_slash = jar_folder_path.lastIndexOf('\\');
         }
-        jar_folder_path = jar_folder_path.substring(0, last_slash) + "/resources";
+        jar_folder_path = Paths.get(jar_folder_path.substring(0, last_slash), "resources").toString();
 
         try {
             init_config();
@@ -81,7 +82,7 @@ public class Main extends Application {
 
     public void init_config() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        File config_f = new File(Main.jar_folder_path + "/config.json");
+        File config_f = new File(Paths.get(Main.jar_folder_path, "config.json").toString());
         config = new config();
         config = mapper.readValue(config_f, config.class);
     }
@@ -89,7 +90,7 @@ public class Main extends Application {
     public static void save_config() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(
-                new FileOutputStream(Main.jar_folder_path + "/config.json"), config);
+                new FileOutputStream(Paths.get(Main.jar_folder_path, "config.json").toString()), config);
     }
 
 

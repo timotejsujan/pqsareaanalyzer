@@ -17,14 +17,14 @@ public class cluster_sort extends base {
     boolean keep_one_sized;
 
     public cluster_sort(cdhit c) {
-        input_path = c.output_path + "/" + c.output_name + c.name_suffix + ".clstr";
+        input_path = Paths.get(c.output_path, c.output_name + c.name_suffix + ".clstr").toString();
         output_path = c.output_path;
         output_name = c.output_name + c.name_suffix + "_sort.clstr";
         keep_one_sized = c.keep_one_sized;
     }
 
     public cluster_sort(cdhit2D c) {
-        input_path = c.output_path + "/" + c.output_name + c.name_suffix + ".clstr";
+        input_path = Paths.get(c.output_path, c.output_name + c.name_suffix + ".clstr").toString();
         output_path = c.output_path;
         output_name = c.output_name + c.name_suffix + "_sort.clstr";
         keep_one_sized = c.keep_one_sized;
@@ -57,7 +57,7 @@ public class cluster_sort extends base {
             c.rows.set(0, ">cluster=" + (i++) + "\n");
             sorted_clusters.append(String.join("", c.rows));
         }
-        Files.write(Paths.get(output_path + "/" + output_name), sorted_clusters.toString().getBytes(), StandardOpenOption.APPEND);
+        Files.write(Paths.get(Paths.get(output_path, output_name).toString()), sorted_clusters.toString().getBytes(), StandardOpenOption.APPEND);
     }
 
     private class Cluster {

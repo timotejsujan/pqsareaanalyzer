@@ -4,6 +4,7 @@ import controller.Main;
 import javafx.scene.control.TextArea;
 
 import java.io.*;
+import java.nio.file.Paths;
 
 /**
  * @author Timotej Sujan
@@ -21,7 +22,8 @@ public class blast_local extends base{
 
     public void start() throws Exception {
 
-        String[] paramsInit = {program_path, "-query", input_path, "-db", database_path, "-out", output_path + "/" + output_name+".txt"};
+        String[] paramsInit = {program_path, "-query", input_path, "-db", database_path, "-out",
+                Paths.get(output_path, output_name+".txt").toString()};
         if (!parameters.isEmpty()){
 
             String[] params = parameters.split(" ");

@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 
@@ -172,7 +173,7 @@ public class pqsfinder_controller extends helper implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         pqsfinder = new pqsfinder(area);
-        pqsfinder.set_program_path(Main.jar_folder_path + "/g4.R");
+        pqsfinder.set_program_path(Paths.get(Main.jar_folder_path, "g4.R").toString());
 
         init();
         init_config();

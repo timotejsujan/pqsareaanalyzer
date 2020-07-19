@@ -34,9 +34,9 @@ public class blast_local_controller extends helper implements Initializable {
         blast_local.set_parameters(params.getText());
 
         // Makes a file from sequence to use in blastn program
-        Files.write(Paths.get(blast_local.output_path + "/" + "$$$temp_query.txt"), sequence.getText().getBytes());
+        Files.write(Paths.get(blast_local.output_path, "$$$temp_query.txt"), sequence.getText().getBytes());
         // Pass the path for later deletion of file
-        blast_local.set_input_path(blast_local.output_path + "/" + "$$$temp_query.txt");
+        blast_local.set_input_path(Paths.get(blast_local.output_path, "$$$temp_query.txt").toString());
 
         exec_service = Executors.newSingleThreadExecutor();
 

@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 
@@ -87,7 +88,7 @@ public class cdhit_controller extends helper implements Initializable {
     public void set_input_path_areas(String dir_path, String name) {
         if (exec_service == null || exec_service.isShutdown()) {
             input_path_areas.setText(".../"+name+".txt");
-            cdhit.input_path = dir_path + "/" + name + ".txt";
+            cdhit.input_path = Paths.get(dir_path, name + ".txt").toString();
         }
     }
 
@@ -102,7 +103,7 @@ public class cdhit_controller extends helper implements Initializable {
     public void set_input_path_pqs(String dir_path, String name) {
         if (exec_service == null || exec_service.isShutdown()) {
             input_path_pqs.setText(".../"+name+".txt");
-            cdhit.input_path_pqs = dir_path + "/" + name + ".txt";
+            cdhit.input_path_pqs = Paths.get(dir_path, name + ".txt").toString();
         }
     }
 

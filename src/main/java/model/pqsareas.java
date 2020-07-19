@@ -32,7 +32,7 @@ public class pqsareas extends base {
     public void start() {
 
         try {
-            Files.createFile(Paths.get(output_path + "/" + output_name + ".txt"));
+            Files.createFile(Paths.get(Paths.get(output_path, output_name + ".txt").toString()));
             get_areas(new File(input_path), new File(input_path_pqs_positions));
         } catch (Exception e) {
             print_status(e.toString());
@@ -83,7 +83,8 @@ public class pqsareas extends base {
             area = right_area + area;
         }
         String to_write = ">file=" + output_name + ";strand=" + (curr_pqs.strand ? "+" : "-") + ";segment=" + segment + ";pqs_number=" + (pqs_number) + "\n" + area + "\n";
-        Files.write(Paths.get(output_path + "/" + output_name + ".txt"), to_write.getBytes(), StandardOpenOption.APPEND);
+        Files.write(Paths.get(Paths.get(output_path, output_name + ".txt").toString()),
+                to_write.getBytes(), StandardOpenOption.APPEND);
     }
 
     private void get_areas(File genom, File pqs_positions) throws IOException {

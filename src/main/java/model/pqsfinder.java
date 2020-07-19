@@ -3,6 +3,7 @@ package model;
 import javafx.scene.control.TextArea;
 
 import java.io.*;
+import java.nio.file.Paths;
 
 /**
  * @author Timotej Sujan
@@ -37,8 +38,7 @@ public class pqsfinder extends base {
     public void start() throws Exception {
         changeParameters();
         p = Runtime.getRuntime().exec(new String[]{"Rscript", program_path, input_path,
-                        output_path + "/" +
-                        output_name + ".txt"});
+                        Paths.get(output_path, output_name + ".txt").toString()});
 
         SequenceInputStream s = new SequenceInputStream(p.getErrorStream(), p.getInputStream());
         BufferedReader input = new BufferedReader(new InputStreamReader(s));

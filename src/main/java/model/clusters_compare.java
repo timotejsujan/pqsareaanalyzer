@@ -68,14 +68,12 @@ public class clusters_compare extends base {
         return clusters;
     }
 
-    public void show() throws IOException {
+    public void start() throws IOException {
         load_clusters();
         compare();
-    }
-
-    public void export() throws IOException {
-        load_clusters();
-        compare();
+        if (Thread.currentThread().isInterrupted()){
+            return;
+        }
         compared.sort(new ClusterComparator());
         Files.createFile(Paths.get(output_path + "/" + output_name + ".txt"));
         StringBuilder to_write = new StringBuilder();
@@ -94,7 +92,10 @@ public class clusters_compare extends base {
                     .append(" with ref. seq.").append("\n");
             to_write.append(left.reference_sequence).append("\n\n");
         }
-        Files.write(Paths.get(output_path + "/" + output_name + ".txt"), to_write.toString().getBytes(), StandardOpenOption.APPEND);
+        Files.write(Paths.get(Paths.get(output_path, output_name + ".txt").toString()),
+                to_write.toString().getBytes(), StandardOpenOption.APPEND);
+
+        print_status("the process has ended");
     }
 
     private void compare(){
@@ -102,6 +103,9 @@ public class clusters_compare extends base {
         LevenshteinDistance ld = new LevenshteinDistance();
         for (cluster c_1 : cluster_1){
             for (cluster c_2 : cluster_2){
+                if (Thread.currentThread().isInterrupted()){
+                    return;
+                }
                 if (ld.apply(c_1.reference_sequence, c_2.reference_sequence) <= threshold){
                     compared.add(new Pair<>(c_1, c_2));
                 }

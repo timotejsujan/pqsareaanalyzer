@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import model.blast_web;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
 public class blast_web_controller extends Application implements Initializable {
     @FXML private Button link;
     @FXML public TextArea sequence;
-    @FXML private Label time;
+    @FXML private TextField id, time;
     @FXML public ChoiceBox<String> database, megablast;
     @FXML TextField filter, format_type, expect, nucl_reward, nucl_penalty, gapcosts, matrix,
             hitlist_size, descriptions, alignments, ncbi_gi, threshold, word_size, composition_based_statistics,
@@ -48,7 +49,8 @@ public class blast_web_controller extends Application implements Initializable {
         blast_web.set_database(database.getValue());
         blast_web.set_megablast(megablast.getValue());
         blast_web.send(sequence.getText());
-        time.setText("The results with id " + blast_web.id + " will be available in estimated " + blast_web.time + " seconds.");
+        id.setText(blast_web.id);
+        time.setText(blast_web.time);
         link.setDisable(false);
     }
 

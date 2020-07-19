@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 
@@ -24,10 +25,10 @@ public final class cluster_logo extends JFrame {
     private final int PANEL_WIDTH = (int) screenSize.getWidth();
     private final int PANEL_HEIGHT = 800;
     private int BLOCK_WIDTH;
-    private final BufferedImage img_g = ImageIO.read(new File(Main.jar_folder_path + "/images/G.png"));
-    private final BufferedImage img_a = ImageIO.read(new File(Main.jar_folder_path + "/images/A.png"));
-    private final BufferedImage img_c = ImageIO.read(new File(Main.jar_folder_path + "/images/C.png"));
-    private final BufferedImage img_t = ImageIO.read(new File(Main.jar_folder_path + "/images/T.png"));
+    private final BufferedImage img_g = ImageIO.read(new File(Paths.get(Main.jar_folder_path, "images", "G.png").toString()));
+    private final BufferedImage img_a = ImageIO.read(new File(Paths.get(Main.jar_folder_path, "images", "A.png").toString()));
+    private final BufferedImage img_c = ImageIO.read(new File(Paths.get(Main.jar_folder_path, "images", "C.png").toString()));
+    private final BufferedImage img_t = ImageIO.read(new File(Paths.get(Main.jar_folder_path, "images", "T.png").toString()));
     private Graphics graphics;
     private final model.cluster cluster;
 

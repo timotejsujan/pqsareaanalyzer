@@ -11,6 +11,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -71,7 +72,7 @@ public class clusters_logo_controller implements Initializable {
 
     public void set_input_path(String dir_path, String name) throws IOException {
         input_path.setText(".../"+name+".txt");
-        clusters_count.setInputPath(dir_path + "/" + name + ".txt");
+        clusters_count.setInputPath(Paths.get(dir_path, name + ".txt").toString());
         clusters_count.load_cluster();
         number_of_clusters.setText("" + clusters_count.getLength());
         limit.setText(Integer.min(clusters_count.getLength(), 20) + "");

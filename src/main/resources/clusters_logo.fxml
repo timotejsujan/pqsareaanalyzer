@@ -23,10 +23,10 @@
         </font>
     </Button>
     <Label layoutX="49.0" layoutY="139.0" text="Display" />
-    <TextField fx:id="limit" layoutX="100.0" layoutY="139.0" prefHeight="27.0" prefWidth="50.0" />
-    <Label layoutX="153.0" layoutY="139.0">/</Label>
-    <TextField fx:id="number_of_clusters" editable="false" layoutX="160.0" layoutY="139.0" prefWidth="50.0" />
-    <Label layoutX="214.0" layoutY="139.0">clusters</Label>
+    <TextField fx:id="limit" layoutX="100.0" layoutY="139.0" prefHeight="27.0" prefWidth="72.0" />
+    <Label layoutX="176.0" layoutY="139.0">/</Label>
+    <TextField fx:id="number_of_clusters" editable="false" layoutX="185.0" layoutY="139.0" prefHeight="27.0" prefWidth="72.0" />
+    <Label layoutX="263.0" layoutY="139.0">clusters</Label>
     <Button fx:id="export_btn" disable="true" layoutX="660.0" layoutY="166.0" mnemonicParsing="false" onAction="#open_export_dialog" text="Export Results">
         <font>
             <Font size="13.0" />

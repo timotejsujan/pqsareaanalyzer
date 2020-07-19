@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 
@@ -24,6 +25,10 @@ public class pqsareas_controller extends helper implements Initializable {
     private pqsareas pqsareas;
 
     public void start() {
+        if(area_size.getText().isEmpty()){
+            pqsareas.print_stream.println("values are NOT valid, something is missing!");
+            return;
+        }
         pqsareas.set_area(Integer.parseInt(area_size.getText()));
         pqsareas.set_output_name(output_name.getText().replace(" ", "_"));
         output_name.setText(output_name.getText().replace(" ", "_"));
@@ -90,7 +95,7 @@ public class pqsareas_controller extends helper implements Initializable {
     public void set_input_path_pqs_positions(String dir_path, String name){
         if (exec_service == null || exec_service.isShutdown()) {
             input_path_pqs_positions.setText(".../"+name+".txt");
-            pqsareas.input_path_pqs_positions = dir_path + "/" + name + ".txt";
+            pqsareas.input_path_pqs_positions = Paths.get(dir_path, name + ".txt").toString();
         }
     }
 

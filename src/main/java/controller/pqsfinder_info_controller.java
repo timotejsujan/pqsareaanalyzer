@@ -8,6 +8,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 /**
@@ -15,10 +16,16 @@ import java.util.ResourceBundle;
  */
 public class pqsfinder_info_controller implements Initializable {
 
-    public void open_doc() throws IOException {
-        Desktop desktop = Desktop.getDesktop();
-        File f = new File(Main.jar_folder_path + "/documentation/pqsfinder.pdf");
-        desktop.open(f);
+
+    public void open_doc() {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File f = new File(Paths.get(Main.jar_folder_path, "documentation", "pqsfinder.pdf").toString());
+                Desktop.getDesktop().open(f);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }
     }
 
 

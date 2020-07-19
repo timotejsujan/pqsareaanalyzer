@@ -22,10 +22,11 @@ public class clusters_count {
     private int limit = 0;
     public int area = -1;
     private String inputPath;
-    private final Map<Integer, Cluster> referenceSeqs = new HashMap<>();
+    private Map<Integer, Cluster> reference_seqs = new HashMap<>();
 
     // public
     public void load_cluster() throws IOException {
+        reference_seqs = new HashMap<>();
 
         BufferedReader br = new BufferedReader(new FileReader(inputPath));
 
@@ -42,18 +43,18 @@ public class clusters_count {
             }
             if (line.startsWith(">")) {
                 if (counter != 0) {
-                    referenceSeqs.get(counter - 1).size = cluster_size;
+                    reference_seqs.get(counter - 1).size = cluster_size;
                 }
                 cluster_size = 0;
-                referenceSeqs.put(counter, new Cluster());
-                referenceSeqs.get(counter).reference_sequence = br.readLine();
+                reference_seqs.put(counter, new Cluster());
+                reference_seqs.get(counter).reference_sequence = br.readLine();
                 counter++;
             }
             cluster_size++;
 
 
         }
-        referenceSeqs.get(counter - 1).size = cluster_size;
+        reference_seqs.get(counter - 1).size = cluster_size;
         length = counter;
         limit = counter;
     }
@@ -88,7 +89,7 @@ public class clusters_count {
         int col_number = 0;
         int first = cols.get(col_number).getKey();
         int second = cols.get(col_number).getKey();
-        for (Map.Entry<Integer, Cluster> entry : referenceSeqs.entrySet()){
+        for (Map.Entry<Integer, Cluster> entry : reference_seqs.entrySet()){
             int size = entry.getValue().size;
             first = cols.get(col_number).getKey();
             second = cols.get(col_number).getValue();
@@ -173,6 +174,6 @@ public class clusters_count {
     }
 
     public Map<Integer, Cluster> getReferenceSeqs() {
-        return referenceSeqs;
+        return reference_seqs;
     }
 }
