@@ -39,6 +39,9 @@ public class blast_web {
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("CMD", "Put");
         params.put("PROGRAM", "blastn");
+        if (megablast == null) megablast = "on";
+        if (database == null) database = "nt";
+        if (sequence == null || sequence.isEmpty()) sequence = "NOTHING";
         if (megablast.equals("on")) params.put("MEGABLAST", megablast);
         params.put("DATABASE", database);
         params.put("QUERY", sequence);

@@ -20,6 +20,7 @@ import java.util.concurrent.Executors;
 public class blast_local_controller extends helper implements Initializable {
 
     public Button output_dir_btn;
+    public Button database_btn;
     @FXML TextField database, params;
     @FXML TextArea sequence;
 
@@ -32,6 +33,11 @@ public class blast_local_controller extends helper implements Initializable {
     public void start() throws IOException {
         blast_local.set_output_name(output_name.getText());
         blast_local.set_parameters(params.getText());
+
+        if (!blast_local.is_valid()) {
+            blast_local.print_stream.println("values are NOT valid, something is missing!");
+            return;
+        }
 
         // Makes a file from sequence to use in blastn program
         Files.write(Paths.get(blast_local.output_path, "$$$temp_query.txt"), sequence.getText().getBytes());
@@ -102,6 +108,8 @@ public class blast_local_controller extends helper implements Initializable {
         stop_btn.setDisable(!stop_btn.isDisable());
         output_dir.setDisable(!output_dir.isDisable());
         output_dir_btn.setDisable(!output_dir_btn.isDisable());
+        database.setDisable(!database.isDisable());
+        database_btn.setDisable(!database_btn.isDisable());
     }
 
     /***

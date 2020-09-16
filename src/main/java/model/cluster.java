@@ -14,6 +14,7 @@ public class cluster {
     ArrayList<String> left_area = new ArrayList<>();
     ArrayList<String> pqs = new ArrayList<>();
     ArrayList<String> right_area = new ArrayList<>();
+    public boolean possible = true;
 
     public cluster(Integer n, File f) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(f));
@@ -32,7 +33,13 @@ public class cluster {
             if (line.equals(">cluster=" + n.toString())) {
 
                 while ((line = br.readLine()) != null && !line.startsWith(">")) {
-                    String new_pqs = line.substring(area_size, line.length() - area_size);
+                    String new_pqs;
+                    try {
+                        new_pqs = line.substring(area_size, line.length() - area_size);
+                    } catch (Exception ex){
+                        possible = false;
+                        return;
+                    }
 
                     left_area.add(line.substring(0, area_size));
                     pqs.add(new_pqs);

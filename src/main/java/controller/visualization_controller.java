@@ -1,10 +1,7 @@
 package controller;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.stage.Window;
 import model.cluster;
 import model.cluster_logo;
 import javafx.event.ActionEvent;
@@ -33,7 +30,15 @@ public class visualization_controller implements Initializable {
     }
 
     public void show() throws IOException {
-        cv = new cluster_logo(new cluster(id, new File(inputPath)));
+        cluster cluster = new cluster(id, new File(inputPath));
+        if (!cluster.possible){
+            showAlert(Alert.AlertType.ERROR, Main.primary_stage, "Not possible",
+                    "Sequences in this cluster don't have the same area size. " +
+                            "You probably compared two cluster files with different " +
+                            "area sizes in program CD-HIT-EST-2D.");
+            return;
+        }
+        cv = new cluster_logo(cluster);
         cv.show_sequence();
     }
 
@@ -42,7 +47,15 @@ public class visualization_controller implements Initializable {
         file_chooser.setInitialFileName("cluster_"+id+"_"+contr.cluster_logo_contr.short_input_path()+".png");
         File file = file_chooser.showSaveDialog(Main.primary_stage);
         if (file != null) {
-            cv = new cluster_logo(new cluster(id, new File(inputPath)));
+            cluster cluster = new cluster(id, new File(inputPath));
+            if (!cluster.possible){
+                showAlert(Alert.AlertType.ERROR, Main.primary_stage, "Not possible",
+                        "Sequences in this cluster don't have the same area size. " +
+                                "You probably compared two cluster files with different " +
+                                "area sizes in program CD-HIT-EST-2D.");
+                return;
+            }
+            cv = new cluster_logo(cluster);
             ImageIO.write(cv.get_buffered_image(), "png", file);
         }
     }
@@ -97,5 +110,14 @@ public class visualization_controller implements Initializable {
 
     public void set_area_size(int area_size) {
         this.area_size = area_size;
+    }
+
+    public void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        alert.show();
     }
 }

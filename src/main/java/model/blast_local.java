@@ -16,6 +16,11 @@ public class blast_local extends base{
 
     public Process p;
 
+    public boolean is_valid(){
+        input_path = "dummy";
+        return is_base_valid() && !database_path.isEmpty();
+    }
+
     public blast_local(TextArea outputArea) {
         super(outputArea);
     }

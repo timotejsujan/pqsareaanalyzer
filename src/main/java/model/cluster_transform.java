@@ -23,6 +23,7 @@ public class cluster_transform extends base {
     private int area_size = -1;
     private String file_name_1;
     private String file_name_2;
+    cdhit2D cdhit2d = null;
 
     cluster_transform(cdhit c, cluster_sort cs) throws Exception {
         cluster_file = new File(Paths.get(cs.output_path, cs.output_name).toString());
@@ -43,6 +44,7 @@ public class cluster_transform extends base {
         pqsfinder_output_file_2 = new File(c.input_path_pqs_2);
         output_path = c.output_path;
         output_name = c.output_name + ".txt";
+        cdhit2d = c;
 
         load_areas(pqsareas_output_file, dataset, true);
         load_pqs(pqsfinder_output_file, dataset);
@@ -123,6 +125,12 @@ public class cluster_transform extends base {
 
                 if (area_size == -1) {
                     area_size = new_pqs.leftArea.length();
+                } else if (area_size != new_pqs.leftArea.length()){
+                    if (cdhit2d != null){
+                        cdhit2d.print_status("The two input datasets have different size of areas, " +
+                                "it won't be possible to display sequence logo!!!");
+                        cdhit2d = null;
+                    }
                 }
 
                 if (db.strands.get(strand).segments.containsKey(segment)) {

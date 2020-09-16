@@ -2,6 +2,7 @@ package controller;
 
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.stage.Window;
 import model.blast_web;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -48,6 +49,7 @@ public class blast_web_controller extends Application implements Initializable {
 
         blast_web.set_database(database.getValue());
         blast_web.set_megablast(megablast.getValue());
+
         blast_web.send(sequence.getText());
         id.setText(blast_web.id);
         time.setText(blast_web.time);
@@ -68,5 +70,14 @@ public class blast_web_controller extends Application implements Initializable {
     @Override
     public void start(Stage stage) {
 
+    }
+
+    public void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        alert.show();
     }
 }

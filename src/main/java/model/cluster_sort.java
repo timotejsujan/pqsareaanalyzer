@@ -49,7 +49,7 @@ public class cluster_sort extends base {
         clusters.remove(0);
         clusters.sort(new ClusterComparator());
 
-        Files.createFile(Paths.get(output_path + "/" + output_name));
+        Files.createFile(Paths.get(output_path, output_name));
         StringBuilder sorted_clusters = new StringBuilder();
         int i = 0;
         for (Cluster c : clusters) {

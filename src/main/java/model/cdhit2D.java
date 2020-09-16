@@ -1,7 +1,6 @@
 package model;
 
 import javafx.scene.control.TextArea;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -21,7 +20,7 @@ public class cdhit2D extends base {
     public String input_path_areas_2 = "";
     public String input_path_pqs_2 = "";
     private String parameters = "";
-    public final String name_suffix = "_cdhit2";
+    public final String name_suffix = "_cdhit2.txt";
     public Process p;
     public boolean keep_one_sized = false;
 
@@ -50,19 +49,19 @@ public class cdhit2D extends base {
             print_status(line);
         }
 
+        input.close();
+
         if (Thread.currentThread().isInterrupted()){
             if (p.isAlive())
                 p.destroy();
             return;
         }
 
-        input.close();
-
         cluster_sort cs = new cluster_sort(this);
         cs.sort();
 
         File cdhitOutputClstr = new File(Paths.get(output_path, output_name + name_suffix + ".clstr").toString());
-        File cdhitOutput = new File(output_path + "/" + output_name + name_suffix);
+        File cdhitOutput = new File(Paths.get(output_path, output_name + name_suffix).toString());
         delete_file(cdhitOutputClstr);
         delete_file(cdhitOutput);
         cluster_transform ct = new cluster_transform(this, cs);

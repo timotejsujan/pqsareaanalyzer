@@ -90,7 +90,7 @@ public class cdhit2D_controller extends helper implements Initializable {
     public void set_input_path_areas_1(String dir_path, String name) {
         if (exec_service == null || exec_service.isShutdown()) {
             input_path_areas_1.setText(".../"+name+".txt");
-            cdhit2D.input_path = dir_path + "/" + name + ".txt";
+            cdhit2D.input_path = Paths.get(dir_path, name + ".txt").toString();
         }
     }
 

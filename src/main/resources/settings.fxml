@@ -28,35 +28,35 @@
       </rowConstraints>
       <children>
       
-          <TextField fx:id="output_dir" editable="false" onMouseClicked="#set_output_dir" prefWidth="600" text="Select output directory..." GridPane.rowIndex="1" />
+          <TextField fx:id="output_dir" editable="false" onMouseClicked="#set_output_dir" prefWidth="600" text="Select the default output directory..." GridPane.rowIndex="1" />
           <Button mnemonicParsing="false" onAction="#set_output_dir" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1">
               <font>
                   <Font size="13.0" />
               </font>
           </Button>
       
-          <TextField fx:id="cdhit_path" editable="false" onMouseClicked="#set_cdhit_path" prefWidth="600" text="Select path to CD-HIT-EST..." GridPane.rowIndex="3" />
+          <TextField fx:id="cdhit_path" editable="false" onMouseClicked="#set_cdhit_path" prefWidth="600" text="Select the path to the CD-HIT-EST..." GridPane.rowIndex="3" />
           <Button mnemonicParsing="false" onAction="#set_cdhit_path" text="..." GridPane.columnIndex="1" GridPane.rowIndex="3">
               <font>
                   <Font size="13.0" />
               </font>
           </Button>
-          <TextField fx:id="cdhit2D_path" editable="false" onMouseClicked="#set_cdhit2D_path" prefWidth="600" text="Select path to CD-HIT-EST-2D..." GridPane.rowIndex="5" />
+          <TextField fx:id="cdhit2D_path" editable="false" onMouseClicked="#set_cdhit2D_path" prefWidth="600" text="Select the path to the CD-HIT-EST-2D..." GridPane.rowIndex="5" />
           <Button mnemonicParsing="false" onAction="#set_cdhit2D_path" text="..." GridPane.columnIndex="1" GridPane.rowIndex="5">
               <font>
                   <Font size="13.0" />
               </font>
           </Button>
-          <TextField fx:id="blast_path" editable="false" onMouseClicked="#set_blast_path" prefWidth="600" text="Select path to blastn..." GridPane.rowIndex="7" />
+          <TextField fx:id="blast_path" editable="false" onMouseClicked="#set_blast_path" prefWidth="600" text="Select the path to the blastn..." GridPane.rowIndex="7" />
           <Button mnemonicParsing="false" onAction="#set_blast_path" text="..." GridPane.columnIndex="1" GridPane.rowIndex="7">
               <font>
                   <Font size="13.0" />
               </font>
           </Button>
-          <Label text="CD-HIT-EST path - required for program CD-HIT-EST" GridPane.rowIndex="2">TEST</Label>
-          <Label text="Output Directory">TEST</Label>
-          <Label text="CD-HIT-EST-2D path - required for program CD-HIT-EST-2D" GridPane.rowIndex="4">TEST</Label>
-          <Label text="blastn path - required for program BLAST LOCAL" GridPane.rowIndex="6">TEST</Label>
+          <Label text="CD-HIT-EST path - required for the CD-HIT-EST program" GridPane.rowIndex="2">TEST</Label>
+          <Label text="Default output directory">TEST</Label>
+          <Label text="CD-HIT-EST-2D path - required for the CD-HIT-EST-2D program" GridPane.rowIndex="4">TEST</Label>
+          <Label text="blastn path - required for the BLAST LOCAL program" GridPane.rowIndex="6">TEST</Label>
       </children>
    </GridPane>
 </Pane>

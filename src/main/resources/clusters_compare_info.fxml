@@ -10,7 +10,7 @@
             <Font size="24.0" />
         </font>
     </Label>
-    <TextArea editable="false" layoutX="31.0" layoutY="73.0" styleClass="info" text="With Clusters compare you can search for similar clusters across two cluster files. &#10;Reference sequences of first cluster file will be compared to reference sequences of&#10;second cluster file. The similarity threshold is defined by Levensthein distance.&#10;It is not recommended to compare one-sized clusters since it could take a long time&#10;and there would be many insignicant results.&#10;&#10;Input:&#10;- first FASTA file of clusters (output of CD-HIT programs)&#10;- second FASTA file of clusters (output of CD-HIT programs)&#10;- Levensthein distance threshold&#10;&#10;Output:&#10;- text file of information about similar clusters&#10;">
+    <TextArea editable="false" layoutX="31.0" layoutY="73.0" styleClass="info" text="With Clusters Compare, you can search for similar clusters between two cluster files. &#10;For each reference sequence from the first file, the Levensthein distance from &#10;each reference sequence from the second file is calculated. It is not recommended &#10;to compare cluster files with single-sequence clusters included , as it would &#10;take a long time and many results would be insignificant.&#10;&#10;Input:&#10;- first FASTA file of clusters (output of CD-HIT programs)&#10;- second FASTA file of clusters (output of CD-HIT programs)&#10;- Levensthein distance threshold&#10;&#10;Output:&#10;- text file with information about similar clusters&#10;">
         <font>
             <Font size="15.0" />
         </font>

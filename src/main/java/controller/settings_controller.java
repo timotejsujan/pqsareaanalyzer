@@ -28,7 +28,7 @@ public class settings_controller implements Initializable {
     public void set_output_dir() throws IOException {
         File file = dir_chooser.showDialog(Main.primary_stage);
         if (file != null) {
-            output_dir.setText(".../"+file.getName());
+            output_dir.setText(file.getAbsolutePath());
 
             Main.config.output_dir = file.getAbsolutePath();
             Main.config.output_dir_name = file.getName();
@@ -50,7 +50,7 @@ public class settings_controller implements Initializable {
             if (!file.setExecutable(true) && !file.canExecute()){
                 showAlert(Alert.AlertType.WARNING, Main.primary_stage, "Permission", "You have to set execute permissions for this file!");
             }
-            cdhit_path.setText(".../"+file.getName());
+            cdhit_path.setText(file.getAbsolutePath());
             contr.cdhit_contr.cdhit.set_program_path(file.getAbsolutePath());
             Main.config.cdhit_path = file.getAbsolutePath();
             Main.save_config();
@@ -63,7 +63,7 @@ public class settings_controller implements Initializable {
             if (!file.setExecutable(true) && !file.canExecute()){
                 showAlert(Alert.AlertType.WARNING, Main.primary_stage, "Permission", "You have to set execute permissions for this file!");
             }
-            cdhit2D_path.setText(".../"+file.getName());
+            cdhit2D_path.setText(file.getAbsolutePath());
             contr.cdhit2D_contr.cdhit2D.set_program_path(file.getAbsolutePath());
             Main.config.cdhit2D_path = file.getAbsolutePath();
             Main.save_config();
@@ -76,7 +76,7 @@ public class settings_controller implements Initializable {
             if (!file.setExecutable(true) && !file.canExecute()){
                 showAlert(Alert.AlertType.WARNING, Main.primary_stage, "Permission", "You have to set execute permissions for this file!");
             }
-            blast_path.setText(".../"+file.getName());
+            blast_path.setText(file.getAbsolutePath());
             contr.blast_local_contr.blast_local.set_program_path(file.getAbsolutePath());
             Main.config.blast_path = file.getAbsolutePath();
             Main.save_config();

@@ -10,7 +10,7 @@
             <Font size="24.0" />
         </font>
     </Label>
-    <TextArea editable="false" layoutX="31.0" layoutY="73.0" styleClass="info" text="With Blast Local you can match sequences against custom databases.&#10;&#10;Input:&#10;- sequence&#10;- database file (select any database file, suffix will be removed)&#10;- output directory + output name&#10;- additional parameters&#10;&#10;Output:&#10;- .txt file with results of blastn program&#10;&#10;Click on &quot;Open Doc&quot; to read complete documentation of blastn program.&#10;If it won't open, you can find the documentation in resources in the application foder.&#10;&#10;&#10;">
+    <TextArea editable="false" layoutX="31.0" layoutY="73.0" styleClass="info" text="With Blast Local, you can search for similar sequences in your own local databases.&#10;&#10;Input:&#10;- sequence&#10;- database file (select any database file, suffix will be deleted)&#10;- output directory + output name&#10;- additional parameters&#10;&#10;Output:&#10;- text file with results of the blastn program&#10;&#10;Click on the button &quot;Open Doc&quot; to read the complete documentation. If nothing &#10;happens, you can find the documentation in the ... / resources / documentation &#10;folder in the application directory.&#10;&#10;&#10;">
         <font>
             <Font size="15.0" />
         </font>

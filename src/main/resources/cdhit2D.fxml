@@ -30,13 +30,13 @@
          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-          <TextField fx:id="input_path_areas_1" editable="false" onMouseClicked="#set_input_path_areas_1" styleClass="input" text="Select PQS areas (pqsareas output)..." />
+          <TextField fx:id="input_path_areas_1" editable="false" onMouseClicked="#set_input_path_areas_1" styleClass="input" text="Select the areas found (pqsareas output)..." />
           <Button fx:id="input_path_areas_1_btn" mnemonicParsing="false" onAction="#set_input_path_areas_1" text="..." GridPane.columnIndex="1">
               <font>
                   <Font size="13.0" />
               </font>
           </Button>
-          <TextField fx:id="input_path_pqs_1" editable="false" onMouseClicked="#set_input_path_pqs_1" styleClass="input" text="Select PQS positions (pqsfinder output)..." GridPane.rowIndex="1" />
+          <TextField fx:id="input_path_pqs_1" editable="false" onMouseClicked="#set_input_path_pqs_1" styleClass="input" text="Select the PQS found (pqsfinder output)..." GridPane.rowIndex="1" />
           <Button fx:id="input_path_pqs_1_btn" mnemonicParsing="false" onAction="#set_input_path_pqs_1" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1">
               <font>
                   <Font size="13.0" />
@@ -54,13 +54,13 @@
          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-          <TextField fx:id="input_path_areas_2" editable="false" onMouseClicked="#set_input_path_areas_2" styleClass="input" text="Select PQS areas (pqsareas output)..." />
+          <TextField fx:id="input_path_areas_2" editable="false" onMouseClicked="#set_input_path_areas_2" styleClass="input" text="Select the areas found (pqsareas output)..." />
           <Button fx:id="input_path_areas_2_btn" mnemonicParsing="false" onAction="#set_input_path_areas_2" text="..." GridPane.columnIndex="1">
               <font>
                   <Font size="13.0" />
               </font>
           </Button>
-          <TextField fx:id="input_path_pqs_2" editable="false" onMouseClicked="#set_input_path_pqs_2" styleClass="input" text="Select PQS positions (pqsfinder output)..." GridPane.rowIndex="1" />
+          <TextField fx:id="input_path_pqs_2" editable="false" onMouseClicked="#set_input_path_pqs_2" styleClass="input" text="Select the PQS found (pqsfinder output)..." GridPane.rowIndex="1" />
           <Button fx:id="input_path_pqs_2_btn" mnemonicParsing="false" onAction="#set_input_path_pqs_2" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1">
               <font>
                   <Font size="13.0" />
@@ -77,7 +77,7 @@
          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-          <TextField fx:id="output_dir" editable="false" onMouseClicked="#set_output_dir" styleClass="input" text="Select output directory..." />
+          <TextField fx:id="output_dir" editable="false" onMouseClicked="#set_output_dir" styleClass="input" text="Select the output directory..." />
           <Button fx:id="output_dir_btn" mnemonicParsing="false" onAction="#set_output_dir" text="..." GridPane.columnIndex="1">
               <font>
                   <Font size="13.0" />
@@ -90,7 +90,7 @@
     <Label layoutX="20.0" layoutY="280.0" text="Parameters" />
     <TextField fx:id="params" layoutX="108.0" layoutY="275.0" prefHeight="27.0" prefWidth="666.0" />
     <TextArea fx:id="area" editable="false" layoutX="20" layoutY="315.0" prefHeight="247.0" prefWidth="493.0" />
-   <CheckBox fx:id="keep_one_sized" layoutX="226.0" layoutY="238.0" mnemonicParsing="false" text="Keep one-sized clusters" />
+   <CheckBox fx:id="keep_one_sized" layoutX="226.0" layoutY="238.0" mnemonicParsing="false" text="Keep single-sequence sized clusters" />
     <Label layoutX="340.0" layoutY="125.0" style="-fx-text-fill: red" text="*">*</Label>
     <Label layoutX="340.0" layoutY="78.0" style="-fx-text-fill: red" text="*">*</Label>
     <Label layoutX="17.0" layoutY="78.0" style="-fx-text-fill: red" text="*">*</Label>

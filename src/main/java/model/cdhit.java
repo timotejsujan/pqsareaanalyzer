@@ -17,7 +17,7 @@ public class cdhit extends base {
 
     public String input_path_pqs = "";
     private String parameters = "";
-    public final String name_suffix = "_cdhit";
+    public final String name_suffix = "_cdhit.txt";
     public Process p;
     public boolean keep_one_sized = false;
 

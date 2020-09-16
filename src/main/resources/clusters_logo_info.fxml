@@ -10,7 +10,7 @@
             <Font size="24.0" />
         </font>
     </Label>
-    <TextArea editable="false" layoutX="31.0" layoutY="73.0" styleClass="info" text="In Clusters logo you can visualize given clusters. After loading a FASTA file with clusters, &#10;you will get table of clusters which you can view as sequence logo, export or send to &#10;BLAST programs (reference sequences). You can also export cluster file summary table.&#10;&#10;Input:&#10;- FASTA file of clusters (output of CD-HIT programs)&#10;&#10;Output:&#10;- table of clusters&#10;">
+    <TextArea editable="false" layoutX="31.0" layoutY="73.0" styleClass="info" text="In the Cluster Logo program, you can visualize the found clusters. After loading &#10;the cluster file, you will see a table of clusters, which you can display as a sequence &#10;logo or export. You can also pass reference sequences to Blast programs or export &#10;the entire cluster information to an output table.&#10;&#10;Input:&#10;- FASTA file of clusters (output of CD-HIT programs)&#10;&#10;Output:&#10;- table of clusters&#10;">
         <font>
             <Font size="15.0" />
         </font>

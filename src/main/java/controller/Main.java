@@ -1,6 +1,7 @@
 package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.scene.text.Font;
 import model.config;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +25,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         primary_stage = primaryStage;
         //jar_folder_path = System.getProperty("java.home"); //"src";
         //jar_folder_path += "/resources";
@@ -43,6 +45,10 @@ public class Main extends Application {
         }
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("base.fxml")));
+
+        if (isUnix()){
+            root.setStyle(root.getStyle()+"; -fx-font-size: 12");
+        }
 
         primaryStage.setScene(new Scene(root));
         //set stage borderless

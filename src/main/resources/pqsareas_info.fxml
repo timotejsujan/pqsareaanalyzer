@@ -10,7 +10,7 @@
             <Font size="24.0" />
         </font>
     </Label>
-    <TextArea editable="false" layoutX="31" layoutY="73" styleClass="info" text="With pqsareas you can get FASTA files of connected left and right areas of given PQS.&#10;&#10;Input:&#10;- FASTA file (input of program pqsfinder)&#10;- PQS positions (output of program pqsfinder)&#10;- output directory + name&#10;- size of left and right area of PQS you want to examine&#10;&#10;Output:&#10;- FASTA file of connected left and right areas of given PQS&#10;(from sequence &quot;left_area + pqs + right_area&quot; you get &quot;left_area + right_area&quot;)&#10;">
+    <TextArea editable="false" layoutX="31" layoutY="73" styleClass="info" text="In the pqsareas program you can find the areas of PQS.&#10;&#10;Input:&#10;- FASTA file (pqsfinder input)&#10;- found PQS (pqsfinder output)&#10;- output directory + name&#10;- the size of the left and right areas&#10;&#10;Output:&#10;- FASTA file of combined left and right areas of given PQS&#10;(individual line sequences represent only left and right areas without PQS itself)&#10;">
         <font>
             <Font size="15.0" />
         </font>

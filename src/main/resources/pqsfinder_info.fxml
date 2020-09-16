@@ -10,7 +10,7 @@
             <Font size="24.0" />
         </font>
     </Label>
-    <TextArea editable="false" layoutX="31" layoutY="73" styleClass="info" text="With pqsfinder you can search for PQS in given FASTA file.&#10;&#10;Input:&#10;- FASTA file of sequences you want to examine&#10;- output directory + output name&#10;- strand you want to examine (both, positive, negative)&#10;- true or false whether you want to match overlapping PQS&#10;- minimal score of sequence to be considered PQS&#10;&#10;Output:&#10;- FASTA file of PQS with additional information&#10;&#10;Click on &quot;Open Doc&quot; to read complete documentation of pqsfinder program.&#10;If it won't open, you can find the documentation in resources in the application foder.">
+    <TextArea editable="false" layoutX="31" layoutY="73" styleClass="info" text="In pqsfinder you can search for PQS in the input FASTA file.&#10;&#10;Input:&#10;- FASTA file of sequences you want to examine&#10;- output directory + output name&#10;- strand you want to examine (both, positive, negative)&#10;- true or false whether you want to match overlapping PQS&#10;- minimal score of sequence to be considered as a PQS&#10;&#10;Output:&#10;- FASTA file of PQS with additional information&#10;&#10;Click on the button &quot;Open Doc&quot; to read the complete documentation. If nothing &#10;happens, you can find the documentation in the ... / resources / documentation &#10;folder in the application directory.">
         <font>
             <Font size="15.0" />
         </font>

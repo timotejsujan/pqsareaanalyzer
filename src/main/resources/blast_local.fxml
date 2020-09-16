@@ -24,12 +24,12 @@
     <Label layoutX="57.0" layoutY="54.0" text="Sequence" />
     <TextArea fx:id="sequence" layoutX="57" layoutY="79.0" maxWidth="580.0" prefHeight="77.0" wrapText="true" />
     <TextField fx:id="database" editable="false" layoutX="57.0" layoutY="166.0" onMouseClicked="#set_db_path" styleClass="input" text="Select any database file (suffix will be cut)..." />
-    <Button layoutX="369.0" layoutY="166.0" mnemonicParsing="false" onAction="#set_db_path" text="...">
+    <Button fx:id="database_btn" layoutX="369.0" layoutY="166.0" mnemonicParsing="false" onAction="#set_db_path" text="...">
         <font>
             <Font size="13.0" />
         </font>
     </Button>
-    <TextField fx:id="output_dir" editable="false" layoutX="57.0" layoutY="199.0" onMouseClicked="#set_output_dir" styleClass="input" text="Select output directory..." />
+    <TextField fx:id="output_dir" editable="false" layoutX="57.0" layoutY="199.0" onMouseClicked="#set_output_dir" styleClass="input" text="Select the output directory..." />
     <Button fx:id="output_dir_btn" layoutX="369.0" layoutY="199.0" mnemonicParsing="false" onAction="#set_output_dir" text="...">
         <font>
             <Font size="13.0" />

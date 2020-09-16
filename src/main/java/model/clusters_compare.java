@@ -75,7 +75,7 @@ public class clusters_compare extends base {
             return;
         }
         compared.sort(new ClusterComparator());
-        Files.createFile(Paths.get(output_path + "/" + output_name + ".txt"));
+        Files.createFile(Paths.get(output_path, output_name + ".txt"));
         StringBuilder to_write = new StringBuilder();
         to_write.append("upper clusters are from file ").append(Paths.get(input_path).getFileName()).append("\n");
         to_write.append("bottom clusters are from file ").append(Paths.get(input_path_clusters_2).getFileName()).append("\n");
